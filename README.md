@@ -12,3 +12,4 @@
 - [Prop types](https://github.com/facebook/prop-types)
 - [Cypress](https://www.cypress.io/)
 - [Husky](https://typicode.github.io/husky/)
+- [Json server](https://github.com/typicode/json-server)

@@ -1,9 +1,245 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Hotel1",
+      "location": "Paris",
+      "rating": 4.1,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Double Luxe",
+          "capacity": 3,
+          "price": 994,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Great place! Five stars no cap",
+              "reviewer": "Oleg"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Single Person Room",
+          "capacity": 1,
+          "price": 203,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Three stars! No shower(",
+              "reviewer": "Max"
+            },
+            {
+              "id": 2,
+              "text": "No shower and heating was working badly. Two stars.",
+              "reviewer": "Steve"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Double floor super luxe room",
+          "capacity": 5,
+          "price": 1500,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Amazing!",
+              "reviewer": "Bob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Hotel2",
+      "location": "Minsk",
+      "rating": 2.2,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Triple Luxe",
+          "capacity": 5,
+          "price": 777,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "One star. Awful!",
+              "reviewer": "Nik"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Hotel3",
+      "location": "Moscow",
+      "rating": 3.8,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Solo room",
+          "capacity": 1,
+          "price": 350,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "One star. Awful!",
+              "reviewer": "Liza"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Hotel4",
+      "location": "Barcelona",
+      "rating": 5.5,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Double room",
+          "capacity": 2,
+          "price": 450,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Good service",
+              "reviewer": "Ricardo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Hotel5",
+      "location": "Madrid",
+      "rating": 4.2,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Luxe",
+          "capacity": 1,
+          "price": 800,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Great place!",
+              "reviewer": "Dina"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Hotel6",
+      "location": "Paris",
+      "rating": 4.9,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "President Luxe",
+          "capacity": 10,
+          "price": 999999,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "I am president. Wow!",
+              "reviewer": "Donald"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Hotel7",
+      "location": "Saint-Petersburg",
+      "rating": 1.5,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Bed in common room",
+          "capacity": 1,
+          "price": 50,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "My neighbour killed my hamster",
+              "reviewer": "Vasyan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Hotel8",
+      "location": "Warshava",
+      "rating": 4.5,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Two person bedroom",
+          "capacity": 2,
+          "price": 555,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Next time I'l be there again 100%",
+              "reviewer": "Kate"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Hotel9",
+      "location": "London",
+      "rating": 4.4,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Solo room",
+          "capacity": 1,
+          "price": 299,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Enjoyed!",
+              "reviewer": "Luke"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Hotel10",
+      "location": "Rome",
+      "rating": 4.0,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Family room",
+          "capacity": 5,
+          "price": 1200,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Great window sight",
+              "reviewer": "Joe"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

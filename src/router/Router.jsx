@@ -11,7 +11,7 @@ export default createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
+        index: 1,
         element: <Main />,
       },
       {

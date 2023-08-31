@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+
+  @import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
   body {
     place-items: baseline;
   }
@@ -9,7 +12,7 @@ export default createGlobalStyle`
 	  padding: 0;
 	  margin: 0;
 	  border: none;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   *,

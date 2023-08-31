@@ -1,9 +1,46 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Hotel1",
+      "location": "Paris",
+      "rating": 4.1,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Double Luxe",
+          "capacity": 3,
+          "price": 994,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "Great place! Five stars no cap",
+              "reviewer": "Oleg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Hotel2",
+      "location": "Minsk",
+      "rating": 2.2,
+      "rooms": [
+        {
+          "id": 1,
+          "name": "Triple Luxe",
+          "capacity": 5,
+          "price": 777,
+          "reviews": [
+            {
+              "id": 1,
+              "text": "One star. Awful!",
+              "reviewer": "Nik"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

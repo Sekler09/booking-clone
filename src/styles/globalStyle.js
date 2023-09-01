@@ -1,11 +1,12 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, styled } from 'styled-components';
 
 export default createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
-  @import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
   
   body {
     place-items: baseline;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 85px;
   }
 
   * {
@@ -50,4 +51,9 @@ export default createGlobalStyle`
   *:focus {
     outline: none;
   }
+`;
+
+export const MainWrapper = styled.div`
+  max-width: 80vw;
+  margin: 0 auto;
 `;

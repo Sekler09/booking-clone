@@ -5,5 +5,6 @@ export default {
     auroMetalSaurus: '#6f7c85',
     oxfordBlue: '#011f4b',
     red: '#ff0000',
+    alana: '#F3D082',
   },
 };

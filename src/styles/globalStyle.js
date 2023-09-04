@@ -1,15 +1,19 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, styled } from 'styled-components';
 
 export default createGlobalStyle`
+  
   body {
     place-items: baseline;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 85px;
   }
 
   * {
 	  padding: 0;
 	  margin: 0;
 	  border: none;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Roboto, sans-serif;
   }
 
   *,
@@ -47,4 +51,9 @@ export default createGlobalStyle`
   *:focus {
     outline: none;
   }
+`;
+
+export const MainWrapper = styled.div`
+  max-width: 80vw;
+  margin: 0 auto;
 `;

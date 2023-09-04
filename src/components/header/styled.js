@@ -17,4 +17,4 @@ const LogoLink = styled(Link)`
   font-size: 36px;
 `;
 
-export { StyledHeader, Nav, LogoLink };
+export { LogoLink, Nav, StyledHeader };

@@ -17,4 +17,4 @@ const Copyright = styled.p`
   color: ${theme.colors.auroMetalSaurus};
 `;
 
-export { StyledFooter, Copyright };
+export { Copyright, StyledFooter };

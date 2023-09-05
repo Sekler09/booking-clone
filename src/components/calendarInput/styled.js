@@ -1,9 +1,8 @@
 import { styled } from 'styled-components';
 import theme from 'styles/theme';
 
-const CityInputWrapper = styled.div`
+const CalendarInputWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   border: 1px black solid;
   border-radius: 8px;
@@ -11,13 +10,14 @@ const CityInputWrapper = styled.div`
   gap: 10px;
   padding: 8px;
   background-color: ${theme.colors.white};
+  position: relative;
 `;
 
 const CalendarImg = styled.img`
   width: 30px;
 `;
 
-const StyledCityInput = styled.input`
+const StyledCalendarInput = styled.input`
   width: 100%;
   background-color: ${theme.colors.white};
   padding: 8px 6px;
@@ -25,4 +25,19 @@ const StyledCityInput = styled.input`
   line-height: 20px;
 `;
 
-export { CalendarImg, CityInputWrapper, StyledCityInput };
+const DayPickerWrapper = styled.div`
+  opacity: ${props => (props.$showCalendar ? 1 : 0)};
+  position: absolute;
+  z-index: 99;
+  border: 1px black solid;
+  top: calc(1em + 100%);
+  left: 0;
+  background-color: ${theme.colors.white};
+`;
+
+export {
+  CalendarImg,
+  CalendarInputWrapper,
+  DayPickerWrapper,
+  StyledCalendarInput,
+};

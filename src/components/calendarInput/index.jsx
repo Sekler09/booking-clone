@@ -1,37 +1,87 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import 'react-day-picker/dist/style.css';
-
 import CalendarIcon from 'assets/calendar.png';
-import { format } from 'date-fns';
-import React, { useState } from 'react';
+import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
+import React, { useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 
-import { CalendarImg, CityInputWrapper, StyledCityInput } from './styled';
+import {
+  CalendarImg,
+  CalendarInputWrapper,
+  DayPickerWrapper,
+  StyledCalendarInput,
+} from './styled';
+
+const DATE_FORMAT_PATTERN = 'iiiiii, d MMM.';
+const today = new Date();
 
 export default function CalendarInput() {
   const [range, setRange] = useState('');
-
-  let text = 'Please pick the first day.';
+  const [showCalendar, setShowCalendar] = useState(false);
+  let text = 'checkin date - checkout date';
   if (range?.from) {
     if (!range.to) {
-      text = `${format(range.from, 'PPP')}`;
+      text = `${format(range.from, DATE_FORMAT_PATTERN)} - checkout date`;
     } else if (range.to) {
-      text = `${format(range.from, 'PPP')}–${format(range.to, 'PPP')}
+      text = `${format(range.from, DATE_FORMAT_PATTERN)}–${format(
+        range.to,
+        DATE_FORMAT_PATTERN,
+      )}
       `;
     }
   }
+
+  const disabledDays = [
+    {
+      from: startOfMonth(today),
+      to: addDays(today, -1),
+    },
+  ];
+
+  const calendarRef = useRef();
+  const inputRef = useRef();
+
+  const handleInputClick = () => {
+    setShowCalendar(prevShow => !prevShow);
+  };
+
+  useEffect(() => {
+    const listener = event => {
+      console.log(inputRef);
+      if (inputRef.current.contains(event.currentTarget)) {
+        console.log(1);
+      }
+      console.log(calendarRef.current.contains(event.target));
+    };
+    document.addEventListener('click', listener);
+    return () => {
+      document.removeEventListener('click', listener);
+    };
+  }, [calendarRef]);
+
   return (
-    <CityInputWrapper>
+    <CalendarInputWrapper ref={inputRef}>
       <CalendarImg src={CalendarIcon} alt="Calendar Image" />
-      <StyledCityInput type="text" readOnly value={text} />
-      <DayPicker
-        style={{ color: 'black' }}
-        id="test"
-        mode="range"
-        defaultMonth={new Date()}
-        selected={range}
-        onSelect={setRange}
+      <StyledCalendarInput
+        type="text"
+        readOnly
+        value={text}
+        onClick={handleInputClick}
       />
-    </CityInputWrapper>
+      {showCalendar && (
+        <DayPickerWrapper ref={calendarRef} $showCalendar={showCalendar}>
+          <DayPicker
+            style={{ color: 'black' }}
+            id="test"
+            mode="range"
+            fromMonth={today}
+            toMonth={endOfYear(addYears(today, 1))}
+            defaultMonth={new Date()}
+            selected={range}
+            onSelect={setRange}
+            numberOfMonths={2}
+            disabled={disabledDays}
+          />
+        </DayPickerWrapper>
+      )}
+    </CalendarInputWrapper>
   );
 }

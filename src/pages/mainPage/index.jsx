@@ -1,5 +1,6 @@
 import CalendarInput from 'components/calendarInput';
 import CityInput from 'components/cityInput';
+import CountInput from 'components/countInput';
 
 import { InputsWrapper } from './styled';
 
@@ -8,7 +9,7 @@ export default function MainPage() {
     <InputsWrapper>
       <CityInput />
       <CalendarInput />
-      <CityInput />
+      <CountInput />
     </InputsWrapper>
   );
 }

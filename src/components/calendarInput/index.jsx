@@ -10,18 +10,18 @@ import {
   StyledCalendarInput,
 } from './styled';
 
-const DATE_FORMAT_PATTERN = 'iiiiii, d MMM.';
+const DATE_FORMAT_PATTERN = 'iii d MMM';
 const today = new Date();
 
 export default function CalendarInput() {
   const [range, setRange] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
-  let text = 'checkin date - checkout date';
+  let text = 'Check-in date -- Check-out date';
   if (range?.from) {
     if (!range.to) {
-      text = `${format(range.from, DATE_FORMAT_PATTERN)} - checkout date`;
+      text = `${format(range.from, DATE_FORMAT_PATTERN)} -- checkout date`;
     } else if (range.to) {
-      text = `${format(range.from, DATE_FORMAT_PATTERN)}–${format(
+      text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
         range.to,
         DATE_FORMAT_PATTERN,
       )}
@@ -44,7 +44,7 @@ export default function CalendarInput() {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showCalendar]);
+  }, [showCalendar, calendarRef, showCalendar]);
 
   const disabledDays = [
     {
@@ -71,7 +71,6 @@ export default function CalendarInput() {
         <DayPickerWrapper ref={calendarRef}>
           <DayPicker
             style={{ color: 'black' }}
-            id="test"
             mode="range"
             fromMonth={today}
             toMonth={endOfYear(addYears(today, 1))}
@@ -80,6 +79,7 @@ export default function CalendarInput() {
             onSelect={setRange}
             numberOfMonths={2}
             disabled={disabledDays}
+            weekStartsOn={1}
           />
         </DayPickerWrapper>
       )}

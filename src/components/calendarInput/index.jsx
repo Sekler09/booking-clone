@@ -29,6 +29,23 @@ export default function CalendarInput() {
     }
   }
 
+  const calendarRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setShowCalendar(false);
+      }
+    };
+
+    if (showCalendar) {
+      document.addEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showCalendar]);
+
   const disabledDays = [
     {
       from: startOfMonth(today),
@@ -36,29 +53,13 @@ export default function CalendarInput() {
     },
   ];
 
-  const calendarRef = useRef();
-  const inputRef = useRef();
-
-  const handleInputClick = () => {
+  const handleInputClick = e => {
+    e.stopPropagation();
     setShowCalendar(prevShow => !prevShow);
   };
 
-  useEffect(() => {
-    const listener = event => {
-      console.log(inputRef);
-      if (inputRef.current.contains(event.currentTarget)) {
-        console.log(1);
-      }
-      console.log(calendarRef.current.contains(event.target));
-    };
-    document.addEventListener('click', listener);
-    return () => {
-      document.removeEventListener('click', listener);
-    };
-  }, [calendarRef]);
-
   return (
-    <CalendarInputWrapper ref={inputRef}>
+    <CalendarInputWrapper>
       <CalendarImg src={CalendarIcon} alt="Calendar Image" />
       <StyledCalendarInput
         type="text"
@@ -67,7 +68,7 @@ export default function CalendarInput() {
         onClick={handleInputClick}
       />
       {showCalendar && (
-        <DayPickerWrapper ref={calendarRef} $showCalendar={showCalendar}>
+        <DayPickerWrapper ref={calendarRef}>
           <DayPicker
             style={{ color: 'black' }}
             id="test"

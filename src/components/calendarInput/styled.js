@@ -26,7 +26,6 @@ const StyledCalendarInput = styled.input`
 `;
 
 const DayPickerWrapper = styled.div`
-  opacity: ${props => (props.$showCalendar ? 1 : 0)};
   position: absolute;
   z-index: 99;
   border: 1px black solid;

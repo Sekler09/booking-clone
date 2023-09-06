@@ -10,5 +10,6 @@ export default {
     oldSilver: '#868686',
     trueBlue: '#006ce4',
     lightBlueGray: 'rgb(0 108 228/ 6%)',
+    pantone: '#00249c',
   },
 };

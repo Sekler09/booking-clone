@@ -10,7 +10,6 @@ const CounterWrapper = styled.div`
 
 const CounterButton = styled.button`
   border: 0;
-  font-size: 28px;
   background-color: ${theme.colors.white};
   cursor: pointer;
   display: flex;

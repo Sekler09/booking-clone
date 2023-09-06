@@ -47,7 +47,7 @@ export default function CountInput() {
   };
 
   return (
-    <MainInputWrapper onClick={!showCounters && handleInputClick}>
+    <MainInputWrapper onClick={!showCounters ? handleInputClick : () => {}}>
       <MainInputImg src={ManIcon} alt="Human" />
       <MainInput type="text" readOnly value={inputValue} />
       <img src={Arrow} alt="Arrow" width="10px" />

@@ -2,7 +2,9 @@ import CalendarIcon from 'assets/calendar.png';
 import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import React, { useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
+import { useDispatch } from 'react-redux';
 
+import { changeDate } from '../../store/slices/inputsSlice';
 import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 import { DayPickerWrapper } from './styled';
 
@@ -12,6 +14,11 @@ const today = new Date();
 export default function CalendarInput() {
   const [range, setRange] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeDate(range));
+  });
+
   let text = 'Check-in date -- Check-out date';
   if (range?.from) {
     if (!range.to) {
@@ -57,7 +64,7 @@ export default function CalendarInput() {
   };
 
   return (
-    <MainInputWrapper onClick={!showCalendar && handleInputClick}>
+    <MainInputWrapper onClick={!showCalendar ? handleInputClick : () => {}}>
       <MainInputImg src={CalendarIcon} alt="Calendar Image" />
       <MainInput type="text" readOnly value={text} />
       {showCalendar && (

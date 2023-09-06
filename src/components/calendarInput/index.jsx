@@ -3,12 +3,8 @@ import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import React, { useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 
-import {
-  CalendarImg,
-  CalendarInputWrapper,
-  DayPickerWrapper,
-  StyledCalendarInput,
-} from './styled';
+import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
+import { DayPickerWrapper } from './styled';
 
 const DATE_FORMAT_PATTERN = 'iii d MMM';
 const today = new Date();
@@ -61,9 +57,9 @@ export default function CalendarInput() {
   };
 
   return (
-    <CalendarInputWrapper onClick={!showCalendar && handleInputClick}>
-      <CalendarImg src={CalendarIcon} alt="Calendar Image" />
-      <StyledCalendarInput type="text" readOnly value={text} />
+    <MainInputWrapper onClick={!showCalendar && handleInputClick}>
+      <MainInputImg src={CalendarIcon} alt="Calendar Image" />
+      <MainInput type="text" readOnly value={text} />
       {showCalendar && (
         <DayPickerWrapper ref={calendarRef}>
           <DayPicker
@@ -80,6 +76,6 @@ export default function CalendarInput() {
           />
         </DayPickerWrapper>
       )}
-    </CalendarInputWrapper>
+    </MainInputWrapper>
   );
 }

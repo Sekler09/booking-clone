@@ -2,14 +2,9 @@ import Arrow from 'assets/arrow.png';
 import ManIcon from 'assets/man.png';
 import React, { useEffect, useRef, useState } from 'react';
 
+import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 import Counter from '../counter';
-import {
-  CountersWrapper,
-  CountImg,
-  CountInputWrapper,
-  DoneButton,
-  StyledCountInput,
-} from './styled';
+import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
   const [adultsCount, setAdultsCount] = useState(1);
@@ -52,9 +47,9 @@ export default function CountInput() {
   };
 
   return (
-    <CountInputWrapper onClick={!showCounters && handleInputClick}>
-      <CountImg src={ManIcon} alt="Human" />
-      <StyledCountInput type="text" readOnly value={inputValue} />
+    <MainInputWrapper onClick={!showCounters && handleInputClick}>
+      <MainInputImg src={ManIcon} alt="Human" />
+      <MainInput type="text" readOnly value={inputValue} />
       <img src={Arrow} alt="Arrow" width="10px" />
       {showCounters && (
         <CountersWrapper ref={countersRef}>
@@ -82,6 +77,6 @@ export default function CountInput() {
           <DoneButton onClick={handleCloseCounters}>Done</DoneButton>
         </CountersWrapper>
       )}
-    </CountInputWrapper>
+    </MainInputWrapper>
   );
 }

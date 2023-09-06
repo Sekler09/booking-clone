@@ -12,7 +12,7 @@ export default function CityInput() {
       <HotelImg src={hotelIcon} alt="Hotel Image" />
       <StyledCityInput
         type="text"
-        placeholder="Choose place to visit"
+        placeholder="Where are you going?"
         value={city}
         onChange={handleCityChange}
       />

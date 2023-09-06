@@ -39,7 +39,10 @@ export default function CalendarInput() {
     };
 
     if (showCalendar) {
-      document.addEventListener('click', handleClickOutside);
+      setTimeout(
+        () => document.addEventListener('click', handleClickOutside),
+        0,
+      );
     }
     return () => {
       document.removeEventListener('click', handleClickOutside);
@@ -53,20 +56,14 @@ export default function CalendarInput() {
     },
   ];
 
-  const handleInputClick = e => {
-    e.stopPropagation();
+  const handleInputClick = () => {
     setShowCalendar(prevShow => !prevShow);
   };
 
   return (
-    <CalendarInputWrapper>
+    <CalendarInputWrapper onClick={!showCalendar && handleInputClick}>
       <CalendarImg src={CalendarIcon} alt="Calendar Image" />
-      <StyledCalendarInput
-        type="text"
-        readOnly
-        value={text}
-        onClick={handleInputClick}
-      />
+      <StyledCalendarInput type="text" readOnly value={text} />
       {showCalendar && (
         <DayPickerWrapper ref={calendarRef}>
           <DayPicker

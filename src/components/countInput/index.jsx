@@ -1,17 +1,20 @@
 import Arrow from 'assets/arrow.png';
 import ManIcon from 'assets/man.png';
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 
 import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 import Counter from '../counter';
 import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
-  const [adultsCount, setAdultsCount] = useState(1);
-  const [childrenCount, setChildrenCount] = useState(0);
-  const [roomsCount, setRoomsCount] = useState(1);
+  const counts = useSelector(state => state.inputs.counts);
+  const [adultsCount, setAdultsCount] = useState(counts.adults);
+  const [childrenCount, setChildrenCount] = useState(counts.children);
+  const [roomsCount, setRoomsCount] = useState(counts.rooms);
   const [showCounters, setShowCounters] = useState(false);
-
+  const dispatch = useDispatch();
   const inputValue = `${adultsCount} adult${
     adultsCount > 1 ? 's' : ''
   } · ${childrenCount} children · ${roomsCount} room${
@@ -45,6 +48,16 @@ export default function CountInput() {
   const handleCloseCounters = () => {
     setShowCounters(false);
   };
+
+  useEffect(() => {
+    dispatch(setChildren(childrenCount));
+  }, [childrenCount]);
+  useEffect(() => {
+    dispatch(setAdults(adultsCount));
+  }, [adultsCount]);
+  useEffect(() => {
+    dispatch(setRooms(roomsCount));
+  }, [roomsCount]);
 
   return (
     <MainInputWrapper onClick={!showCounters ? handleInputClick : () => {}}>

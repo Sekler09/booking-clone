@@ -45,6 +45,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'no-param-reassign': 'off',
   },
 
   overrides: [

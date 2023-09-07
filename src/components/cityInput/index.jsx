@@ -1,16 +1,17 @@
 import hotelIcon from 'assets/hotel.png';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { changeCity } from '../../store/slices/inputsSlice';
+import { setCity } from '../../store/slices/inputsSlice';
 import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 
 export default function CityInput() {
-  const [city, setCity] = useState('');
-  const handleCityChange = e => setCity(e.target.value);
+  const city = useSelector(state => state.inputs.city);
+  const [place, setPlace] = useState(city);
+  const handlePlaceChange = e => setPlace(e.target.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(changeCity(city));
+    dispatch(setCity(place));
   });
   return (
     <MainInputWrapper>
@@ -18,8 +19,8 @@ export default function CityInput() {
       <MainInput
         type="text"
         placeholder="Where are you going?"
-        value={city}
-        onChange={handleCityChange}
+        value={place}
+        onChange={handlePlaceChange}
       />
     </MainInputWrapper>
   );

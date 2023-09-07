@@ -2,9 +2,9 @@ import CalendarIcon from 'assets/calendar.png';
 import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import React, { useEffect, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDate } from 'store/slices/inputsSlice';
 
-import { changeDate } from '../../store/slices/inputsSlice';
 import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 import { DayPickerWrapper } from './styled';
 
@@ -12,17 +12,41 @@ const DATE_FORMAT_PATTERN = 'iii d MMM';
 const today = new Date();
 
 export default function CalendarInput() {
-  const [range, setRange] = useState('');
+  const dates = useSelector(state => state.inputs.dates);
+  const [range, setRange] = useState(() => ({
+    from: dates.from ? new Date(dates.from) : null,
+    to: dates.to ? new Date(dates.to) : null,
+  }));
   const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
+
+  const notInitialRender = useRef(false);
+
   useEffect(() => {
-    dispatch(changeDate(range));
-  });
+    if (notInitialRender.current)
+      dispatch(
+        setDate({
+          from: range.from ? format(range.from, 'y-M-d') : null,
+          to: range.to ? format(range.to, 'y-M-d') : null,
+        }),
+      );
+    else notInitialRender.current = true;
+  }, [range]);
+
+  const handleRangeSelect = newRange => {
+    if (!newRange) {
+      setRange({ from: null, to: null });
+    } else if (!newRange.to) {
+      setRange({ ...newRange, to: null });
+    } else {
+      setRange(newRange);
+    }
+  };
 
   let text = 'Check-in date -- Check-out date';
   if (range?.from) {
     if (!range.to) {
-      text = `${format(range.from, DATE_FORMAT_PATTERN)} -- checkout date`;
+      text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
     } else if (range.to) {
       text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
         range.to,
@@ -74,9 +98,9 @@ export default function CalendarInput() {
             mode="range"
             fromMonth={today}
             toMonth={endOfYear(addYears(today, 1))}
-            defaultMonth={new Date()}
+            defaultMonth={today}
             selected={range}
-            onSelect={setRange}
+            onSelect={handleRangeSelect}
             numberOfMonths={2}
             disabled={disabledDays}
             weekStartsOn={1}

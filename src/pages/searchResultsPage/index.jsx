@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import CalendarInput from '../../components/calendarInput';
-import CityInput from '../../components/cityInput';
-import CountInput from '../../components/countInput';
-import SearchButton from '../../components/searchButton';
+import CalendarInput from 'components/calendarInput';
+import CityInput from 'components/cityInput';
+import CountInput from 'components/countInput';
+import SearchButton from 'components/searchButton';
+
 import { InputsWrapper } from '../mainPage/styled';
 
 export default function SearchResultsPage() {

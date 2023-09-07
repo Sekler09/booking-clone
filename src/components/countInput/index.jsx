@@ -1,12 +1,13 @@
-import Arrow from 'assets/arrow.png';
-import ManIcon from 'assets/man.png';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 
-import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
+import Arrow from 'assets/arrow.png';
+import ManIcon from 'assets/man.png';
+
+import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 import Counter from '../counter';
 import { CountersWrapper, DoneButton } from './styled';
+import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 
 export default function CountInput() {
   const counts = useSelector(state => state.inputs.counts);

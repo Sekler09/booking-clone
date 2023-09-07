@@ -1,8 +1,9 @@
-import hotelIcon from 'assets/hotel.png';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setCity } from '../../store/slices/inputsSlice';
+import hotelIcon from 'assets/hotel.png';
+
+import { setCity } from 'store/slices/inputsSlice';
 import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 
 export default function CityInput() {

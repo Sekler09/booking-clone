@@ -1,10 +1,11 @@
-import CalendarIcon from 'assets/calendar.png';
-import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import React, { useEffect, useRef, useState } from 'react';
-import { DayPicker } from 'react-day-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDate } from 'store/slices/inputsSlice';
+import { DayPicker } from 'react-day-picker';
+import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 
+import CalendarIcon from 'assets/calendar.png';
+
+import { setDate } from 'store/slices/inputsSlice';
 import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 import { DayPickerWrapper } from './styled';
 

@@ -1,9 +1,10 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import GrayMinus from 'assets/gray-minus.png';
 import GrayPlus from 'assets/gray-plus.png';
 import Minus from 'assets/minus.png';
 import Plus from 'assets/plus.png';
-import PropTypes from 'prop-types';
-import React from 'react';
 
 import {
   ButtonsWrapper,

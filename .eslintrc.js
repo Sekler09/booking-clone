@@ -5,7 +5,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
 
-  plugins: ['react', 'cypress', 'simple-import-sort'],
+  plugins: ['react', 'cypress'],
 
   settings: {
     'import/resolver': {
@@ -43,8 +43,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/prefer-default-export': 'off',
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'no-param-reassign': 'off',
   },
 

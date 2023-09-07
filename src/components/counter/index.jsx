@@ -14,27 +14,24 @@ import {
 } from './styled';
 
 export default function Counter({ label, count, setCount, min, max }) {
-  const handleIncrement = () => {
-    setCount(prev => prev + 1);
-  };
-  const handleDecrement = () => {
-    setCount(prev => prev - 1);
-  };
+  function onIncrement() {
+    setCount(count + 1);
+  }
+
+  function onDecrement() {
+    setCount(count - 1);
+  }
 
   return (
     <CounterWrapper>
       {label}
       <ButtonsWrapper>
-        <CounterButton onClick={handleDecrement} disabled={count === min}>
-          <img
-            src={count === min ? GrayMinus : Minus}
-            alt="Minus"
-            width="15px"
-          />
+        <CounterButton onClick={() => onDecrement()} disabled={count === min}>
+          <img src={count === min ? GrayMinus : Minus} alt="" width="15px" />
         </CounterButton>
         <CountValue>{count}</CountValue>
-        <CounterButton onClick={handleIncrement} disabled={count === max}>
-          <img src={count === max ? GrayPlus : Plus} alt="Plus" />
+        <CounterButton onClick={() => onIncrement()} disabled={count === max}>
+          <img src={count === max ? GrayPlus : Plus} alt="" />
         </CounterButton>
       </ButtonsWrapper>
     </CounterWrapper>

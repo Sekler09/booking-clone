@@ -23,72 +23,73 @@ export default function CountInput() {
   }`;
 
   const countersRef = useRef();
-
   useEffect(() => {
-    const handleClickOutside = event => {
+    function onClickOutside(event) {
       if (countersRef.current && !countersRef.current.contains(event.target)) {
         setShowCounters(false);
       }
-    };
+    }
 
     if (showCounters) {
-      setTimeout(
-        () => document.addEventListener('click', handleClickOutside),
-        0,
-      );
+      setTimeout(() => document.addEventListener('click', onClickOutside), 0);
     }
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('click', onClickOutside);
     };
   }, [showCounters, countersRef]);
 
-  const handleInputClick = () => {
+  function onInputClick() {
     setShowCounters(prevShow => !prevShow);
-  };
+  }
 
-  const handleCloseCounters = () => {
+  function onCloseCounters() {
     setShowCounters(false);
-  };
+  }
 
-  useEffect(() => {
-    dispatch(setChildren(childrenCount));
-  }, [childrenCount]);
-  useEffect(() => {
-    dispatch(setAdults(adultsCount));
-  }, [adultsCount]);
-  useEffect(() => {
-    dispatch(setRooms(roomsCount));
-  }, [roomsCount]);
+  function updateChildren(value) {
+    setChildrenCount(value);
+    dispatch(setChildren(value));
+  }
+
+  function updateAdults(value) {
+    setAdultsCount(value);
+    dispatch(setAdults(value));
+  }
+
+  function updateRooms(value) {
+    setRoomsCount(value);
+    dispatch(setRooms(value));
+  }
 
   return (
-    <MainInputWrapper onClick={!showCounters ? handleInputClick : () => {}}>
-      <MainInputImg src={ManIcon} alt="Human" />
+    <MainInputWrapper onClick={!showCounters ? onInputClick : () => {}}>
+      <MainInputImg src={ManIcon} alt="" />
       <MainInput type="text" readOnly value={inputValue} />
-      <img src={Arrow} alt="Arrow" width="10px" />
+      <img src={Arrow} alt="" width="10px" />
       {showCounters && (
         <CountersWrapper ref={countersRef}>
           <Counter
             max={30}
             min={1}
-            setCount={setAdultsCount}
+            setCount={count => updateAdults(count)}
             count={adultsCount}
             label="Adults"
           />
           <Counter
             max={10}
             min={0}
-            setCount={setChildrenCount}
+            setCount={count => updateChildren(count)}
             count={childrenCount}
             label="Children"
           />
           <Counter
             max={30}
             min={1}
-            setCount={setRoomsCount}
+            setCount={count => updateRooms(count)}
             count={roomsCount}
             label="Rooms"
           />
-          <DoneButton onClick={handleCloseCounters}>Done</DoneButton>
+          <DoneButton onClick={() => onCloseCounters()}>Done</DoneButton>
         </CountersWrapper>
       )}
     </MainInputWrapper>

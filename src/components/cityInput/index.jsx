@@ -9,19 +9,24 @@ import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 export default function CityInput() {
   const city = useSelector(state => state.inputs.city);
   const [place, setPlace] = useState(city);
-  const handlePlaceChange = e => setPlace(e.target.value);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setCity(place));
   });
+
+  function onPlaceChange(e) {
+    setPlace(e.target.value);
+  }
+
   return (
     <MainInputWrapper>
-      <MainInputImg src={hotelIcon} alt="Hotel" />
+      <MainInputImg src={hotelIcon} alt="" />
       <MainInput
         type="text"
         placeholder="Where are you going?"
         value={place}
-        onChange={handlePlaceChange}
+        onChange={e => onPlaceChange(e)}
       />
     </MainInputWrapper>
   );

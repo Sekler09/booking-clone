@@ -3,9 +3,8 @@ import theme from 'styles/theme';
 
 const CountersWrapper = styled.div`
   position: absolute;
-  z-index: 99;
-  border: 1px black solid;
-  top: calc(1em + 100%);
+  border: 1px ${theme.colors.black} solid;
+  top: 130%;
   right: 0;
   background-color: ${theme.colors.white};
   width: 120%;

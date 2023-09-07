@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 import theme from 'styles/theme';
 
 const Button = styled.button`
-  border: 0;
   border-radius: 8px;
   color: ${theme.colors.white};
   font-size: 24px;
@@ -13,15 +12,12 @@ const Button = styled.button`
   justify-content: center;
   padding: 12px;
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
   &:hover {
     background-color: ${theme.colors.pantone};
   }
 
-  &:disabled:hover {
+  &:disabled {
+    cursor: not-allowed;
     background-color: ${theme.colors.white};
   }
 `;

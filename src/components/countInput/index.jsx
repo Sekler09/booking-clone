@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
 import Arrow from 'assets/arrow.png';
 import ManIcon from 'assets/man.png';
@@ -16,6 +17,7 @@ export default function CountInput() {
   const [roomsCount, setRoomsCount] = useState(counts.rooms);
   const [showCounters, setShowCounters] = useState(false);
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const inputValue = `${adultsCount} adult${
     adultsCount > 1 ? 's' : ''
   } · ${childrenCount} children · ${roomsCount} room${
@@ -49,16 +51,34 @@ export default function CountInput() {
   function updateChildren(value) {
     setChildrenCount(value);
     dispatch(setChildren(value));
+    if (value !== 0) {
+      searchParams.set('children', value);
+    } else {
+      searchParams.delete('children');
+    }
+    setSearchParams(searchParams);
   }
 
   function updateAdults(value) {
     setAdultsCount(value);
     dispatch(setAdults(value));
+    if (value !== 1) {
+      searchParams.set('adults', value);
+    } else {
+      searchParams.delete('adults');
+    }
+    setSearchParams(searchParams);
   }
 
   function updateRooms(value) {
     setRoomsCount(value);
     dispatch(setRooms(value));
+    if (value !== 1) {
+      searchParams.set('rooms', value);
+    } else {
+      searchParams.delete('rooms');
+    }
+    setSearchParams(searchParams);
   }
 
   return (

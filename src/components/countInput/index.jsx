@@ -12,12 +12,21 @@ import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 
 export default function CountInput() {
   const counts = useSelector(state => state.inputs.counts);
-  const [adultsCount, setAdultsCount] = useState(counts.adults);
-  const [childrenCount, setChildrenCount] = useState(counts.children);
-  const [roomsCount, setRoomsCount] = useState(counts.rooms);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [adultsCount, setAdultsCount] = useState(() => {
+    const searchAdults = searchParams.get('adults');
+    return searchAdults || counts.adults;
+  });
+  const [childrenCount, setChildrenCount] = useState(() => {
+    const searchChildren = searchParams.get('children');
+    return searchChildren || counts.children;
+  });
+  const [roomsCount, setRoomsCount] = useState(() => {
+    const searchRooms = searchParams.get('rooms');
+    return searchRooms || counts.rooms;
+  });
   const [showCounters, setShowCounters] = useState(false);
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
   const inputValue = `${adultsCount} adult${
     adultsCount > 1 ? 's' : ''
   } · ${childrenCount} children · ${roomsCount} room${

@@ -10,15 +10,17 @@ import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 
 export default function CityInput() {
   const city = useSelector(state => state.inputs.city);
-  const [place, setPlace] = useState(city);
-  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams({});
+  const [place, setPlace] = useState(() => {
+    const searchCity = searchParams.get('city');
+    return searchCity || city;
+  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setCity(place));
-    if (place) {
-      searchParams.set('city', place);
-    } else {
+    searchParams.set('city', place);
+    if (!place) {
       searchParams.delete('city');
     }
     setSearchParams(searchParams);

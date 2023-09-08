@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DayPicker } from 'react-day-picker';
 import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
+import { useSearchParams } from 'react-router-dom';
 
 import CalendarIcon from 'assets/calendar.png';
 
@@ -12,11 +13,16 @@ import { DayPickerWrapper } from './styled';
 const DATE_FORMAT_PATTERN = 'iii d MMM';
 
 export default function CalendarInput() {
-  const dates = useSelector(state => state.inputs.dates);
-  const [range, setRange] = useState(() => ({
-    from: dates.from ? new Date(dates.from) : null,
-    to: dates.to ? new Date(dates.to) : null,
-  }));
+  const { from, to } = useSelector(state => state.inputs.dates);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [range, setRange] = useState(() => {
+    const searchFrom = searchParams.get('from');
+    const searchTo = searchParams.get('to');
+    return {
+      from: searchFrom ? new Date(searchFrom) : from ? new Date(from) : null,
+      to: searchTo ? new Date(searchTo) : to ? new Date(to) : null,
+    };
+  });
   const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
 
@@ -45,6 +51,21 @@ export default function CalendarInput() {
   }
   const text = getInputText();
 
+  function updateSearchParams() {
+    if (range.from) {
+      searchParams.set('from', format(range.from, 'y-M-d'));
+      if (range.to) {
+        searchParams.set('to', format(range.to, 'y-M-d'));
+      } else {
+        searchParams.delete('to');
+      }
+    } else {
+      searchParams.delete('from');
+      searchParams.delete('to');
+    }
+    setSearchParams(searchParams);
+  }
+
   const notInitialRender = useRef(false);
   useEffect(() => {
     if (notInitialRender.current) {
@@ -54,6 +75,7 @@ export default function CalendarInput() {
           to: range.to ? format(range.to, 'y-M-d') : null,
         }),
       );
+      updateSearchParams();
     } else {
       notInitialRender.current = true;
     }

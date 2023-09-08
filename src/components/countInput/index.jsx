@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-import Arrow from 'assets/arrow.png';
-import ManIcon from 'assets/man.png';
+import { ReactComponent as Arrow } from 'assets/arrow.svg';
+import { ReactComponent as ManIcon } from 'assets/man.svg';
 
 import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 import Counter from '../counter';
 import { CountersWrapper, DoneButton } from './styled';
-import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
+import { MainInput, MainInputWrapper } from '../common/styled';
 
 export default function CountInput() {
   const counts = useSelector(state => state.inputs.counts);
@@ -101,9 +101,9 @@ export default function CountInput() {
 
   return (
     <MainInputWrapper onClick={!showCounters ? onInputClick : () => {}}>
-      <MainInputImg src={ManIcon} alt="" />
+      <ManIcon />
       <MainInput type="text" readOnly value={inputValue} />
-      <img src={Arrow} alt="" width="10px" />
+      <Arrow />
       {showCounters && (
         <CountersWrapper ref={countersRef}>
           <Counter

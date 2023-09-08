@@ -1,4 +1,8 @@
 import { styled } from 'styled-components';
+
+import { ReactComponent as Plus } from 'assets/plus.svg';
+import { ReactComponent as Minus } from 'assets/minus.svg';
+
 import theme from 'styles/theme';
 
 const CounterWrapper = styled.div`
@@ -44,4 +48,25 @@ const CountValue = styled.p`
   text-align: center;
 `;
 
-export { ButtonsWrapper, CounterButton, CounterWrapper, CountValue };
+const StyledPlus = styled(Plus)`
+  path {
+    stroke: ${props =>
+      props.$active ? theme.colors.trueBlue : theme.colors.oldSilver};
+  }
+`;
+
+const StyledMinus = styled(Minus)`
+  path {
+    stroke: ${props =>
+      props.$active ? theme.colors.trueBlue : theme.colors.oldSilver};
+  }
+`;
+
+export {
+  ButtonsWrapper,
+  CounterButton,
+  CounterWrapper,
+  CountValue,
+  StyledPlus,
+  StyledMinus,
+};

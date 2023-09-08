@@ -12,6 +12,10 @@ const MainInputWrapper = styled.div`
   width: 100%;
   background-color: ${theme.colors.white};
   cursor: pointer;
+
+  svg {
+    width: 30px;
+  }
 `;
 
 const MainInput = styled.input`

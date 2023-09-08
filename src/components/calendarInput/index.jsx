@@ -4,10 +4,10 @@ import { DayPicker } from 'react-day-picker';
 import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
-import CalendarIcon from 'assets/calendar.png';
+import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 
 import { setDate } from 'store/slices/inputsSlice';
-import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
+import { MainInput, MainInputWrapper } from '../common/styled';
 import { DayPickerWrapper } from './styled';
 
 const DATE_FORMAT_PATTERN = 'iii d MMM';
@@ -145,7 +145,7 @@ export default function CalendarInput() {
 
   return (
     <MainInputWrapper onClick={!showCalendar ? onInputClick : () => {}}>
-      <MainInputImg src={CalendarIcon} alt="" />
+      <CalendarLogo />
       <MainInput type="text" readOnly value={text} />
       {showCalendar && (
         <DayPickerWrapper ref={calendarRef}>

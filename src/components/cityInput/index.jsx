@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import hotelIcon from 'assets/hotel.png';
+import { ReactComponent as HotelIcon } from 'assets/hotel.svg';
 
 import { useSearchParams } from 'react-router-dom';
 
 import { setCity } from 'store/slices/inputsSlice';
-import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
+import { MainInput, MainInputWrapper } from '../common/styled';
 
 export default function CityInput() {
   const city = useSelector(state => state.inputs.city);
@@ -32,7 +32,7 @@ export default function CityInput() {
 
   return (
     <MainInputWrapper>
-      <MainInputImg src={hotelIcon} alt="" />
+      <HotelIcon />
       <MainInput
         type="text"
         placeholder="Where are you going?"

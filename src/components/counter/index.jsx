@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GrayMinus from 'assets/gray-minus.png';
-import GrayPlus from 'assets/gray-plus.png';
-import Minus from 'assets/minus.png';
-import Plus from 'assets/plus.png';
-
 import {
   ButtonsWrapper,
   CounterButton,
   CounterWrapper,
   CountValue,
+  StyledMinus,
+  StyledPlus,
 } from './styled';
 
 export default function Counter({ label, count, setCount, min, max }) {
@@ -27,11 +24,11 @@ export default function Counter({ label, count, setCount, min, max }) {
       {label}
       <ButtonsWrapper>
         <CounterButton onClick={() => onDecrement()} disabled={count === min}>
-          <img src={count === min ? GrayMinus : Minus} alt="" width="15px" />
+          <StyledMinus $active={count !== min} />
         </CounterButton>
         <CountValue>{count}</CountValue>
         <CounterButton onClick={() => onIncrement()} disabled={count === max}>
-          <img src={count === max ? GrayPlus : Plus} alt="" />
+          <StyledPlus $active={count !== max} />
         </CounterButton>
       </ButtonsWrapper>
     </CounterWrapper>

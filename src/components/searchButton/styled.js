@@ -2,15 +2,15 @@ import { styled } from 'styled-components';
 import theme from 'styles/theme';
 
 const Button = styled.button`
-  border-radius: 8px;
-  color: ${theme.colors.white};
-  font-size: 24px;
-  background-color: ${theme.colors.trueBlue};
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
   padding: 12px;
+  background-color: ${theme.colors.trueBlue};
+  color: ${theme.colors.white};
+  font-size: 24px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${theme.colors.pantone};

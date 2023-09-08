@@ -5,10 +5,10 @@ const InputsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${theme.colors.alana};
+  border-radius: 8px;
   gap: 10px;
   padding: 8px;
-  border-radius: 8px;
+  background-color: ${theme.colors.alana};
 `;
 
 export { InputsWrapper };

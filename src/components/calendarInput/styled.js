@@ -3,9 +3,9 @@ import theme from 'styles/theme';
 
 const DayPickerWrapper = styled.div`
   position: absolute;
-  border: 1px black solid;
   top: 130%;
   left: 0;
+  border: 1px black solid;
   background-color: ${theme.colors.white};
 `;
 

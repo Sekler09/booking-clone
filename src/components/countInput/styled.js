@@ -3,36 +3,35 @@ import theme from 'styles/theme';
 
 const CountersWrapper = styled.div`
   position: absolute;
-  border: 1px ${theme.colors.black} solid;
-  top: 130%;
-  right: 0;
-  background-color: ${theme.colors.white};
-  width: 120%;
-  padding: 32px;
   display: flex;
   flex-direction: column;
+  top: 130%;
+  right: 0;
   gap: 4px;
+  padding: 32px;
+  border: 1px ${theme.colors.black} solid;
+  width: 120%;
+  background-color: ${theme.colors.white};
 `;
 
 const DoneButton = styled.button`
-  width: 100%;
-  padding: 4px 12px;
-  margin-top: 20px;
   display: flex;
-  color: ${theme.colors.trueBlue};
-  background-color: ${theme.colors.white};
-  border-radius: 4px;
-  border: 1px ${theme.colors.trueBlue} solid;
   align-items: center;
   justify-content: center;
+  border: 1px ${theme.colors.trueBlue} solid;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin-top: 20px;
+  width: 100%;
+  color: ${theme.colors.trueBlue};
+  background-color: ${theme.colors.white};
+  line-height: 20px;
+  font-size: 14px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${theme.colors.lightBlueGray};
   }
-
-  cursor: pointer;
-  line-height: 20px;
-  font-size: 14px;
 `;
 
 export { CountersWrapper, DoneButton };

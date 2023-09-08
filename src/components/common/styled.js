@@ -2,22 +2,22 @@ import { styled } from 'styled-components';
 import theme from 'styles/theme';
 
 const MainInputWrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: 1px black solid;
+  padding: 8px;
   border-radius: 8px;
   width: 100%;
-  justify-content: space-between;
-  padding: 8px;
   background-color: ${theme.colors.white};
-  position: relative;
   cursor: pointer;
 `;
 
 const MainInput = styled.input`
+  padding: 8px 6px;
   width: 100%;
   background-color: ${theme.colors.white};
-  padding: 8px 6px;
   font-size: 16px;
   line-height: 20px;
   cursor: pointer;

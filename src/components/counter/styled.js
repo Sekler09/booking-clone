@@ -9,14 +9,14 @@ const CounterWrapper = styled.div`
 `;
 
 const CounterButton = styled.button`
-  background-color: ${theme.colors.white};
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px 8px;
   height: 40px;
   width: 40px;
+  background-color: ${theme.colors.white};
+  cursor: pointer;
 
   &:disabled {
     cursor: not-allowed;

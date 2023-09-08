@@ -12,18 +12,27 @@ import { MainInput, MainInputImg, MainInputWrapper } from '../common/styled';
 
 export default function CountInput() {
   const counts = useSelector(state => state.inputs.counts);
+  function checkSearchValidity(searchCount, minValue, maxValue) {
+    return searchCount
+      ? searchCount >= minValue && searchCount <= maxValue
+      : false;
+  }
   const [searchParams, setSearchParams] = useSearchParams();
   const [adultsCount, setAdultsCount] = useState(() => {
     const searchAdults = searchParams.get('adults');
-    return searchAdults || counts.adults;
+    return checkSearchValidity(searchAdults, 1, 30)
+      ? searchAdults
+      : counts.adults;
   });
   const [childrenCount, setChildrenCount] = useState(() => {
     const searchChildren = searchParams.get('children');
-    return searchChildren || counts.children;
+    return checkSearchValidity(searchChildren, 0, 10)
+      ? searchChildren
+      : counts.children;
   });
   const [roomsCount, setRoomsCount] = useState(() => {
     const searchRooms = searchParams.get('rooms');
-    return searchRooms || counts.rooms;
+    return checkSearchValidity(searchRooms, 1, 30) ? searchRooms : counts.rooms;
   });
   const [showCounters, setShowCounters] = useState(false);
   const dispatch = useDispatch();

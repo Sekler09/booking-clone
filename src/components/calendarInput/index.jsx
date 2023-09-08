@@ -15,17 +15,6 @@ const DATE_FORMAT_PATTERN = 'iii d MMM';
 export default function CalendarInput() {
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [range, setRange] = useState(() => {
-    const searchFrom = searchParams.get('from');
-    const searchTo = searchParams.get('to');
-    return {
-      from: searchFrom ? new Date(searchFrom) : from ? new Date(from) : null,
-      to: searchTo ? new Date(searchTo) : to ? new Date(to) : null,
-    };
-  });
-  const [showCalendar, setShowCalendar] = useState(false);
-  const dispatch = useDispatch();
-
   const today = new Date();
   const disabledDays = [
     {
@@ -33,6 +22,49 @@ export default function CalendarInput() {
       to: addDays(today, -1),
     },
   ];
+
+  function checkSearchFromValidity(searchFrom) {
+    if (searchFrom) {
+      try {
+        const fromDate = new Date(searchFrom);
+        if (fromDate < today) return false;
+        return true;
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  }
+  function checkSearchToValidity(searchTo) {
+    if (searchTo) {
+      try {
+        const toDate = new Date(searchTo);
+        if (toDate > endOfYear(addYears(today, 1))) return false;
+        return true;
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  }
+  const [range, setRange] = useState(() => {
+    const searchFrom = searchParams.get('from');
+    const searchTo = searchParams.get('to');
+    return {
+      from: checkSearchFromValidity(searchFrom)
+        ? new Date(searchFrom)
+        : from
+        ? new Date(from)
+        : null,
+      to: checkSearchToValidity(searchTo)
+        ? new Date(searchTo)
+        : to
+        ? new Date(to)
+        : null,
+    };
+  });
+  const [showCalendar, setShowCalendar] = useState(false);
+  const dispatch = useDispatch();
 
   function getInputText() {
     let text = 'Check-in date -- Check-out date';

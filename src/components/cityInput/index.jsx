@@ -6,7 +6,7 @@ import { ReactComponent as HotelIcon } from 'assets/hotel.svg';
 import { useSearchParams } from 'react-router-dom';
 
 import { setCity } from 'store/slices/inputsSlice';
-import { MainInput, MainInputWrapper } from '../common/styled';
+import MainFiltersInput from '../common';
 
 export default function CityInput() {
   const city = useSelector(state => state.inputs.city);
@@ -31,14 +31,11 @@ export default function CityInput() {
   }
 
   return (
-    <MainInputWrapper>
-      <HotelIcon />
-      <MainInput
-        type="text"
-        placeholder="Where are you going?"
-        value={place}
-        onChange={e => onPlaceChange(e)}
-      />
-    </MainInputWrapper>
+    <MainFiltersInput
+      Icon={HotelIcon}
+      inputValue={place}
+      onValueChange={e => onPlaceChange(e)}
+      placeholder="Where are you going?"
+    />
   );
 }

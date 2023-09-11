@@ -7,8 +7,8 @@ import { useSearchParams } from 'react-router-dom';
 import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 
 import { setDate } from 'store/slices/inputsSlice';
-import { MainInput, MainInputWrapper } from '../common/styled';
 import { DayPickerWrapper } from './styled';
+import MainFiltersInput from '../common';
 
 const DATE_FORMAT_PATTERN = 'iii d MMM';
 
@@ -63,7 +63,6 @@ export default function CalendarInput() {
         : null,
     };
   });
-  const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
 
   function getInputText() {
@@ -123,46 +122,29 @@ export default function CalendarInput() {
     }
   }
 
-  const calendarRef = useRef();
-  useEffect(() => {
-    function onClickOutside(event) {
-      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-        setShowCalendar(false);
-      }
-    }
-
-    if (showCalendar) {
-      setTimeout(() => document.addEventListener('click', onClickOutside), 0);
-    }
-    return () => {
-      document.removeEventListener('click', onClickOutside);
-    };
-  }, [showCalendar]);
-
-  function onInputClick() {
-    setShowCalendar(prevShow => !prevShow);
-  }
-
   return (
-    <MainInputWrapper onClick={!showCalendar ? onInputClick : () => {}}>
-      <CalendarLogo />
-      <MainInput type="text" readOnly value={text} />
-      {showCalendar && (
-        <DayPickerWrapper ref={calendarRef}>
-          <DayPicker
-            style={{ color: 'black' }}
-            mode="range"
-            fromMonth={today}
-            toMonth={endOfYear(addYears(today, 1))}
-            defaultMonth={today}
-            selected={range}
-            onSelect={newRange => onRangeSelect(newRange)}
-            numberOfMonths={2}
-            disabled={disabledDays}
-            weekStartsOn={1}
-          />
-        </DayPickerWrapper>
-      )}
-    </MainInputWrapper>
+    <MainFiltersInput
+      needModal
+      needArrow
+      inputValue={text}
+      isReadOnly
+      onValueChange={() => {}}
+      Icon={CalendarLogo}
+    >
+      <DayPickerWrapper>
+        <DayPicker
+          style={{ color: 'black' }}
+          mode="range"
+          fromMonth={today}
+          toMonth={endOfYear(addYears(today, 1))}
+          defaultMonth={today}
+          selected={range}
+          onSelect={newRange => onRangeSelect(newRange)}
+          numberOfMonths={2}
+          disabled={disabledDays}
+          weekStartsOn={1}
+        />
+      </DayPickerWrapper>
+    </MainFiltersInput>
   );
 }

@@ -13,12 +13,25 @@ export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
-    searchParams.set('city', inputs.city);
-    searchParams.set('to', inputs.dates.to);
-    searchParams.set('from', inputs.dates.from);
-    searchParams.set('children', inputs.counts.children);
-    searchParams.set('adults', inputs.counts.adults);
-    searchParams.set('rooms', inputs.counts.rooms);
+    console.log('here');
+    if (inputs.city) {
+      searchParams.set('city', inputs.city);
+    }
+    if (inputs.dates.to) {
+      searchParams.set('to', inputs.dates.to);
+    }
+    if (inputs.dates.to) {
+      searchParams.set('from', inputs.dates.from);
+    }
+    if (inputs.counts.children) {
+      searchParams.set('children', inputs.counts.children);
+    }
+    if (inputs.counts.adults > 1) {
+      searchParams.set('adults', inputs.counts.adults);
+    }
+    if (inputs.counts.rooms > 1) {
+      searchParams.set('rooms', inputs.counts.rooms);
+    }
     setSearchParams(searchParams);
   }, []);
   return (

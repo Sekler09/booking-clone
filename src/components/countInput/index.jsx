@@ -103,9 +103,7 @@ export default function CountInput() {
           count={roomsCount}
           label="Rooms"
         />
-        <DoneButton onClick={e => console.log(e.target)} className="done-btn">
-          Done
-        </DoneButton>
+        <DoneButton className="done-btn">Done</DoneButton>
       </CountersWrapper>
     </MainFiltersInput>
   );

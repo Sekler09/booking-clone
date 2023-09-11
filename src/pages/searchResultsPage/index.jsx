@@ -13,7 +13,6 @@ export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
-    console.log('here');
     if (inputs.city) {
       searchParams.set('city', inputs.city);
     }

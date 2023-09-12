@@ -8,8 +8,11 @@ import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 import Counter from '../counter';
 import { CountersWrapper, DoneButton } from './styled';
 import MainFiltersInput from '../common';
+import { useModal } from '../../hooks/useModal';
 
 export default function CountInput() {
+  const [isOpen, onOpenClick, onCloseClick] = useModal();
+
   const counts = useSelector(state => state.inputs.counts);
   function checkSearchValidity(searchCount, minValue, maxValue) {
     return searchCount
@@ -73,8 +76,16 @@ export default function CountInput() {
     setSearchParams(searchParams);
   }
 
+  function onDoneClick(e) {
+    e.stopPropagation();
+    onCloseClick();
+  }
+
   return (
     <MainFiltersInput
+      isOpen={isOpen}
+      onCloseClick={onCloseClick}
+      onOpenClick={onOpenClick}
       needModal
       needArrow
       inputValue={inputValue}
@@ -103,7 +114,7 @@ export default function CountInput() {
           count={roomsCount}
           label="Rooms"
         />
-        <DoneButton className="done-btn">Done</DoneButton>
+        <DoneButton onClick={e => onDoneClick(e)}>Done</DoneButton>
       </CountersWrapper>
     </MainFiltersInput>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { ReactComponent as Arrow } from 'assets/arrow.svg';
@@ -6,8 +6,10 @@ import { ReactComponent as Arrow } from 'assets/arrow.svg';
 import { MainInput, MainInputWrapper } from './styled';
 
 export default function MainFiltersInput({
+  isOpen,
+  onOpenClick,
+  onCloseClick,
   children,
-  needModal,
   needArrow,
   inputValue,
   isReadOnly,
@@ -15,27 +17,23 @@ export default function MainFiltersInput({
   Icon,
   placeholder,
 }) {
-  const [showModal, setShowModal] = useState(false);
-  const calendarRef = useRef();
+  const popoverRef = useRef();
   useEffect(() => {
     function onClickOutside(event) {
-      if (
-        (calendarRef.current && !calendarRef.current.contains(event.target)) ||
-        event.target.classList.contains('done-btn')
-      ) {
-        setShowModal(false);
+      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+        onCloseClick();
       }
     }
-    if (showModal) {
+    if (isOpen) {
       setTimeout(() => document.addEventListener('click', onClickOutside), 0);
     }
     return () => {
       document.removeEventListener('click', onClickOutside);
     };
-  }, [showModal]);
+  }, [isOpen, onCloseClick]);
 
   return (
-    <MainInputWrapper onClick={needModal ? () => setShowModal(true) : () => {}}>
+    <MainInputWrapper onClick={onOpenClick}>
       <Icon />
       <MainInput
         value={inputValue}
@@ -44,13 +42,12 @@ export default function MainFiltersInput({
         placeholder={placeholder}
       />
       {needArrow && <Arrow />}
-      {showModal && <div ref={calendarRef}>{children}</div>}
+      {isOpen && <div ref={popoverRef}>{children}</div>}
     </MainInputWrapper>
   );
 }
 
 MainFiltersInput.propTypes = {
-  needModal: PropTypes.bool,
   needArrow: PropTypes.bool,
   Icon: PropTypes.func.isRequired,
   children: PropTypes.node,
@@ -58,11 +55,16 @@ MainFiltersInput.propTypes = {
   isReadOnly: PropTypes.bool,
   onValueChange: PropTypes.func,
   placeholder: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onOpenClick: PropTypes.func,
+  onCloseClick: PropTypes.func,
 };
 
 MainFiltersInput.defaultProps = {
   children: undefined,
-  needModal: false,
+  isOpen: false,
+  onOpenClick: () => {},
+  onCloseClick: () => {},
   needArrow: false,
   isReadOnly: false,
   onValueChange: () => {},

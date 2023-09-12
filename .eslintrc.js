@@ -19,6 +19,7 @@ module.exports = {
           ['store', './src/store'],
           ['styles', './src/styles'],
           ['utils', './src/utils'],
+          ['hooks', './src/hooks'],
         ],
         extensions: ['.js', '.jsx'],
       },

@@ -9,10 +9,13 @@ import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 import { setDate } from 'store/slices/inputsSlice';
 import { DayPickerWrapper } from './styled';
 import MainFiltersInput from '../common';
+import { useModal } from '../../hooks/useModal';
 
 const DATE_FORMAT_PATTERN = 'iii d MMM';
 
 export default function CalendarInput() {
+  const [isOpen, onOpenClick, onCloseClick] = useModal();
+
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
   const today = new Date();
@@ -124,7 +127,9 @@ export default function CalendarInput() {
 
   return (
     <MainFiltersInput
-      needModal
+      isOpen={isOpen}
+      onCloseClick={onCloseClick}
+      onOpenClick={onOpenClick}
       needArrow
       inputValue={text}
       isReadOnly

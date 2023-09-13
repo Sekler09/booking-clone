@@ -2,51 +2,40 @@
   "hotels": [
     {
       "id": 1,
-      "name": "Hotel1",
-      "location": "Paris",
-      "rating": 4.1,
+      "name": "Hotel A",
+      "city": "Paris",
+      "address": "123 Main Street",
       "rooms": [
         {
-          "id": 1,
-          "name": "Double Luxe",
-          "capacity": 3,
-          "price": 994,
-          "reviews": [
-            {
-              "id": 1,
-              "text": "Great place! Five stars no cap",
-              "reviewer": "Oleg"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "name": "Single Person Room",
+          "room_id": 101,
+          "room_type": "Single",
           "capacity": 1,
-          "price": 203,
+          "price_per_night": 100,
+          "booked_dates": ["2023-09-20", "2023-09-21"],
           "reviews": [
             {
-              "id": 1,
-              "text": "Three stars! No shower(",
-              "reviewer": "Max"
+              "username": "JohnDoe",
+              "rating": 4,
+              "comment": "Great room!"
             },
             {
-              "id": 2,
-              "text": "No shower and heating was working badly. Two stars.",
-              "reviewer": "Steve"
+              "username": "JaneSmith",
+              "rating": 5,
+              "comment": "Excellent service!"
             }
           ]
         },
         {
-          "id": 3,
-          "name": "Double floor super luxe room",
-          "capacity": 5,
-          "price": 1500,
+          "room_id": 102,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 150,
+          "booked_dates": ["2023-09-22"],
           "reviews": [
             {
-              "id": 1,
-              "text": "Amazing!",
-              "reviewer": "Bob"
+              "username": "AliceJohnson",
+              "rating": 4,
+              "comment": "Clean and comfortable!"
             }
           ]
         }
@@ -54,20 +43,35 @@
     },
     {
       "id": 2,
-      "name": "Hotel2",
-      "location": "Minsk",
-      "rating": 2.2,
+      "name": "Hotel B",
+      "city": "Moscow",
+      "address": "456 Elm Street",
       "rooms": [
         {
-          "id": 1,
-          "name": "Triple Luxe",
-          "capacity": 5,
-          "price": 777,
+          "room_id": 201,
+          "room_type": "Suite",
+          "capacity": 3,
+          "price_per_night": 250,
+          "booked_dates": [],
           "reviews": [
             {
-              "id": 1,
-              "text": "One star. Awful!",
-              "reviewer": "Nik"
+              "username": "BobAnderson",
+              "rating": 5,
+              "comment": "Amazing experience!"
+            }
+          ]
+        },
+        {
+          "room_id": 202,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 180,
+          "booked_dates": ["2023-09-23"],
+          "reviews": [
+            {
+              "username": "EvaWilliams",
+              "rating": 5,
+              "comment": "Lovely stay!"
             }
           ]
         }
@@ -75,41 +79,65 @@
     },
     {
       "id": 3,
-      "name": "Hotel3",
-      "location": "Moscow",
-      "rating": 3.8,
+      "name": "Hotel C",
+      "city": "Paris",
+      "address": "789 Ocean Avenue",
       "rooms": [
         {
-          "id": 1,
-          "name": "Solo room",
+          "room_id": 301,
+          "room_type": "Single",
           "capacity": 1,
-          "price": 350,
+          "price_per_night": 120,
+          "booked_dates": ["2023-09-25"],
           "reviews": [
             {
-              "id": 1,
-              "text": "One star. Awful!",
-              "reviewer": "Liza"
+              "username": "DavidClark",
+              "rating": 3,
+              "comment": "Decent stay."
             }
           ]
+        },
+        {
+          "room_id": 302,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 200,
+          "booked_dates": [],
+          "reviews": []
         }
       ]
     },
     {
       "id": 4,
-      "name": "Hotel4",
-      "location": "Barcelona",
-      "rating": 5.5,
+      "name": "Hotel D",
+      "city": "London",
+      "address": "567 Lakeview Drive",
       "rooms": [
         {
-          "id": 1,
-          "name": "Double room",
-          "capacity": 2,
-          "price": 450,
+          "room_id": 401,
+          "room_type": "Single",
+          "capacity": 1,
+          "price_per_night": 110,
+          "booked_dates": ["2023-09-26"],
           "reviews": [
             {
-              "id": 1,
-              "text": "Good service",
-              "reviewer": "Ricardo"
+              "username": "SarahBrown",
+              "rating": 4,
+              "comment": "Good value for money."
+            }
+          ]
+        },
+        {
+          "room_id": 402,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 180,
+          "booked_dates": ["2023-09-27"],
+          "reviews": [
+            {
+              "username": "MarkSmith",
+              "rating": 5,
+              "comment": "Exceptional service!"
             }
           ]
         }
@@ -117,41 +145,64 @@
     },
     {
       "id": 5,
-      "name": "Hotel5",
-      "location": "Madrid",
-      "rating": 4.2,
+      "name": "Hotel E",
+      "city": "Madrid",
+      "address": "789 Golden Gate Avenue",
       "rooms": [
         {
-          "id": 1,
-          "name": "Luxe",
-          "capacity": 1,
-          "price": 800,
+          "room_id": 501,
+          "room_type": "Suite",
+          "capacity": 4,
+          "price_per_night": 300,
+          "booked_dates": [],
           "reviews": [
             {
-              "id": 1,
-              "text": "Great place!",
-              "reviewer": "Dina"
+              "username": "LauraTaylor",
+              "rating": 5,
+              "comment": "Luxurious experience!"
+            },
+            {
+              "username": "MichaelJones",
+              "rating": 4,
+              "comment": "Great view!"
             }
           ]
+        },
+        {
+          "room_id": 502,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 160,
+          "booked_dates": ["2023-09-28", "2023-09-29"],
+          "reviews": []
         }
       ]
     },
     {
       "id": 6,
-      "name": "Hotel6",
-      "location": "Paris",
-      "rating": 4.9,
+      "name": "Hotel F",
+      "city": "Barcelona",
+      "address": "101 Casino Boulevard",
       "rooms": [
         {
-          "id": 1,
-          "name": "President Luxe",
-          "capacity": 10,
-          "price": 999999,
+          "room_id": 601,
+          "room_type": "Single",
+          "capacity": 1,
+          "price_per_night": 90,
+          "booked_dates": [],
+          "reviews": []
+        },
+        {
+          "room_id": 602,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 140,
+          "booked_dates": ["2023-09-30"],
           "reviews": [
             {
-              "id": 1,
-              "text": "I am president. Wow!",
-              "reviewer": "Donald"
+              "username": "JenniferLee",
+              "rating": 4,
+              "comment": "Enjoyable stay."
             }
           ]
         }
@@ -159,20 +210,29 @@
     },
     {
       "id": 7,
-      "name": "Hotel7",
-      "location": "Saint-Petersburg",
-      "rating": 1.5,
+      "name": "Hotel G",
+      "city": "Minsk",
+      "address": "246 Disney Drive",
       "rooms": [
         {
-          "id": 1,
-          "name": "Bed in common room",
+          "room_id": 701,
+          "room_type": "Suite",
+          "capacity": 4,
+          "price_per_night": 280,
+          "booked_dates": [],
+          "reviews": []
+        },
+        {
+          "room_id": 702,
+          "room_type": "Single",
           "capacity": 1,
-          "price": 50,
+          "price_per_night": 110,
+          "booked_dates": ["2023-10-01"],
           "reviews": [
             {
-              "id": 1,
-              "text": "My neighbour killed my hamster",
-              "reviewer": "Vasyan"
+              "username": "DanielSmith",
+              "rating": 3,
+              "comment": "Average stay."
             }
           ]
         }
@@ -180,20 +240,29 @@
     },
     {
       "id": 8,
-      "name": "Hotel8",
-      "location": "Warshava",
-      "rating": 4.5,
+      "name": "Hotel H",
+      "city": "Rome",
+      "address": "369 Beacon Street",
       "rooms": [
         {
-          "id": 1,
-          "name": "Two person bedroom",
+          "room_id": 801,
+          "room_type": "Double",
           "capacity": 2,
-          "price": 555,
+          "price_per_night": 170,
+          "booked_dates": ["2023-10-02"],
+          "reviews": []
+        },
+        {
+          "room_id": 802,
+          "room_type": "Single",
+          "capacity": 1,
+          "price_per_night": 100,
+          "booked_dates": ["2023-10-03"],
           "reviews": [
             {
-              "id": 1,
-              "text": "Next time I'l be there again 100%",
-              "reviewer": "Kate"
+              "username": "EmilyDavis",
+              "rating": 4,
+              "comment": "Nice location!"
             }
           ]
         }
@@ -201,20 +270,29 @@
     },
     {
       "id": 9,
-      "name": "Hotel9",
-      "location": "London",
-      "rating": 4.4,
+      "name": "Hotel I",
+      "city": "Berlin",
+      "address": "456 Beachfront Drive",
       "rooms": [
         {
-          "id": 1,
-          "name": "Solo room",
+          "room_id": 901,
+          "room_type": "Suite",
+          "capacity": 4,
+          "price_per_night": 300,
+          "booked_dates": [],
+          "reviews": []
+        },
+        {
+          "room_id": 902,
+          "room_type": "Single",
           "capacity": 1,
-          "price": 299,
+          "price_per_night": 120,
+          "booked_dates": ["2023-10-06"],
           "reviews": [
             {
-              "id": 1,
-              "text": "Enjoyed!",
-              "reviewer": "Luke"
+              "username": "SophiaSmith",
+              "rating": 4,
+              "comment": "Great beach view!"
             }
           ]
         }
@@ -222,20 +300,35 @@
     },
     {
       "id": 10,
-      "name": "Hotel10",
-      "location": "Rome",
-      "rating": 4.0,
+      "name": "Hotel J",
+      "city": "Milan",
+      "address": "789 Rocky Road",
       "rooms": [
         {
-          "id": 1,
-          "name": "Family room",
-          "capacity": 5,
-          "price": 1200,
+          "room_id": 1001,
+          "room_type": "Single",
+          "capacity": 1,
+          "price_per_night": 110,
+          "booked_dates": ["2023-10-04"],
           "reviews": [
             {
-              "id": 1,
-              "text": "Great window sight",
-              "reviewer": "Joe"
+              "username": "WilliamBrown",
+              "rating": 4,
+              "comment": "Comfortable stay!"
+            }
+          ]
+        },
+        {
+          "room_id": 1002,
+          "room_type": "Double",
+          "capacity": 2,
+          "price_per_night": 180,
+          "booked_dates": ["2023-10-05"],
+          "reviews": [
+            {
+              "username": "OliviaJohnson",
+              "rating": 5,
+              "comment": "Fantastic service!"
             }
           ]
         }

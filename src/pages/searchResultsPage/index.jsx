@@ -13,9 +13,29 @@ export default function SearchResultsPage() {
 
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:3000/hotels?location=${inputs.city}`)
+    fetch(`http://localhost:3000/hotels?city=${inputs.city}`)
       .then(r => r.json())
-      .then(data => setHotels(data));
+      .then(data =>
+        setHotels(
+          data.filter(
+            hotel =>
+              hotel.rooms.filter(room => {
+                if (
+                  room.capacity <
+                  inputs.counts.adults + inputs.counts.children
+                ) {
+                  return false;
+                }
+
+                return !room.booked_dates.find(
+                  date =>
+                    new Date(date) >= new Date(inputs.dates.from) &&
+                    new Date(date) <= new Date(inputs.dates.to),
+                );
+              }).length > 0,
+          ),
+        ),
+      );
   }, []);
 
   return (

@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import theme from 'styles/theme';
 
-const Button = styled.button`
+const Button = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;

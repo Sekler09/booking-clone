@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { Button } from './styled';
 
@@ -14,13 +14,11 @@ export default function SearchButton() {
   }
 
   return (
-    <Button>
-      <Link
-        to={`/searchresults?${searchParams.toString()}`}
-        onClick={() => refreshPageIfLinkToTheSamePage('/searchresults')}
-      >
-        Search
-      </Link>
+    <Button
+      to={`/searchresults?${searchParams.toString()}`}
+      onClick={() => refreshPageIfLinkToTheSamePage('/searchresults')}
+    >
+      Search
     </Button>
   );
 }

@@ -5,11 +5,30 @@ import CalendarInput from 'components/calendarInput';
 import CityInput from 'components/cityInput';
 import CountInput from 'components/countInput';
 import SearchButton from 'components/searchButton';
+import HotelCard from 'components/hotelCard';
 
 import { InputsWrapper } from '../mainPage/styled';
 
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
+
+  function checkRoomsAvalibility(rooms, { from, to }, capacity, count) {
+    if (rooms.length < count) return false;
+    const availableRooms = rooms.filter(
+      room =>
+        !room.booked_dates.find(
+          date =>
+            new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
+        ),
+    );
+    if (availableRooms.length < count) return false;
+    return (
+      availableRooms
+        .sort((a, b) => a - b)
+        .slice(0, count)
+        .reduce((sum, room) => sum + room.capacity, 0) >= capacity
+    );
+  }
 
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
@@ -17,22 +36,13 @@ export default function SearchResultsPage() {
       .then(r => r.json())
       .then(data =>
         setHotels(
-          data.filter(
-            hotel =>
-              hotel.rooms.filter(room => {
-                if (
-                  room.capacity <
-                  inputs.counts.adults + inputs.counts.children
-                ) {
-                  return false;
-                }
-
-                return !room.booked_dates.find(
-                  date =>
-                    new Date(date) >= new Date(inputs.dates.from) &&
-                    new Date(date) <= new Date(inputs.dates.to),
-                );
-              }).length > 0,
+          data.filter(hotel =>
+            checkRoomsAvalibility(
+              hotel.rooms,
+              { from: inputs.dates.from, to: inputs.dates.to },
+              inputs.counts.children + inputs.counts.adults,
+              inputs.counts.rooms,
+            ),
           ),
         ),
       );
@@ -47,19 +57,8 @@ export default function SearchResultsPage() {
         <SearchButton />
       </InputsWrapper>
       <div>
-        {inputs.city}
-        <br />
-        {inputs.dates.from} <br />
-        {inputs.dates.to}
-        <br />
-        Chidlren: {inputs.counts.children}
-        <br />
-        Adults: {inputs.counts.adults}
-        <br />
-        Rooms: {inputs.counts.rooms}
-        <br />
         {hotels.map(hotel => (
-          <div key={hotel.id}>{hotel.name}</div>
+          <HotelCard hotel={hotel} key={hotel.id} />
         ))}
       </div>
     </>

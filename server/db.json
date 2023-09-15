@@ -11,7 +11,7 @@
           "room_id": 101,
           "room_type": "Single",
           "capacity": 1,
-          "price_per_night": 100,
+          "price_per_night": 300,
           "booked_dates": ["2023-09-20", "2023-09-21"],
           "reviews": [
             {
@@ -90,7 +90,7 @@
           "room_id": 301,
           "room_type": "Single",
           "capacity": 1,
-          "price_per_night": 120,
+          "price_per_night": 50,
           "booked_dates": ["2023-09-25"],
           "reviews": [
             {

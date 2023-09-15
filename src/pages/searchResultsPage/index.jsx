@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import CalendarInput from 'components/calendarInput';
@@ -6,13 +6,18 @@ import CityInput from 'components/cityInput';
 import CountInput from 'components/countInput';
 import SearchButton from 'components/searchButton';
 import HotelCard from 'components/hotelCard';
+import FancyLoader from 'components/loader';
+import SortOptions from 'components/sortOptions';
 
 import { InputsWrapper } from '../mainPage/styled';
+import useFetch from '../../hooks/useFetch';
 
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
+  const [initInputs] = useState(inputs);
+  const [sorting, setSorting] = useState('DEFAULT');
 
-  function checkRoomsAvalibility(rooms, { from, to }, capacity, count) {
+  function checkRoomsAvailability(rooms, { from, to }, capacity, count) {
     if (rooms.length < count) return false;
     const availableRooms = rooms.filter(
       room =>
@@ -24,29 +29,81 @@ export default function SearchResultsPage() {
     if (availableRooms.length < count) return false;
     return (
       availableRooms
-        .sort((a, b) => a - b)
+        .sort((a, b) => b.capacity - a.capacity)
         .slice(0, count)
         .reduce((sum, room) => sum + room.capacity, 0) >= capacity
     );
   }
 
-  const [hotels, setHotels] = useState([]);
-  useEffect(() => {
-    fetch(`http://localhost:3000/hotels?city=${inputs.city}`)
-      .then(r => r.json())
-      .then(data =>
-        setHotels(
-          data.filter(hotel =>
-            checkRoomsAvalibility(
-              hotel.rooms,
-              { from: inputs.dates.from, to: inputs.dates.to },
-              inputs.counts.children + inputs.counts.adults,
-              inputs.counts.rooms,
-            ),
-          ),
-        ),
-      );
-  }, []);
+  function filterHotels(hotels) {
+    return hotels.filter(hotel =>
+      checkRoomsAvailability(
+        hotel.rooms,
+        { from: initInputs.dates.from, to: initInputs.dates.to },
+        initInputs.counts.children + initInputs.counts.adults,
+        initInputs.counts.rooms,
+      ),
+    );
+  }
+
+  function getAverageRating(hotel) {
+    const reviews = hotel.rooms.reduce(
+      (allReviews, room) => allReviews.concat(room.reviews),
+      [],
+    );
+    const totalRatings = reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0,
+    );
+    return totalRatings / reviews.length;
+  }
+
+  function getSorting(sortingString) {
+    switch (sortingString) {
+      case 'DEFAULT':
+        return () => {};
+      case 'PRICE_LOW_TO_HIGH':
+        return (a, b) => {
+          return (
+            Math.min(...a.rooms.map(room => room.price_per_night)) -
+            Math.min(...b.rooms.map(room => room.price_per_night))
+          );
+        };
+      case 'PRICE_HIGH_TO_LOW':
+        return (a, b) => {
+          return (
+            Math.max(...b.rooms.map(room => room.price_per_night)) -
+            Math.max(...a.rooms.map(room => room.price_per_night))
+          );
+        };
+      case 'RATING_HIGH_TO_LOW':
+        return (a, b) => {
+          return getAverageRating(b) - getAverageRating(a);
+        };
+      case 'RATING_LOW_TO_HIGH':
+        return (a, b) => {
+          return getAverageRating(a) - getAverageRating(b);
+        };
+      default:
+        return () => {};
+    }
+  }
+
+  const {
+    data: hotels,
+    loading,
+    error,
+  } = useFetch(`http://localhost:3000/hotels?city=${initInputs.city}`);
+  if (error) return <h1>Error</h1>;
+
+  const filteredHotels = hotels ? filterHotels(hotels) : [];
+  const sortingFunction = getSorting(sorting);
+  const resultInfo = (
+    <h1>
+      {initInputs.city}: {filteredHotels.length} hotel
+      {filteredHotels.length > 1 ? 's' : ''} found
+    </h1>
+  );
 
   return (
     <>
@@ -56,11 +113,13 @@ export default function SearchResultsPage() {
         <CountInput />
         <SearchButton />
       </InputsWrapper>
-      <div>
-        {hotels.map(hotel => (
-          <HotelCard hotel={hotel} key={hotel.id} />
-        ))}
-      </div>
+      <SortOptions onChangeSort={setSorting} />
+      {!loading && resultInfo}
+      {loading && <FancyLoader />}
+      {!loading &&
+        filteredHotels
+          .sort(sortingFunction)
+          .map(hotel => <HotelCard hotel={hotel} key={hotel.id} />)}
     </>
   );
 }

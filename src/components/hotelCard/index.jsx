@@ -47,7 +47,10 @@ function HotelCard({ hotel }) {
             <HotelLocation>
               {hotel.city}, {hotel.address}
             </HotelLocation>
-            <Price>${hotel.rooms[0].price_per_night} per night</Price>
+            <Price>
+              from ${Math.min(...hotel.rooms.map(room => room.price_per_night))}{' '}
+              per night
+            </Price>
           </HotelMainInfoWrapper>
           {!!reviews.length && (
             <ReviewsInfo>

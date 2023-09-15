@@ -30,7 +30,7 @@ export default function MainFiltersInput({
     return () => {
       document.removeEventListener('click', onClickOutside);
     };
-  }, [isOpen, onCloseClick]);
+  }, [isOpen]);
 
   return (
     <MainInputWrapper onClick={onOpenClick}>

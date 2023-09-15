@@ -54,7 +54,7 @@
           "room_type": "Suite",
           "capacity": 3,
           "price_per_night": 250,
-          "booked_dates": [],
+          "booked_dates": ["2023-09-24"],
           "reviews": [
             {
               "username": "BobAnderson",

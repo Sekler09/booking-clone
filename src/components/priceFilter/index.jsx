@@ -44,38 +44,37 @@ function PriceFilter({ min, max, onChange }) {
 
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  }, [minVal, maxVal]);
 
   return (
     <SliderWrapper>
-      <Thumb
-        type="range"
-        min={min}
-        max={max}
-        step={10}
-        value={minVal}
-        ref={minValRef}
-        onChange={event => {
-          const value = Math.min(+event.target.value, maxVal - 10);
-          setMinVal(value);
-          event.target.value = value.toString();
-        }}
-      />
-      <Thumb
-        type="range"
-        step={10}
-        min={min}
-        max={max}
-        value={maxVal}
-        ref={maxValRef}
-        onChange={event => {
-          const value = Math.max(+event.target.value, minVal + 10);
-          setMaxVal(value);
-          event.target.value = value.toString();
-        }}
-      />
-
       <Slider>
+        <Thumb
+          type="range"
+          min={min}
+          max={max}
+          step={10}
+          value={minVal}
+          ref={minValRef}
+          onChange={event => {
+            const value = Math.min(+event.target.value, maxVal - 10);
+            setMinVal(value);
+            event.target.value = value.toString();
+          }}
+        />
+        <Thumb
+          type="range"
+          step={10}
+          min={min}
+          max={max}
+          value={maxVal}
+          ref={maxValRef}
+          onChange={event => {
+            const value = Math.max(+event.target.value, minVal + 10);
+            setMaxVal(value);
+            event.target.value = value.toString();
+          }}
+        />
         <SliderTrack />
         <SliderRange ref={range} />
       </Slider>

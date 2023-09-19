@@ -7,7 +7,10 @@ const SliderWrapper = styled.div`
 
 const Slider = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
   width: 200px;
+  height: 15px;
 `;
 
 const SliderTrack = styled.div`
@@ -39,7 +42,6 @@ const Thumb = styled.input`
     position: relative;
     border: none;
     border-radius: 50%;
-    margin-top: 4px;
     height: 18px;
     width: 18px;
     background-color: ${theme.colors.trueBlue};
@@ -54,7 +56,6 @@ const Thumb = styled.input`
     position: relative;
     border: none;
     border-radius: 50%;
-    margin-top: 4px;
     height: 18px;
     width: 18px;
     background-color: ${theme.colors.trueBlue};

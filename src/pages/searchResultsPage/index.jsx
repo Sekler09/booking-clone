@@ -8,6 +8,7 @@ import SearchButton from 'components/searchButton';
 import HotelCard from 'components/hotelCard';
 import FancyLoader from 'components/loader';
 import SortOptions from 'components/sortOptions';
+import PriceFilter from 'components/priceFilter';
 
 import { InputsWrapper } from '../mainPage/styled';
 import useFetch from '../../hooks/useFetch';
@@ -16,6 +17,9 @@ export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [initInputs] = useState(inputs);
   const [sorting, setSorting] = useState('DEFAULT');
+
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
 
   function checkRoomsAvailability(rooms, { from, to }, capacity, count) {
     if (rooms.length < count) return false;
@@ -89,6 +93,19 @@ export default function SearchResultsPage() {
     }
   }
 
+  function getMaxAndMinPrice(hotels) {
+    const prices = hotels
+      .map(hotel => hotel.rooms.map(room => room.price_per_night))
+      .flat();
+    return { max: Math.max(...prices), min: Math.min(...prices) };
+  }
+
+  function filterHotelByPrice(hotel, min, max) {
+    return hotel.rooms
+      .map(room => room.price_per_night)
+      .find(price => price <= max && price >= min);
+  }
+
   const {
     data: hotels,
     loading,
@@ -97,11 +114,16 @@ export default function SearchResultsPage() {
   if (error) return <h1>Error</h1>;
 
   const filteredHotels = hotels ? filterHotels(hotels) : [];
+  const { min: minRangeValue, max: maxRangeValue } =
+    getMaxAndMinPrice(filteredHotels);
   const sortingFunction = getSorting(sorting);
+  const hotelsToBeShown = filteredHotels
+    .sort(sortingFunction)
+    .filter(hotel => filterHotelByPrice(hotel, minPrice, maxPrice));
   const resultInfo = (
     <h1>
-      {initInputs.city}: {filteredHotels.length} hotel
-      {filteredHotels.length > 1 ? 's' : ''} found
+      {initInputs.city}: {hotelsToBeShown.length} hotel
+      {hotelsToBeShown.length > 1 ? 's' : ''} found
     </h1>
   );
 
@@ -113,13 +135,29 @@ export default function SearchResultsPage() {
         <CountInput />
         <SearchButton />
       </InputsWrapper>
-      <SortOptions onChangeSort={setSorting} />
-      {!loading && resultInfo}
       {loading && <FancyLoader />}
-      {!loading &&
-        filteredHotels
-          .sort(sortingFunction)
-          .map(hotel => <HotelCard hotel={hotel} key={hotel.id} />)}
+      {!loading && (
+        <>
+          <h1>
+            ${minPrice} - ${maxPrice}
+          </h1>
+          <PriceFilter
+            min={minRangeValue}
+            max={maxRangeValue}
+            onChange={({ min, max }) => {
+              setMinPrice(min);
+              setMaxPrice(max);
+            }}
+          />
+          <SortOptions onChangeSort={setSorting} />
+          <div>
+            {hotelsToBeShown.map(hotel => (
+              <HotelCard hotel={hotel} key={hotel.id} />
+            ))}
+          </div>
+          <div>{resultInfo}</div>
+        </>
+      )}
     </>
   );
 }

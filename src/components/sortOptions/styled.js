@@ -7,7 +7,6 @@ const SortOptionsWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  border: none;
   border-radius: 4px;
   padding: 8px 16px;
   background-color: #007bff;
@@ -20,7 +19,7 @@ const Dropdown = styled.ul`
   top: 100%;
   left: 0;
   z-index: 1;
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
   margin: 0;
   background-color: #fff;
   padding: 0;

@@ -27,7 +27,7 @@ function SortOptions({ onChangeSort }) {
         Sort By:{' '}
         {sortingOptions.find(option => option.value === selectedSort).label}
       </Button>
-      <Dropdown isOpen={isDropdownOpen}>
+      <Dropdown $isOpen={isDropdownOpen}>
         {sortingOptions.map(option => (
           <Option
             key={option.value}

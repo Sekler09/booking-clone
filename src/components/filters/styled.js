@@ -6,11 +6,17 @@ const FiltersWrapper = styled.div`
   border: 1px ${theme.colors.oldSilver} solid;
   border-radius: 8px;
   align-self: flex-start;
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
 `;
 
 const FiltersTitle = styled.p`
+  padding: 10px;
   font-weight: bold;
-  font-size: xx-large;
+  font-size: x-large;
 `;
 
 const FilterItem = styled.div`

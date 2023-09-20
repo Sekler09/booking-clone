@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+
 import {
   Slider,
   SliderRange,
@@ -46,39 +47,50 @@ function PriceFilter({ min, max, onChange }) {
     onChange({ min: minVal, max: maxVal });
   }, [minVal, maxVal]);
 
+  useEffect(() => {
+    setMinVal(min);
+    setMaxVal(max);
+  }, [min, max]);
+
   return (
-    <SliderWrapper>
-      <Slider>
-        <Thumb
-          type="range"
-          min={min}
-          max={max}
-          step={10}
-          value={minVal}
-          ref={minValRef}
-          onChange={event => {
-            const value = Math.min(+event.target.value, maxVal - 10);
-            setMinVal(value);
-            event.target.value = value.toString();
-          }}
-        />
-        <Thumb
-          type="range"
-          step={10}
-          min={min}
-          max={max}
-          value={maxVal}
-          ref={maxValRef}
-          onChange={event => {
-            const value = Math.max(+event.target.value, minVal + 10);
-            setMaxVal(value);
-            event.target.value = value.toString();
-          }}
-        />
-        <SliderTrack />
-        <SliderRange ref={range} />
-      </Slider>
-    </SliderWrapper>
+    <>
+      <h3>Your budget (per night)</h3>
+      <div>
+        ${minVal} - ${maxVal}
+      </div>
+      <SliderWrapper>
+        <Slider>
+          <Thumb
+            type="range"
+            min={min}
+            max={max}
+            step={10}
+            value={minVal}
+            ref={minValRef}
+            onChange={event => {
+              const value = Math.min(+event.target.value, maxVal - 10);
+              setMinVal(value);
+              event.target.value = value.toString();
+            }}
+          />
+          <Thumb
+            type="range"
+            step={10}
+            min={min}
+            max={max}
+            value={maxVal}
+            ref={maxValRef}
+            onChange={event => {
+              const value = Math.max(+event.target.value, minVal + 10);
+              setMaxVal(value);
+              event.target.value = value.toString();
+            }}
+          />
+          <SliderTrack />
+          <SliderRange ref={range} />
+        </Slider>
+      </SliderWrapper>
+    </>
   );
 }
 

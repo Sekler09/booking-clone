@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import getAverageRating from 'utils/getAverageHotelRating';
+
 import CheckboxFilter from '../checkboxFilter';
 
 export default function RatingFilter({ hotels, onChange }) {
@@ -14,15 +16,7 @@ export default function RatingFilter({ hotels, onChange }) {
     });
   }, [checkedRatings]);
 
-  function getHighestAndLowestRating(hotelsToFilter) {
-    const ratings = hotelsToFilter.map(hotel => getAverageRating(hotel));
-    return {
-      min: Math.min(...ratings),
-      max: Math.max(...ratings),
-    };
-  }
-
-  function f(e, value) {
+  function onCheckbox(e, value) {
     if (e.target.checked) setCheckedRatings(prev => [...prev, value]);
     else
       setCheckedRatings(prev => {
@@ -34,53 +28,38 @@ export default function RatingFilter({ hotels, onChange }) {
       });
   }
 
-  const Labels = [
-    'Superb: 4.5+',
-    'Very Good: 4+',
-    'Good: 3.5+',
-    'Pleasant: 3+',
+  const checkboxes = [
+    {
+      value: 4.5,
+      label: 'Superb: 4.5+',
+      onChange: e => onCheckbox(e, 4.5),
+      count: hotels.filter(hotel => getAverageRating(hotel) >= 4.5).length,
+      checked: checkedRatings.includes(4.5),
+    },
+    {
+      value: 4,
+      label: 'Very good: 4+',
+      onChange: e => onCheckbox(e, 4),
+      count: hotels.filter(hotel => getAverageRating(hotel) >= 4).length,
+      checked: checkedRatings.includes(4),
+    },
+    {
+      value: 3.5,
+      label: 'Good: 3.5+',
+      onChange: e => onCheckbox(e, 3.5),
+      count: hotels.filter(hotel => getAverageRating(hotel) >= 3.5).length,
+      checked: checkedRatings.includes(3.5),
+    },
+    {
+      value: 3,
+      label: 'Pleasant: 3+',
+      onChange: e => onCheckbox(e, 3),
+      count: hotels.filter(hotel => getAverageRating(hotel) >= 3).length,
+      checked: checkedRatings.includes(3),
+    },
   ];
 
-  const OnChanges = [
-    e => f(e, 4.5),
-    e => f(e, 4),
-    e => f(e, 3.5),
-    e => f(e, 3),
-  ];
-
-  const ratings = [3, 3.5, 4, 4.5];
-  const CountQuantities = [...ratings]
-    .reverse()
-    .map(rating => hs => hs.filter(hotel => getAverageRating(hotel) >= rating));
-
-  function getLabelsAndOnChanges(hotelsToFilter) {
-    const { min, max } = getHighestAndLowestRating(hotelsToFilter);
-    const more = ratings.filter(rating => rating <= max).length;
-    const less = ratings.filter(rating => min >= rating).length;
-    if (more === less)
-      return {
-        labels: [],
-        onChanges: [],
-        quantities: [],
-      };
-    return {
-      labels: Labels.slice(4 - more, 5 - less),
-      onChanges: OnChanges.slice(4 - more, 5 - less),
-      quantities: CountQuantities.slice(4 - more, 5 - less).map(
-        fn => fn(hotels).length,
-      ),
-    };
-  }
-
-  const { labels, onChanges, quantities } = getLabelsAndOnChanges(hotels);
-  return (
-    <CheckboxFilter
-      title={title}
-      labels={labels}
-      quantities={quantities}
-      onChanges={onChanges}
-    />
-  );
+  return <CheckboxFilter title={title} checkboxes={checkboxes} />;
 }
 
 RatingFilter.propTypes = {
@@ -90,6 +69,7 @@ RatingFilter.propTypes = {
       name: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
+      distance_from_center: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
       rooms: PropTypes.arrayOf(
         PropTypes.shape({

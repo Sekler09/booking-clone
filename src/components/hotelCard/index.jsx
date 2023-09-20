@@ -16,6 +16,7 @@ import {
   TotalReviews,
   BookButton,
   ReviewRatingText,
+  Distance,
 } from './styled';
 
 function HotelCard({ hotel }) {
@@ -51,6 +52,9 @@ function HotelCard({ hotel }) {
               from ${Math.min(...hotel.rooms.map(room => room.price_per_night))}{' '}
               per night
             </Price>
+            <Distance>
+              Distance from the center: {hotel.distance_from_center}km
+            </Distance>
           </HotelMainInfoWrapper>
           {!!reviews.length && (
             <ReviewsInfo>
@@ -74,6 +78,7 @@ HotelCard.propTypes = {
     name: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
+    distance_from_center: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     rooms: PropTypes.arrayOf(
       PropTypes.shape({

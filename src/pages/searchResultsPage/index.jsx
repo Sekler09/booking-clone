@@ -8,15 +8,23 @@ import SearchButton from 'components/searchButton';
 import HotelCard from 'components/hotelCard';
 import FancyLoader from 'components/loader';
 import SortOptions from 'components/sortOptions';
+import Filters from 'components/filters';
 
 import { InputsWrapper } from '../mainPage/styled';
 import useFetch from '../../hooks/useFetch';
-import Filters from '../../components/filters';
+import { ResultsContainer, ResultsCountInfo, ResultsWrapper } from './styled';
 
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [initInputs] = useState(inputs);
   const [sorting, setSorting] = useState('DEFAULT');
+  const [filteredHotels, setFilteredHotels] = useState([]);
+  const {
+    data: hotels,
+    loading,
+    error,
+  } = useFetch(`http://localhost:3000/hotels?city=${initInputs.city}`);
+  if (error) return <h1>Error</h1>;
 
   function checkRoomsAvailability(rooms, { from, to }, capacity, count) {
     if (rooms.length < count) return false;
@@ -36,8 +44,8 @@ export default function SearchResultsPage() {
     );
   }
 
-  function filterHotelsByDateAndCounts(hotels) {
-    return hotels.filter(hotel =>
+  function filterHotelsByDateAndCounts(data) {
+    return data.filter(hotel =>
       checkRoomsAvailability(
         hotel.rooms,
         { from: initInputs.dates.from, to: initInputs.dates.to },
@@ -46,6 +54,11 @@ export default function SearchResultsPage() {
       ),
     );
   }
+
+  useEffect(() => {
+    if (hotels)
+      if (hotels.length) setFilteredHotels(filterHotelsByDateAndCounts(hotels));
+  }, [hotels, loading, error]);
 
   function getAverageRating(hotel) {
     const reviews = hotel.rooms.reduce(
@@ -90,18 +103,6 @@ export default function SearchResultsPage() {
     }
   }
 
-  const {
-    data: hotels,
-    loading,
-    error,
-  } = useFetch(`http://localhost:3000/hotels?city=${initInputs.city}`);
-  if (error) return <h1>Error</h1>;
-  const [filteredHotels, setFilteredHotels] = useState([]);
-  useEffect(() => {
-    if (hotels)
-      if (hotels.length) setFilteredHotels(filterHotelsByDateAndCounts(hotels));
-  }, [hotels, loading, error]);
-
   const sortingFunction = getSorting(sorting);
   const resultInfo = (
     <h1>
@@ -119,20 +120,20 @@ export default function SearchResultsPage() {
         <SearchButton />
       </InputsWrapper>
       {loading && <FancyLoader />}
-      <div style={{ display: 'flex' }}>
-        {!loading && <Filters hotels={hotels} onFilter={setFilteredHotels} />}
-        {!loading && (
-          <div>
-            <div>{resultInfo}</div>
+      {!loading && (
+        <ResultsWrapper>
+          <Filters hotels={hotels} onFilter={setFilteredHotels} />
+          <ResultsContainer>
+            <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
             <SortOptions onChangeSort={setSorting} />
             <div>
               {filteredHotels.sort(sortingFunction).map(hotel => (
                 <HotelCard hotel={hotel} key={hotel.id} />
               ))}
             </div>
-          </div>
-        )}
-      </div>
+          </ResultsContainer>
+        </ResultsWrapper>
+      )}
     </>
   );
 }

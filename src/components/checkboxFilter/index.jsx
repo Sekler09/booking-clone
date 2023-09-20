@@ -1,46 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-const FilterContainer = styled.div`
-  margin-bottom: 20px;
-`;
+import theme from 'styles/theme';
 
-const FilterTitle = styled.div`
-  font-weight: bold;
-  margin-bottom: 8px;
-`;
+import {
+  CheckboxField,
+  CheckboxInput,
+  CheckboxLabel,
+  CheckboxLabelCount,
+  CheckboxLabelText,
+  FilterContainer,
+  TickIcon,
+} from './styled';
 
-const CheckboxLabel = styled.label`
-  display: block;
-  margin-bottom: 5px;
-`;
-
-const CheckboxInput = styled.input`
-  margin-right: 5px;
-`;
-
-function CheckboxFilter({ title, labels, quantities, onChanges }) {
+function CheckboxFilter({ title, checkboxes }) {
   return (
     <FilterContainer>
-      <FilterTitle>{title}</FilterTitle>
-      {labels.map((label, index) => (
-        <div key={label}>
-          <CheckboxLabel>
-            <CheckboxInput type="checkbox" onChange={onChanges[index]} />
-            {label} ({quantities[index]})
+      <h3>{title}</h3>
+      {checkboxes
+        .filter(cb => cb.checked || cb.count !== 0)
+        .map(cb => (
+          <CheckboxLabel key={cb.label}>
+            <CheckboxInput
+              type="checkbox"
+              onChange={cb.onChange}
+              checked={cb.checked}
+            />
+            <CheckboxField>
+              <TickIcon $fillColor={theme.colors.white} />
+            </CheckboxField>
+            <CheckboxLabelText>{cb.label}</CheckboxLabelText>
+            <CheckboxLabelCount>{cb.count}</CheckboxLabelCount>
           </CheckboxLabel>
-        </div>
-      ))}
+        ))}
     </FilterContainer>
   );
 }
 
+export default CheckboxFilter;
+
 CheckboxFilter.propTypes = {
   title: PropTypes.string.isRequired,
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  quantities: PropTypes.arrayOf(PropTypes.number).isRequired,
-  onChanges: PropTypes.arrayOf(PropTypes.func).isRequired,
+  checkboxes: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+      onChange: PropTypes.func.isRequired,
+      count: PropTypes.number.isRequired,
+      checked: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
 };
-
-export default CheckboxFilter;

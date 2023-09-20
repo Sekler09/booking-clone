@@ -7,7 +7,7 @@ const Card = styled.div`
   display: flex;
   border: 1px solid ${theme.colors.gainsboro};
   border-radius: 8px;
-  margin: 16px;
+  margin: 16px 0;
   max-width: 600px;
   background-color: ${theme.colors.white};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
@@ -103,7 +103,12 @@ const BookButton = styled(Link)`
   }
 `;
 
+const Distance = styled.div`
+  font-size: small;
+`;
+
 export {
+  Distance,
   Card,
   HotelImage,
   ContentWrapper,

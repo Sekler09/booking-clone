@@ -1,15 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DayPicker } from 'react-day-picker';
-import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
+import {
+  addDays,
+  addYears,
+  endOfYear,
+  format,
+  startOfMonth,
+  startOfToday,
+} from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
 import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 
 import { setDate } from 'store/slices/inputsSlice';
-import { DayPickerWrapper } from './styled';
+import { useModal } from 'hooks/useModal';
 import MainFiltersInput from '../common';
-import { useModal } from '../../hooks/useModal';
+
+import { DayPickerWrapper } from './styled';
 
 const DATE_FORMAT_PATTERN = 'iii d MMM';
 
@@ -18,7 +26,7 @@ export default function CalendarInput() {
 
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
-  const today = new Date();
+  const today = startOfToday();
   const disabledDays = [
     {
       from: startOfMonth(today),
@@ -100,19 +108,14 @@ export default function CalendarInput() {
     setSearchParams(searchParams);
   }
 
-  const notInitialRender = useRef(false);
   useEffect(() => {
-    if (notInitialRender.current) {
-      dispatch(
-        setDate({
-          from: range.from ? format(range.from, 'y-M-d') : null,
-          to: range.to ? format(range.to, 'y-M-d') : null,
-        }),
-      );
-      updateSearchParams();
-    } else {
-      notInitialRender.current = true;
-    }
+    dispatch(
+      setDate({
+        from: range.from ? format(range.from, 'y-M-d') : null,
+        to: range.to ? format(range.to, 'y-M-d') : null,
+      }),
+    );
+    updateSearchParams();
   }, [range]);
 
   function onRangeSelect(newRange) {

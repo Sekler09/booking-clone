@@ -51,7 +51,7 @@ const EmptyResult = styled.div`
 
 const SearchIcon = styled(Search)`
   fill: ${({ $fillColor }) => $fillColor};
-  width: 30px;
+  width: 50px;
 `;
 
 export {

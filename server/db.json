@@ -13,7 +13,7 @@
           "room_type": "Single",
           "capacity": 1,
           "price_per_night": 300,
-          "booked_dates": ["2023-09-20", "2023-09-21"],
+          "booked_dates": ["2023-09-22", "2023-09-23"],
           "reviews": [
             {
               "username": "JohnDoe",

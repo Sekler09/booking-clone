@@ -20,7 +20,6 @@ const Dropdown = styled.ul`
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1;
   display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
   margin: 0;
   background-color: ${theme.colors.white};

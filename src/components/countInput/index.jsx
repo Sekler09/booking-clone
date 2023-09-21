@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import { ReactComponent as ManIcon } from 'assets/man.svg';
 
 import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
+import { useModal } from 'hooks/useModal';
 import Counter from '../counter';
-import { CountersWrapper, DoneButton } from './styled';
 import MainFiltersInput from '../common';
-import { useModal } from '../../hooks/useModal';
+
+import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
   const [isOpen, onOpenClick, onCloseClick] = useModal();
@@ -21,20 +22,40 @@ export default function CountInput() {
   }
   const [searchParams, setSearchParams] = useSearchParams();
   const [adultsCount, setAdultsCount] = useState(() => {
-    const searchAdults = +searchParams.get('adults');
-    return checkSearchValidity(searchAdults, 1, 30)
-      ? searchAdults
+    const searchAdults = searchParams.get('adults');
+    if (!searchAdults) {
+      if (searchParams.size) {
+        return 1;
+      }
+      return counts.adults;
+    }
+    return checkSearchValidity(+searchAdults, 1, 30)
+      ? +searchAdults
       : counts.adults;
   });
   const [childrenCount, setChildrenCount] = useState(() => {
-    const searchChildren = +searchParams.get('children');
-    return checkSearchValidity(searchChildren, 0, 10)
-      ? searchChildren
+    const searchChildren = searchParams.get('children');
+    if (!searchChildren) {
+      if (searchParams.size) {
+        return 0;
+      }
+      return counts.children;
+    }
+    return checkSearchValidity(+searchChildren, 1, 30)
+      ? +searchChildren
       : counts.children;
   });
   const [roomsCount, setRoomsCount] = useState(() => {
-    const searchRooms = +searchParams.get('rooms');
-    return checkSearchValidity(searchRooms, 1, 30) ? searchRooms : counts.rooms;
+    const searchRooms = searchParams.get('rooms');
+    if (!searchRooms) {
+      if (searchParams.size) {
+        return 1;
+      }
+      return counts.rooms;
+    }
+    return checkSearchValidity(+searchRooms, 1, 30)
+      ? +searchRooms
+      : counts.rooms;
   });
   const dispatch = useDispatch();
   const inputValue = `${adultsCount} adult${
@@ -75,6 +96,12 @@ export default function CountInput() {
     }
     setSearchParams(searchParams);
   }
+
+  useEffect(() => {
+    dispatch(setAdults(adultsCount));
+    dispatch(setRooms(roomsCount));
+    dispatch(setChildren(childrenCount));
+  }, []);
 
   function onDoneClick(e) {
     e.stopPropagation();

@@ -18,12 +18,24 @@ export default function MainPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (city) searchParams.set('city', city);
-    if (to) searchParams.set('to', to);
-    if (to) searchParams.set('from', from);
-    if (adults > 1) searchParams.set('adults', adults);
-    if (rooms > 1) searchParams.set('rooms', rooms);
-    if (children > 0) searchParams.set('children', children);
+    if (city && !searchParams.has('city')) {
+      searchParams.set('city', city);
+    }
+    if (to && !searchParams.has('to')) {
+      searchParams.set('to', to);
+    }
+    if (from && !searchParams.has('from')) {
+      searchParams.set('from', from);
+    }
+    if (adults > 1 && !searchParams.has('adults')) {
+      searchParams.set('adults', adults);
+    }
+    if (rooms > 1 && !searchParams.has('rooms')) {
+      searchParams.set('rooms', rooms);
+    }
+    if (children > 0 && !searchParams.has('children')) {
+      searchParams.set('children', children);
+    }
     setSearchParams(searchParams);
   }, []);
 

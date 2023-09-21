@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
 import CalendarInput from 'components/calendarInput';
 import CityInput from 'components/cityInput';
@@ -10,9 +11,10 @@ import FancyLoader from 'components/loader';
 import SortOptions from 'components/sortOptions';
 import Filters from 'components/filters';
 
+import useFetch from 'hooks/useFetch';
+
 import theme from 'styles/theme';
 import { InputsWrapper } from '../mainPage/styled';
-import useFetch from '../../hooks/useFetch';
 import {
   EmptyResult,
   ErrorIcon,
@@ -28,11 +30,29 @@ export default function SearchResultsPage() {
   const [initInputs] = useState(inputs);
   const [sorting, setSorting] = useState('DEFAULT');
   const [filteredHotels, setFilteredHotels] = useState([]);
+  const [searchParams] = useSearchParams();
+  const [searchFilters] = useState(() => ({
+    city: searchParams.has('city') ? searchParams.get('city') : initInputs.city,
+    from: searchParams.has('from')
+      ? searchParams.get('from')
+      : initInputs.dates.from,
+    to: searchParams.has('to') ? searchParams.get('to') : initInputs.dates.to,
+    adults: searchParams.has('adults')
+      ? +searchParams.get('adults')
+      : initInputs.counts.adults,
+    rooms: searchParams.has('rooms')
+      ? +searchParams.get('rooms')
+      : initInputs.counts.rooms,
+    children: searchParams.has('children')
+      ? +searchParams.get('children')
+      : initInputs.counts.children,
+  }));
+
   const {
     data: hotels,
     loading,
     error,
-  } = useFetch(`http://localhost:3000/hotels?city=${initInputs.city}`);
+  } = useFetch(`http://localhost:3000/hotels?city=${searchFilters.city}`);
 
   function checkRoomsAvailability(rooms, { from, to }, capacity, count) {
     if (rooms.length < count) return false;
@@ -56,16 +76,19 @@ export default function SearchResultsPage() {
     return data.filter(hotel =>
       checkRoomsAvailability(
         hotel.rooms,
-        { from: initInputs.dates.from, to: initInputs.dates.to },
-        initInputs.counts.children + initInputs.counts.adults,
-        initInputs.counts.rooms,
+        { from: searchFilters.from, to: searchFilters.to },
+        searchFilters.children + searchFilters.adults,
+        searchFilters.rooms,
       ),
     );
   }
 
   useEffect(() => {
-    if (hotels)
-      if (hotels.length) setFilteredHotels(filterHotelsByDateAndCounts(hotels));
+    if (hotels) {
+      if (hotels.length) {
+        setFilteredHotels(filterHotelsByDateAndCounts(hotels));
+      }
+    }
   }, [hotels, loading, error]);
 
   function getAverageRating(hotel) {
@@ -129,7 +152,10 @@ export default function SearchResultsPage() {
       <ResultsWrapper>
         {!loading && !error && filteredHotels.length !== 0 && (
           <>
-            <Filters hotels={hotels} onFilter={setFilteredHotels} />
+            <Filters
+              hotels={filterHotelsByDateAndCounts(hotels)}
+              onFilter={setFilteredHotels}
+            />
             <ResultsContainer>
               <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
               <SortOptions onChangeSort={setSorting} />
@@ -144,7 +170,7 @@ export default function SearchResultsPage() {
         {!loading && !error && filteredHotels.length === 0 && (
           <EmptyResult>
             <SearchIcon $fillColor={theme.colors.black} />
-            <p>No properties found in {initInputs.city}</p>
+            <p>No properties found in {searchFilters.city}</p>
             <p>
               There are no matching properties for your search criteria. Try
               updating your search.

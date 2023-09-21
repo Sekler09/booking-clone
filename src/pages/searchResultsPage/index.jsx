@@ -10,9 +10,18 @@ import FancyLoader from 'components/loader';
 import SortOptions from 'components/sortOptions';
 import Filters from 'components/filters';
 
+import theme from 'styles/theme';
 import { InputsWrapper } from '../mainPage/styled';
 import useFetch from '../../hooks/useFetch';
-import { ResultsContainer, ResultsCountInfo, ResultsWrapper } from './styled';
+import {
+  EmptyResult,
+  ErrorIcon,
+  ErrorWrapper,
+  ResultsContainer,
+  ResultsCountInfo,
+  ResultsWrapper,
+  SearchIcon,
+} from './styled';
 
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
@@ -24,7 +33,6 @@ export default function SearchResultsPage() {
     loading,
     error,
   } = useFetch(`http://localhost:3000/hotels?city=${initInputs.city}`);
-  if (error) return <h1>Error</h1>;
 
   function checkRoomsAvailability(rooms, { from, to }, capacity, count) {
     if (rooms.length < count) return false;
@@ -74,8 +82,6 @@ export default function SearchResultsPage() {
 
   function getSorting(sortingString) {
     switch (sortingString) {
-      case 'DEFAULT':
-        return () => {};
       case 'PRICE_LOW_TO_HIGH':
         return (a, b) => {
           return (
@@ -120,20 +126,38 @@ export default function SearchResultsPage() {
         <SearchButton />
       </InputsWrapper>
       {loading && <FancyLoader />}
-      {!loading && (
-        <ResultsWrapper>
-          <Filters hotels={hotels} onFilter={setFilteredHotels} />
-          <ResultsContainer>
-            <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
-            <SortOptions onChangeSort={setSorting} />
-            <div>
-              {filteredHotels.sort(sortingFunction).map(hotel => (
-                <HotelCard hotel={hotel} key={hotel.id} />
-              ))}
-            </div>
-          </ResultsContainer>
-        </ResultsWrapper>
-      )}
+      <ResultsWrapper>
+        {!loading && !error && filteredHotels.length !== 0 && (
+          <>
+            <Filters hotels={hotels} onFilter={setFilteredHotels} />
+            <ResultsContainer>
+              <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
+              <SortOptions onChangeSort={setSorting} />
+              <div>
+                {filteredHotels.sort(sortingFunction).map(hotel => (
+                  <HotelCard hotel={hotel} key={hotel.id} />
+                ))}
+              </div>
+            </ResultsContainer>
+          </>
+        )}
+        {!loading && !error && filteredHotels.length === 0 && (
+          <EmptyResult>
+            <SearchIcon $fillColor={theme.colors.black} />
+            <p>No properties found in {initInputs.city}</p>
+            <p>
+              There are no matching properties for your search criteria. Try
+              updating your search.
+            </p>
+          </EmptyResult>
+        )}
+        {error && (
+          <ErrorWrapper>
+            <ErrorIcon $fillColor={theme.colors.white} />
+            <p>Something went wrong. Try again later</p>
+          </ErrorWrapper>
+        )}
+      </ResultsWrapper>
     </>
   );
 }

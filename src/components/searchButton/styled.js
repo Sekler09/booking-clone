@@ -16,10 +16,5 @@ const Button = styled(Link)`
   &:hover {
     background-color: ${theme.colors.pantone};
   }
-
-  &:disabled {
-    cursor: not-allowed;
-    background-color: ${theme.colors.white};
-  }
 `;
 export { Button };

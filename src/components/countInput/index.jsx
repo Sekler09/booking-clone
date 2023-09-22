@@ -6,6 +6,7 @@ import { ReactComponent as ManIcon } from 'assets/man.svg';
 
 import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 import { useModal } from 'hooks/useModal';
+import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
 import Counter from '../counter';
 import MainFiltersInput from '../common';
 
@@ -15,48 +16,34 @@ export default function CountInput() {
   const [isOpen, onOpenClick, onCloseClick] = useModal();
 
   const counts = useSelector(state => state.inputs.counts);
-  function checkSearchValidity(searchCount, minValue, maxValue) {
-    return searchCount
-      ? searchCount >= minValue && searchCount <= maxValue
-      : false;
-  }
   const [searchParams, setSearchParams] = useSearchParams();
-  const [adultsCount, setAdultsCount] = useState(() => {
-    const searchAdults = searchParams.get('adults');
-    if (!searchAdults) {
-      if (searchParams.size) {
-        return 1;
-      }
-      return counts.adults;
-    }
-    return checkSearchValidity(+searchAdults, 1, 30)
-      ? +searchAdults
-      : counts.adults;
-  });
-  const [childrenCount, setChildrenCount] = useState(() => {
-    const searchChildren = searchParams.get('children');
-    if (!searchChildren) {
-      if (searchParams.size) {
-        return 0;
-      }
-      return counts.children;
-    }
-    return checkSearchValidity(+searchChildren, 1, 30)
-      ? +searchChildren
-      : counts.children;
-  });
-  const [roomsCount, setRoomsCount] = useState(() => {
-    const searchRooms = searchParams.get('rooms');
-    if (!searchRooms) {
-      if (searchParams.size) {
-        return 1;
-      }
-      return counts.rooms;
-    }
-    return checkSearchValidity(+searchRooms, 1, 30)
-      ? +searchRooms
-      : counts.rooms;
-  });
+  const [adultsCount, setAdultsCount] = useState(
+    getInitCounterStateFormParamsAndRedux(
+      'adults',
+      counts.adults,
+      1,
+      30,
+      searchParams,
+    ),
+  );
+  const [childrenCount, setChildrenCount] = useState(
+    getInitCounterStateFormParamsAndRedux(
+      'children',
+      counts.children,
+      0,
+      10,
+      searchParams,
+    ),
+  );
+  const [roomsCount, setRoomsCount] = useState(
+    getInitCounterStateFormParamsAndRedux(
+      'rooms',
+      counts.rooms,
+      1,
+      30,
+      searchParams,
+    ),
+  );
   const dispatch = useDispatch();
   const inputValue = `${adultsCount} adult${
     adultsCount > 1 ? 's' : ''

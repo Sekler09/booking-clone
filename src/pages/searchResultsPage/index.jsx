@@ -12,6 +12,7 @@ import SortOptions from 'components/sortOptions';
 import Filters from 'components/filters';
 
 import useFetch from 'hooks/useFetch';
+import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
 
 import theme from 'styles/theme';
 import { InputsWrapper } from '../mainPage/styled';
@@ -37,15 +38,27 @@ export default function SearchResultsPage() {
       ? searchParams.get('from')
       : initInputs.dates.from,
     to: searchParams.has('to') ? searchParams.get('to') : initInputs.dates.to,
-    adults: searchParams.has('adults')
-      ? +searchParams.get('adults')
-      : initInputs.counts.adults,
-    rooms: searchParams.has('rooms')
-      ? +searchParams.get('rooms')
-      : initInputs.counts.rooms,
-    children: searchParams.has('children')
-      ? +searchParams.get('children')
-      : initInputs.counts.children,
+    adults: getInitCounterStateFormParamsAndRedux(
+      'adults',
+      initInputs.adults,
+      1,
+      30,
+      searchParams,
+    ),
+    rooms: getInitCounterStateFormParamsAndRedux(
+      'rooms',
+      initInputs.rooms,
+      1,
+      30,
+      searchParams,
+    ),
+    children: getInitCounterStateFormParamsAndRedux(
+      'children',
+      initInputs.children,
+      0,
+      10,
+      searchParams,
+    ),
   }));
 
   const {

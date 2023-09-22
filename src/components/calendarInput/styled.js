@@ -5,7 +5,7 @@ const DayPickerWrapper = styled.div`
   position: absolute;
   top: 130%;
   left: 0;
-  z-index: 1;
+  z-index: 5;
   border: 1px black solid;
   background-color: ${theme.colors.white};
 `;

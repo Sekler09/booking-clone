@@ -1,4 +1,5 @@
 import { createGlobalStyle, styled } from 'styled-components';
+import { device } from './theme';
 
 export default createGlobalStyle`
   
@@ -54,6 +55,11 @@ export default createGlobalStyle`
 `;
 
 export const MainWrapper = styled.div`
-  max-width: 80vw;
+  max-width: 1100px;
   margin: 0 auto;
+  width: calc(100% - 10px);
+
+  @media ${device.laptop} {
+    max-width: 720px;
+  }
 `;

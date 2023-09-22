@@ -8,6 +8,7 @@
       "ignoreProperties": [
           "appearance"
       ]
-  }]
+    }],
+    "media-query-no-invalid" : null
   }
 }

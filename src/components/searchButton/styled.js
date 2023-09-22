@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
+import theme, { device } from 'styles/theme';
 
 const Button = styled(Link)`
   display: flex;
@@ -15,6 +15,12 @@ const Button = styled(Link)`
 
   &:hover {
     background-color: ${theme.colors.pantone};
+  }
+
+  @media ${device.laptop} {
+    padding: 8px;
+    width: 100%;
+    font-size: 18px;
   }
 `;
 export { Button };

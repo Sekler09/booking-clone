@@ -6,6 +6,7 @@ const FiltersWrapper = styled.div`
   border: 1px ${theme.colors.oldSilver} solid;
   border-radius: 8px;
   align-self: flex-start;
+  width: 25%;
 
   h3 {
     font-weight: bold;

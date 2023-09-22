@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
+import theme, { device } from 'styles/theme';
 
 const InputsWrapper = styled.div`
   display: flex;
@@ -9,6 +9,12 @@ const InputsWrapper = styled.div`
   gap: 10px;
   padding: 8px;
   background-color: ${theme.colors.alana};
+
+  @media ${device.laptop} {
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+  }
 `;
 
 export { InputsWrapper };

@@ -9,7 +9,7 @@ const Slider = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: 200px;
+  width: 100%;
   height: 15px;
 `;
 
@@ -30,7 +30,7 @@ const SliderRange = styled(SliderTrack)`
 const Thumb = styled.input`
   position: absolute;
   height: 0;
-  width: 200px;
+  width: 100%;
   outline: none;
   z-index: 3;
   pointer-events: none;

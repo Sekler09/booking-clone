@@ -12,6 +12,7 @@ const ResultsWrapper = styled.div`
 const ResultsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 75%;
 `;
 
 const ResultsCountInfo = styled.div`

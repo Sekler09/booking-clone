@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
+import theme, { device } from 'styles/theme';
 
 const MainInputWrapper = styled.div`
   position: relative;
@@ -16,6 +16,14 @@ const MainInputWrapper = styled.div`
   svg {
     width: 30px;
   }
+
+  @media ${device.laptop} {
+    padding: 4px;
+
+    svg {
+      width: 25px;
+    }
+  }
 `;
 
 const MainInput = styled.input`
@@ -25,10 +33,10 @@ const MainInput = styled.input`
   font-size: 16px;
   line-height: 20px;
   cursor: pointer;
+
+  @media ${device.laptop} {
+    padding: 4px 3px;
+  }
 `;
 
-const MainInputImg = styled.img`
-  width: 30px;
-`;
-
-export { MainInput, MainInputImg, MainInputWrapper };
+export { MainInput, MainInputWrapper };

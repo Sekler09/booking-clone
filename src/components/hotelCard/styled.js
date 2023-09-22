@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import theme from 'styles/theme';
+import theme, { device } from 'styles/theme';
 
 const Card = styled.div`
   display: flex;
   border: 1px solid ${theme.colors.gainsboro};
   border-radius: 8px;
   margin: 16px 0;
-  max-width: 600px;
   background-color: ${theme.colors.white};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 `;
@@ -18,6 +17,11 @@ const HotelImage = styled.img`
   width: 200px;
   height: 200px;
   object-fit: cover;
+
+  @media ${device.laptop} {
+    width: 180px;
+    height: 180px;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -26,6 +30,10 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
   padding: 16px;
   width: 100%;
+
+  @media ${device.laptop} {
+    padding: 10px;
+  }
 `;
 
 const HotelInfoWrapper = styled.div`
@@ -43,16 +51,24 @@ const HotelName = styled.h3`
   margin: 0;
   font-size: 24px;
   color: ${theme.colors.trueBlue};
+
+  @media ${device.laptop} {
+    font-size: 20px;
+  }
 `;
 
 const HotelLocation = styled.p`
   color: ${theme.colors.graniteGray};
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 const Price = styled.p`
   font-size: 18px;
   font-weight: bold;
+
+  @media ${device.laptop} {
+    font-size: 16px;
+  }
 `;
 
 const ReviewsInfo = styled.div`
@@ -63,6 +79,10 @@ const ReviewsInfo = styled.div`
   color: ${theme.colors.graniteGray};
   font-size: 14px;
   text-align: right;
+
+  @media ${device.laptop} {
+    font-size: 12px;
+  }
 `;
 
 const ReviewTitle = styled.div`
@@ -75,6 +95,10 @@ const ReviewRatingText = styled.div`
   font-size: large;
   font-weight: bold;
   color: ${theme.colors.black};
+
+  @media ${device.laptop} {
+    font-size: 16px;
+  }
 `;
 
 const Rating = styled.span`

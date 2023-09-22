@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
+import theme, { device } from 'styles/theme';
 
 const CountersWrapper = styled.div`
   position: absolute;
@@ -7,11 +7,17 @@ const CountersWrapper = styled.div`
   flex-direction: column;
   top: 130%;
   right: 0;
+  z-index: 5;
   gap: 4px;
   padding: 32px;
   border: 1px ${theme.colors.black} solid;
   width: 120%;
   background-color: ${theme.colors.white};
+
+  @media ${device.laptop} {
+    padding: 20px;
+    width: 40%;
+  }
 `;
 
 const DoneButton = styled.button`

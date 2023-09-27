@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
-import theme, { device } from 'styles/theme';
+import { device } from 'styles/theme';
 
 const Main = styled.main`
-  color: ${theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
   margin-bottom: 40px;
   padding: 0 10px;
   transform: translateY(-35px);
@@ -14,7 +14,7 @@ const Main = styled.main`
 
 const BlueBg = styled.div`
   height: 50px;
-  background-color: ${theme.colors.oxfordBlue};
+  background-color: ${({ theme }) => theme.colors.oxfordBlue};
 
   @media ${device.laptop} {
     height: 80px;

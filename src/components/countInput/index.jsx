@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-import { ReactComponent as ManIcon } from 'assets/man.svg';
-
-import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
+import Counter from 'components/counter';
+import MainFiltersInput from 'components/mainFiltersInput';
 import { useModal } from 'hooks/useModal';
 import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
-import Counter from '../counter';
-import MainFiltersInput from '../common';
-
+import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
+import { ReactComponent as ManIcon } from 'assets/man.svg';
 import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
-  const [isOpen, onOpenClick, onCloseClick] = useModal();
-
+  const [isOpen, onOpen, onClose] = useModal();
+  const dispatch = useDispatch();
   const counts = useSelector(state => state.inputs.counts);
   const [searchParams, setSearchParams] = useSearchParams();
   const [adultsCount, setAdultsCount] = useState(
@@ -26,6 +24,7 @@ export default function CountInput() {
       searchParams,
     ),
   );
+
   const [childrenCount, setChildrenCount] = useState(
     getInitCounterStateFormParamsAndRedux(
       'children',
@@ -35,6 +34,7 @@ export default function CountInput() {
       searchParams,
     ),
   );
+
   const [roomsCount, setRoomsCount] = useState(
     getInitCounterStateFormParamsAndRedux(
       'rooms',
@@ -44,12 +44,6 @@ export default function CountInput() {
       searchParams,
     ),
   );
-  const dispatch = useDispatch();
-  const inputValue = `${adultsCount} adult${
-    adultsCount > 1 ? 's' : ''
-  } · ${childrenCount} children · ${roomsCount} room${
-    roomsCount > 1 ? 's' : ''
-  }`;
 
   function updateChildren(value) {
     setChildrenCount(value);
@@ -92,14 +86,24 @@ export default function CountInput() {
 
   function onDoneClick(e) {
     e.stopPropagation();
-    onCloseClick();
+    onClose();
   }
+
+  function getInputValue() {
+    return `${adultsCount} adult${
+      adultsCount > 1 ? 's' : ''
+    } · ${childrenCount} children · ${roomsCount} room${
+      roomsCount > 1 ? 's' : ''
+    }`;
+  }
+
+  const inputValue = getInputValue();
 
   return (
     <MainFiltersInput
       isOpen={isOpen}
-      onCloseClick={onCloseClick}
-      onOpenClick={onOpenClick}
+      onClose={onClose}
+      onOpen={onOpen}
       needModal
       needArrow
       inputValue={inputValue}

@@ -70,7 +70,6 @@ function PriceFilter({ min, max, onChange }) {
             onChange={event => {
               const value = Math.min(+event.target.value, maxVal - 10);
               setMinVal(value);
-              event.target.value = value.toString();
             }}
           />
           <Thumb
@@ -83,7 +82,6 @@ function PriceFilter({ min, max, onChange }) {
             onChange={event => {
               const value = Math.max(+event.target.value, minVal + 10);
               setMaxVal(value);
-              event.target.value = value.toString();
             }}
           />
           <SliderTrack />

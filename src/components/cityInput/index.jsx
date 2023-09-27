@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { ReactComponent as HotelIcon } from 'assets/hotel.svg';
-
 import { useSearchParams } from 'react-router-dom';
 
+import MainFiltersInput from 'components/mainFiltersInput';
+
+import { ReactComponent as HotelIcon } from 'assets/hotel.svg';
 import { setCity } from 'store/slices/inputsSlice';
-import MainFiltersInput from '../common';
 
 export default function CityInput() {
   const city = useSelector(state => state.inputs.city);

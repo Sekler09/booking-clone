@@ -11,87 +11,52 @@ import {
 } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
-import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
-
-import { setDate } from 'store/slices/inputsSlice';
+import MainFiltersInput from 'components/mainFiltersInput';
 import { useModal } from 'hooks/useModal';
-import MainFiltersInput from '../common';
+import {
+  checkSearchFromValidity,
+  checkSearchToValidity,
+} from 'utils/urlHelpers';
+import { setDate } from 'store/slices/inputsSlice';
+import { DATE_FORMAT_PATTERN } from 'constants/date';
+
+import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 
 import { DayPickerWrapper } from './styled';
 
-const DATE_FORMAT_PATTERN = 'iii d MMM';
-
 export default function CalendarInput() {
-  const [isOpen, onOpenClick, onCloseClick] = useModal();
-
+  const [isOpen, onOpen, onClose] = useModal();
+  const dispatch = useDispatch();
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
-  const today = startOfToday();
-  const disabledDays = [
-    {
-      from: startOfMonth(today),
-      to: addDays(today, -1),
-    },
-  ];
 
-  function checkSearchFromValidity(searchFrom) {
-    if (searchFrom) {
-      try {
-        const fromDate = new Date(searchFrom);
-        if (fromDate < today) return false;
-        return true;
-      } catch {
-        return false;
-      }
+  function getFromDate(searchFrom) {
+    if (checkSearchFromValidity(searchFrom)) {
+      return new Date(searchFrom);
     }
-    return false;
+    if (from) {
+      return new Date(from);
+    }
+    return null;
   }
-  function checkSearchToValidity(searchTo) {
-    if (searchTo) {
-      try {
-        const toDate = new Date(searchTo);
-        if (toDate > endOfYear(addYears(today, 1))) return false;
-        return true;
-      } catch {
-        return false;
-      }
+
+  function getToDate(searchTo) {
+    if (checkSearchToValidity(searchTo)) {
+      return new Date(searchTo);
     }
-    return false;
+    if (to) {
+      return new Date(to);
+    }
+    return null;
   }
   const [range, setRange] = useState(() => {
     const searchFrom = searchParams.get('from');
     const searchTo = searchParams.get('to');
     return {
-      from: checkSearchFromValidity(searchFrom)
-        ? new Date(searchFrom)
-        : from
-        ? new Date(from)
-        : null,
-      to: checkSearchToValidity(searchTo)
-        ? new Date(searchTo)
-        : to
-        ? new Date(to)
-        : null,
+      from: getFromDate(searchFrom),
+      to: getToDate(searchTo),
     };
   });
-  const dispatch = useDispatch();
-
-  function getInputText() {
-    let text = 'Check-in date -- Check-out date';
-    if (range.from) {
-      if (!range.to) {
-        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
-      } else if (range.to) {
-        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
-          range.to,
-          DATE_FORMAT_PATTERN,
-        )}
-        `;
-      }
-    }
-    return text;
-  }
-  const text = getInputText();
 
   function updateSearchParams() {
     if (range.from) {
@@ -128,15 +93,40 @@ export default function CalendarInput() {
     }
   }
 
+  function getInputText() {
+    let text = 'Check-in date -- Check-out date';
+    if (range.from) {
+      if (!range.to) {
+        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
+      } else {
+        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
+          range.to,
+          DATE_FORMAT_PATTERN,
+        )}
+          `;
+      }
+    }
+    return text;
+  }
+
+  const text = getInputText();
+
+  const today = startOfToday();
+  const disabledDays = [
+    {
+      from: startOfMonth(today),
+      to: addDays(today, -1),
+    },
+  ];
+
   return (
     <MainFiltersInput
       isOpen={isOpen}
-      onCloseClick={onCloseClick}
-      onOpenClick={onOpenClick}
+      onClose={onClose}
+      onOpen={onOpen}
       needArrow
       inputValue={text}
       isReadOnly
-      onValueChange={() => {}}
       Icon={CalendarLogo}
     >
       <DayPickerWrapper>

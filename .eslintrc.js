@@ -20,6 +20,7 @@ module.exports = {
           ['styles', './src/styles'],
           ['utils', './src/utils'],
           ['hooks', './src/hooks'],
+          ['constants', './src/constants'],
         ],
         extensions: ['.js', '.jsx'],
       },
@@ -44,14 +45,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/prefer-default-export': 'off',
-    'no-param-reassign': 'off',
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
-    'no-nested-ternary': 'off',
   },
 
   overrides: [
@@ -87,6 +80,12 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/extensions': 'off',
+      },
+    },
+    {
+      files: ['src/store/**/*.js'],
+      rules: {
+        'no-param-reassign': 'off',
       },
     },
   ],

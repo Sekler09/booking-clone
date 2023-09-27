@@ -1,12 +1,13 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
 
 const DayPickerWrapper = styled.div`
   position: absolute;
   top: 130%;
   left: 0;
   border: 1px black solid;
-  background-color: ${theme.colors.white};
+  background-color: ${({ theme }) => {
+    return theme.colors.white;
+  }};
 `;
 
 export { DayPickerWrapper };

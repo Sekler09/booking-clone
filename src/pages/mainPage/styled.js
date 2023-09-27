@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
 
 const InputsWrapper = styled.div`
   display: flex;
@@ -8,7 +7,7 @@ const InputsWrapper = styled.div`
   border-radius: 8px;
   gap: 10px;
   padding: 8px;
-  background-color: ${theme.colors.alana};
+  background-color: ${({ theme }) => theme.colors.alana};
 `;
 
 export { InputsWrapper };

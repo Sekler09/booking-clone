@@ -1,79 +1,87 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DayPicker } from 'react-day-picker';
 import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
+import MainFiltersInput from 'components/mainFiltersInput';
+
 import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
-
 import { setDate } from 'store/slices/inputsSlice';
-import { DayPickerWrapper } from './styled';
-import MainFiltersInput from '../common';
+import { DATE_FORMAT_PATTERN } from '../../constants/date';
 import { useModal } from '../../hooks/useModal';
-
-const DATE_FORMAT_PATTERN = 'iii d MMM';
+import { DayPickerWrapper } from './styled';
 
 export default function CalendarInput() {
   const [isOpen, onOpenClick, onCloseClick] = useModal();
-
+  const dispatch = useDispatch();
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
   const today = new Date();
-  const disabledDays = [
-    {
-      from: startOfMonth(today),
-      to: addDays(today, -1),
-    },
-  ];
 
   function checkSearchFromValidity(searchFrom) {
     if (searchFrom) {
-      try {
-        const fromDate = new Date(searchFrom);
-        if (fromDate < today) return false;
-        return true;
-      } catch {
+      const fromDate = new Date(searchFrom);
+      if (Number.isNaN(fromDate.getDate())) {
         return false;
       }
+      if (fromDate < today) {
+        return false;
+      }
+      return true;
     }
     return false;
   }
+
   function checkSearchToValidity(searchTo) {
     if (searchTo) {
-      try {
-        const toDate = new Date(searchTo);
-        if (toDate > endOfYear(addYears(today, 1))) return false;
-        return true;
-      } catch {
+      const toDate = new Date(searchTo);
+      if (Number.isNaN(toDate.getDate())) {
         return false;
       }
+      if (toDate > endOfYear(addYears(today, 1))) {
+        return false;
+      }
+      return true;
     }
     return false;
   }
+
+  function getFromDate(searchFrom) {
+    if (checkSearchFromValidity(searchFrom)) {
+      return new Date(searchFrom);
+    }
+    if (from) {
+      return new Date(from);
+    }
+    return null;
+  }
+
+  function getToDate(searchTo) {
+    if (checkSearchToValidity(searchTo)) {
+      return new Date(searchTo);
+    }
+    if (to) {
+      return new Date(to);
+    }
+    return null;
+  }
+
   const [range, setRange] = useState(() => {
     const searchFrom = searchParams.get('from');
     const searchTo = searchParams.get('to');
     return {
-      from: checkSearchFromValidity(searchFrom)
-        ? new Date(searchFrom)
-        : from
-        ? new Date(from)
-        : null,
-      to: checkSearchToValidity(searchTo)
-        ? new Date(searchTo)
-        : to
-        ? new Date(to)
-        : null,
+      from: getFromDate(searchFrom),
+      to: getToDate(searchTo),
     };
   });
-  const dispatch = useDispatch();
 
   function getInputText() {
     let text = 'Check-in date -- Check-out date';
     if (range.from) {
       if (!range.to) {
         text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
-      } else if (range.to) {
+      } else {
         text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
           range.to,
           DATE_FORMAT_PATTERN,
@@ -83,6 +91,7 @@ export default function CalendarInput() {
     }
     return text;
   }
+
   const text = getInputText();
 
   function updateSearchParams() {
@@ -100,19 +109,14 @@ export default function CalendarInput() {
     setSearchParams(searchParams);
   }
 
-  const notInitialRender = useRef(false);
   useEffect(() => {
-    if (notInitialRender.current) {
-      dispatch(
-        setDate({
-          from: range.from ? format(range.from, 'y-M-d') : null,
-          to: range.to ? format(range.to, 'y-M-d') : null,
-        }),
-      );
-      updateSearchParams();
-    } else {
-      notInitialRender.current = true;
-    }
+    dispatch(
+      setDate({
+        from: range.from ? format(range.from, 'y-M-d') : null,
+        to: range.to ? format(range.to, 'y-M-d') : null,
+      }),
+    );
+    updateSearchParams();
   }, [range]);
 
   function onRangeSelect(newRange) {
@@ -125,6 +129,13 @@ export default function CalendarInput() {
     }
   }
 
+  const disabledDays = [
+    {
+      from: startOfMonth(today),
+      to: addDays(today, -1),
+    },
+  ];
+
   return (
     <MainFiltersInput
       isOpen={isOpen}
@@ -133,7 +144,6 @@ export default function CalendarInput() {
       needArrow
       inputValue={text}
       isReadOnly
-      onValueChange={() => {}}
       Icon={CalendarLogo}
     >
       <DayPickerWrapper>

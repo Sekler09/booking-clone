@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
 
 const CountersWrapper = styled.div`
   position: absolute;
@@ -9,28 +8,28 @@ const CountersWrapper = styled.div`
   right: 0;
   gap: 4px;
   padding: 32px;
-  border: 1px ${theme.colors.black} solid;
+  border: 1px ${({ theme }) => theme.colors.black} solid;
   width: 120%;
-  background-color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const DoneButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px ${theme.colors.trueBlue} solid;
+  border: 1px ${({ theme }) => theme.colors.trueBlue} solid;
   border-radius: 4px;
   padding: 4px 12px;
   margin-top: 20px;
   width: 100%;
-  color: ${theme.colors.trueBlue};
-  background-color: ${theme.colors.white};
+  color: ${({ theme }) => theme.colors.trueBlue};
+  background-color: ${({ theme }) => theme.colors.white};
   line-height: 20px;
   font-size: 14px;
   cursor: pointer;
 
   &:hover {
-    background-color: ${theme.colors.lightBlueGray};
+    background-color: ${({ theme }) => theme.colors.lightBlueGray};
   }
 `;
 

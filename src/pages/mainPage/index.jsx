@@ -12,6 +12,7 @@ import { InputsWrapper } from './styled';
 export default function MainPage() {
   const inputs = useSelector(state => state.inputs);
   const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     if (inputs.city) {
       searchParams.set('city', inputs.city);
@@ -19,7 +20,7 @@ export default function MainPage() {
     if (inputs.dates.to) {
       searchParams.set('to', inputs.dates.to);
     }
-    if (inputs.dates.to) {
+    if (inputs.dates.from) {
       searchParams.set('from', inputs.dates.from);
     }
     if (inputs.counts.children) {
@@ -33,6 +34,7 @@ export default function MainPage() {
     }
     setSearchParams(searchParams);
   }, []);
+
   return (
     <InputsWrapper>
       <CityInput />

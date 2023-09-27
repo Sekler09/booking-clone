@@ -7,11 +7,12 @@ import CityInput from 'components/cityInput';
 import CountInput from 'components/countInput';
 import SearchButton from 'components/searchButton';
 
-import { InputsWrapper } from '../mainPage/styled';
+import { InputsWrapper } from 'pages/mainPage/styled';
 
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     if (inputs.city) {
       searchParams.set('city', inputs.city);
@@ -19,7 +20,7 @@ export default function SearchResultsPage() {
     if (inputs.dates.to) {
       searchParams.set('to', inputs.dates.to);
     }
-    if (inputs.dates.to) {
+    if (inputs.dates.from) {
       searchParams.set('from', inputs.dates.from);
     }
     if (inputs.counts.children) {
@@ -33,6 +34,7 @@ export default function SearchResultsPage() {
     }
     setSearchParams(searchParams);
   }, []);
+
   return (
     <>
       <InputsWrapper>

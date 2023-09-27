@@ -2,46 +2,44 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-import { ReactComponent as ManIcon } from 'assets/man.svg';
+import Counter from 'components/counter';
+import MainFiltersInput from 'components/mainFiltersInput';
 
+import { ReactComponent as ManIcon } from 'assets/man.svg';
 import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
-import Counter from '../counter';
-import { CountersWrapper, DoneButton } from './styled';
-import MainFiltersInput from '../common';
 import { useModal } from '../../hooks/useModal';
+import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
   const [isOpen, onOpenClick, onCloseClick] = useModal();
-
+  const dispatch = useDispatch();
   const counts = useSelector(state => state.inputs.counts);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   function checkSearchValidity(searchCount, minValue, maxValue) {
     return searchCount
       ? searchCount >= minValue && searchCount <= maxValue
       : false;
   }
-  const [searchParams, setSearchParams] = useSearchParams();
+
   const [adultsCount, setAdultsCount] = useState(() => {
     const searchAdults = +searchParams.get('adults');
     return checkSearchValidity(searchAdults, 1, 30)
       ? searchAdults
       : counts.adults;
   });
+
   const [childrenCount, setChildrenCount] = useState(() => {
     const searchChildren = +searchParams.get('children');
     return checkSearchValidity(searchChildren, 0, 10)
       ? searchChildren
       : counts.children;
   });
+
   const [roomsCount, setRoomsCount] = useState(() => {
     const searchRooms = +searchParams.get('rooms');
     return checkSearchValidity(searchRooms, 1, 30) ? searchRooms : counts.rooms;
   });
-  const dispatch = useDispatch();
-  const inputValue = `${adultsCount} adult${
-    adultsCount > 1 ? 's' : ''
-  } · ${childrenCount} children · ${roomsCount} room${
-    roomsCount > 1 ? 's' : ''
-  }`;
 
   function updateChildren(value) {
     setChildrenCount(value);
@@ -80,6 +78,12 @@ export default function CountInput() {
     e.stopPropagation();
     onCloseClick();
   }
+
+  const inputValue = `${adultsCount} adult${
+    adultsCount > 1 ? 's' : ''
+  } · ${childrenCount} children · ${roomsCount} room${
+    roomsCount > 1 ? 's' : ''
+  }`;
 
   return (
     <MainFiltersInput

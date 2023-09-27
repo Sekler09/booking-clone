@@ -7,8 +7,8 @@ import { MainInput, MainInputWrapper } from './styled';
 
 export default function MainFiltersInput({
   isOpen,
-  onOpenClick,
-  onCloseClick,
+  onOpen,
+  onClose,
   children,
   needArrow,
   inputValue,
@@ -21,19 +21,21 @@ export default function MainFiltersInput({
   useEffect(() => {
     function onClickOutside(event) {
       if (popoverRef.current && !popoverRef.current.contains(event.target)) {
-        onCloseClick();
+        onClose();
       }
     }
+
     if (isOpen) {
       setTimeout(() => document.addEventListener('click', onClickOutside), 0);
     }
+
     return () => {
       document.removeEventListener('click', onClickOutside);
     };
-  }, [isOpen, onCloseClick]);
+  }, [isOpen]);
 
   return (
-    <MainInputWrapper onClick={onOpenClick}>
+    <MainInputWrapper onClick={onOpen}>
       <Icon />
       <MainInput
         value={inputValue}
@@ -56,15 +58,15 @@ MainFiltersInput.propTypes = {
   onValueChange: PropTypes.func,
   placeholder: PropTypes.string,
   isOpen: PropTypes.bool,
-  onOpenClick: PropTypes.func,
-  onCloseClick: PropTypes.func,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 MainFiltersInput.defaultProps = {
-  children: undefined,
+  children: null,
   isOpen: false,
-  onOpenClick: () => {},
-  onCloseClick: () => {},
+  onOpen: () => {},
+  onClose: () => {},
   needArrow: false,
   isReadOnly: false,
   onValueChange: () => {},

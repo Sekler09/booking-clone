@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import theme from 'styles/theme';
 
 const MainInputWrapper = styled.div`
   position: relative;
@@ -10,7 +9,7 @@ const MainInputWrapper = styled.div`
   padding: 8px;
   border-radius: 8px;
   width: 100%;
-  background-color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
 
   svg {
@@ -21,7 +20,7 @@ const MainInputWrapper = styled.div`
 const MainInput = styled.input`
   padding: 8px 6px;
   width: 100%;
-  background-color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   font-size: 16px;
   line-height: 20px;
   cursor: pointer;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { Button } from './styled';
+import { LinkButton } from './styled';
 
 export default function SearchButton() {
   const location = useLocation();
@@ -13,12 +13,14 @@ export default function SearchButton() {
     }
   }
 
+  const toUrl = `/searchresults?${searchParams.toString()}`;
+
   return (
-    <Button
-      to={`/searchresults?${searchParams.toString()}`}
+    <LinkButton
+      to={toUrl}
       onClick={() => refreshPageIfLinkToTheSamePage('/searchresults')}
     >
       Search
-    </Button>
+    </LinkButton>
   );
 }

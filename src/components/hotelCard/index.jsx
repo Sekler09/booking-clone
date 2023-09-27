@@ -37,6 +37,7 @@ function HotelCard({ hotel }) {
   }
 
   const ratingText = getRatingText(averageRating);
+  const startPrice = Math.min(...hotel.rooms.map(room => room.price_per_night));
 
   return (
     <Card>
@@ -48,10 +49,7 @@ function HotelCard({ hotel }) {
             <HotelLocation>
               {hotel.city}, {hotel.address}
             </HotelLocation>
-            <Price>
-              from ${Math.min(...hotel.rooms.map(room => room.price_per_night))}{' '}
-              per night
-            </Price>
+            <Price>from ${startPrice} per night</Price>
             <Distance>
               Distance from the center: {hotel.distance_from_center}km
             </Distance>

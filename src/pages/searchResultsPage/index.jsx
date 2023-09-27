@@ -11,9 +11,10 @@ import FancyLoader from 'components/loader';
 import SortOptions from 'components/sortOptions';
 import Filters from 'components/filters';
 
-import useFetch from 'hooks/useFetch';
 import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
+import { getSorting } from 'utils/sortingHelpers';
 import { InputsWrapper } from 'pages/mainPage/styled';
+import getHotelsByCity from 'api/getHotelsByCity';
 
 import {
   EmptyResult,
@@ -29,45 +30,25 @@ export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [initInputs] = useState(inputs);
   const [sorting, setSorting] = useState('DEFAULT');
+  const [hotels, setHotels] = useState([]);
   const [filteredHotels, setFilteredHotels] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();
-  const [searchFilters] = useState(() => ({
-    city: searchParams.has('city') ? searchParams.get('city') : initInputs.city,
-    from: searchParams.has('from')
-      ? searchParams.get('from')
-      : initInputs.dates.from,
-    to: searchParams.has('to') ? searchParams.get('to') : initInputs.dates.to,
-    adults: getInitCounterStateFormParamsAndRedux(
-      'adults',
-      initInputs.adults,
-      1,
-      30,
-      searchParams,
-    ),
-    rooms: getInitCounterStateFormParamsAndRedux(
-      'rooms',
-      initInputs.rooms,
-      1,
-      30,
-      searchParams,
-    ),
-    children: getInitCounterStateFormParamsAndRedux(
-      'children',
-      initInputs.children,
-      0,
-      10,
-      searchParams,
-    ),
-  }));
+  const [searchFilters, setSearchFilters] = useState({
+    city: '',
+    from: null,
+    to: null,
+    adults: 1,
+    children: 0,
+    rooms: 1,
+  });
 
-  const {
-    data: hotels,
-    loading,
-    error,
-  } = useFetch(`http://localhost:3000/hotels?city=${searchFilters.city}`);
+  function checkRoomsAvailability(rooms, from, to, capacity, count) {
+    if (rooms.length < count) {
+      return false;
+    }
 
-  function checkRoomsAvailability(rooms, { from, to }, capacity, count) {
-    if (rooms.length < count) return false;
     const availableRooms = rooms.filter(
       room =>
         !room.booked_dates.find(
@@ -75,7 +56,11 @@ export default function SearchResultsPage() {
             new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
         ),
     );
-    if (availableRooms.length < count) return false;
+
+    if (availableRooms.length < count) {
+      return false;
+    }
+
     return (
       availableRooms
         .sort((a, b) => b.capacity - a.capacity)
@@ -84,70 +69,77 @@ export default function SearchResultsPage() {
     );
   }
 
-  function filterHotelsByDateAndCounts(data) {
+  function filterHotelsByDateAndCounts(data, from, to, capacity, count) {
     return data.filter(hotel =>
-      checkRoomsAvailability(
-        hotel.rooms,
-        { from: searchFilters.from, to: searchFilters.to },
-        searchFilters.children + searchFilters.adults,
-        searchFilters.rooms,
-      ),
+      checkRoomsAvailability(hotel.rooms, from, to, capacity, count),
     );
   }
 
   useEffect(() => {
-    if (hotels) {
-      if (hotels.length) {
-        setFilteredHotels(filterHotelsByDateAndCounts(hotels));
-      }
-    }
-  }, [hotels, loading, error]);
-
-  function getAverageRating(hotel) {
-    const reviews = hotel.rooms.reduce(
-      (allReviews, room) => allReviews.concat(room.reviews),
-      [],
+    const city = searchParams.has('city')
+      ? searchParams.get('city')
+      : initInputs.city;
+    const from = searchParams.has('from')
+      ? searchParams.get('from')
+      : initInputs.dates.from;
+    const to = searchParams.has('to')
+      ? searchParams.get('to')
+      : initInputs.dates.to;
+    const adults = getInitCounterStateFormParamsAndRedux(
+      'adults',
+      initInputs.adults,
+      1,
+      30,
+      searchParams,
     );
-    const totalRatings = reviews.reduce(
-      (sum, review) => sum + review.rating,
+    const rooms = getInitCounterStateFormParamsAndRedux(
+      'rooms',
+      initInputs.rooms,
+      1,
+      30,
+      searchParams,
+    );
+    const children = getInitCounterStateFormParamsAndRedux(
+      'children',
+      initInputs.children,
       0,
+      10,
+      searchParams,
     );
-    return totalRatings / reviews.length;
-  }
+    setSearchFilters({
+      city,
+      from,
+      to,
+      adults,
+      rooms,
+      children,
+    });
 
-  function getSorting(sortingString) {
-    switch (sortingString) {
-      case 'PRICE_LOW_TO_HIGH':
-        return (a, b) => {
-          return (
-            Math.min(...a.rooms.map(room => room.price_per_night)) -
-            Math.min(...b.rooms.map(room => room.price_per_night))
-          );
-        };
-      case 'PRICE_HIGH_TO_LOW':
-        return (a, b) => {
-          return (
-            Math.max(...b.rooms.map(room => room.price_per_night)) -
-            Math.max(...a.rooms.map(room => room.price_per_night))
-          );
-        };
-      case 'RATING_HIGH_TO_LOW':
-        return (a, b) => {
-          return getAverageRating(b) - getAverageRating(a);
-        };
-      case 'RATING_LOW_TO_HIGH':
-        return (a, b) => {
-          return getAverageRating(a) - getAverageRating(b);
-        };
-      default:
-        return () => {};
-    }
-  }
+    getHotelsByCity(city)
+      .then(r => r.json())
+      .then(data => {
+        const initHotels = filterHotelsByDateAndCounts(
+          data,
+          from,
+          to,
+          adults + children,
+          rooms,
+        );
+        setHotels(initHotels);
+        setFilteredHotels(initHotels);
+        setLoading(false);
+        setError(null);
+      })
+      .catch(err => {
+        setError(err);
+        setLoading(false);
+      });
+  }, []);
 
   const sortingFunction = getSorting(sorting);
   const resultInfo = (
     <h1>
-      {initInputs.city}: {filteredHotels.length} hotel
+      {searchFilters.city}: {filteredHotels.length} hotel
       {filteredHotels.length > 1 ? 's' : ''} found
     </h1>
   );
@@ -162,12 +154,9 @@ export default function SearchResultsPage() {
       </InputsWrapper>
       {loading && <FancyLoader />}
       <ResultsWrapper>
-        {!loading && !error && filteredHotels.length !== 0 && (
+        {!loading && !error && hotels.length !== 0 && (
           <>
-            <Filters
-              hotels={filterHotelsByDateAndCounts(hotels)}
-              onFilter={setFilteredHotels}
-            />
+            <Filters hotels={hotels} onFilter={setFilteredHotels} />
             <ResultsContainer>
               <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
               <SortOptions onChangeSort={setSorting} />

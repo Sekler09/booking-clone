@@ -6,12 +6,12 @@ import { LogoLink, Nav, StyledHeader } from './styled';
 
 export default function Footer() {
   const [searchParams] = useSearchParams();
-
+  const toUrl = `/?${searchParams.toString()}`;
   return (
     <StyledHeader>
       <MainWrapper>
         <Nav>
-          <LogoLink to={`/?${searchParams.toString()}`}>RoomBook</LogoLink>
+          <LogoLink to={toUrl}>RoomBook</LogoLink>
         </Nav>
       </MainWrapper>
     </StyledHeader>

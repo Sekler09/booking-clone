@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-const Button = styled(Link)`
+const LinkButton = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,4 +22,4 @@ const Button = styled(Link)`
     font-size: 18px;
   }
 `;
-export { Button };
+export { LinkButton };

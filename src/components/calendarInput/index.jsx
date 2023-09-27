@@ -49,6 +49,7 @@ export default function CalendarInput() {
     }
     return null;
   }
+
   const [range, setRange] = useState(() => {
     const searchFrom = searchParams.get('from');
     const searchTo = searchParams.get('to');

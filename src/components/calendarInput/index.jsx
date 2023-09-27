@@ -5,47 +5,22 @@ import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
 import MainFiltersInput from 'components/mainFiltersInput';
+import { useModal } from 'hooks/useModal';
+import {
+  checkSearchFromValidity,
+  checkSearchToValidity,
+} from 'utils/urlHelpers';
+import { DATE_FORMAT_PATTERN } from 'constants/date';
 
 import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 import { setDate } from 'store/slices/inputsSlice';
-import { DATE_FORMAT_PATTERN } from '../../constants/date';
-import { useModal } from '../../hooks/useModal';
 import { DayPickerWrapper } from './styled';
 
 export default function CalendarInput() {
-  const [isOpen, onOpenClick, onCloseClick] = useModal();
+  const [isOpen, onOpen, onClose] = useModal();
   const dispatch = useDispatch();
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
-  const today = new Date();
-
-  function checkSearchFromValidity(searchFrom) {
-    if (searchFrom) {
-      const fromDate = new Date(searchFrom);
-      if (Number.isNaN(fromDate.getDate())) {
-        return false;
-      }
-      if (fromDate < today) {
-        return false;
-      }
-      return true;
-    }
-    return false;
-  }
-
-  function checkSearchToValidity(searchTo) {
-    if (searchTo) {
-      const toDate = new Date(searchTo);
-      if (Number.isNaN(toDate.getDate())) {
-        return false;
-      }
-      if (toDate > endOfYear(addYears(today, 1))) {
-        return false;
-      }
-      return true;
-    }
-    return false;
-  }
 
   function getFromDate(searchFrom) {
     if (checkSearchFromValidity(searchFrom)) {
@@ -75,24 +50,6 @@ export default function CalendarInput() {
       to: getToDate(searchTo),
     };
   });
-
-  function getInputText() {
-    let text = 'Check-in date -- Check-out date';
-    if (range.from) {
-      if (!range.to) {
-        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
-      } else {
-        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
-          range.to,
-          DATE_FORMAT_PATTERN,
-        )}
-        `;
-      }
-    }
-    return text;
-  }
-
-  const text = getInputText();
 
   function updateSearchParams() {
     if (range.from) {
@@ -129,6 +86,25 @@ export default function CalendarInput() {
     }
   }
 
+  function getInputText() {
+    let text = 'Check-in date -- Check-out date';
+    if (range.from) {
+      if (!range.to) {
+        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
+      } else {
+        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
+          range.to,
+          DATE_FORMAT_PATTERN,
+        )}
+          `;
+      }
+    }
+    return text;
+  }
+
+  const text = getInputText();
+
+  const today = new Date();
   const disabledDays = [
     {
       from: startOfMonth(today),
@@ -139,8 +115,8 @@ export default function CalendarInput() {
   return (
     <MainFiltersInput
       isOpen={isOpen}
-      onCloseClick={onCloseClick}
-      onOpenClick={onOpenClick}
+      onClose={onClose}
+      onOpen={onOpen}
       needArrow
       inputValue={text}
       isReadOnly

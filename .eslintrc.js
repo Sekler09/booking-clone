@@ -20,6 +20,7 @@ module.exports = {
           ['styles', './src/styles'],
           ['utils', './src/utils'],
           ['hooks', './src/hooks'],
+          ['constants', './src/constants'],
         ],
         extensions: ['.js', '.jsx'],
       },

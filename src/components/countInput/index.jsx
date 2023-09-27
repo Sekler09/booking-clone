@@ -1,45 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import Counter from 'components/counter';
 import MainFiltersInput from 'components/mainFiltersInput';
+import { useModal } from 'hooks/useModal';
+import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
+import { checkSearchCountValidity } from 'utils/urlHelpers';
 
 import { ReactComponent as ManIcon } from 'assets/man.svg';
-import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
-import { useModal } from '../../hooks/useModal';
 import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
-  const [isOpen, onOpenClick, onCloseClick] = useModal();
+  const [isOpen, onOpen, onClose] = useModal();
   const dispatch = useDispatch();
   const counts = useSelector(state => state.inputs.counts);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  function checkSearchValidity(searchCount, minValue, maxValue) {
-    return searchCount
-      ? searchCount >= minValue && searchCount <= maxValue
-      : false;
-  }
+  const [adultsCount, setAdultsCount] = useState(1);
 
-  const [adultsCount, setAdultsCount] = useState(() => {
+  const [childrenCount, setChildrenCount] = useState(0);
+
+  const [roomsCount, setRoomsCount] = useState(1);
+
+  useEffect(() => {
     const searchAdults = +searchParams.get('adults');
-    return checkSearchValidity(searchAdults, 1, 30)
+    const adults = checkSearchCountValidity(searchAdults, 1, 30)
       ? searchAdults
       : counts.adults;
-  });
 
-  const [childrenCount, setChildrenCount] = useState(() => {
     const searchChildren = +searchParams.get('children');
-    return checkSearchValidity(searchChildren, 0, 10)
+    const children = checkSearchCountValidity(searchChildren, 0, 10)
       ? searchChildren
       : counts.children;
-  });
 
-  const [roomsCount, setRoomsCount] = useState(() => {
     const searchRooms = +searchParams.get('rooms');
-    return checkSearchValidity(searchRooms, 1, 30) ? searchRooms : counts.rooms;
-  });
+    const rooms = checkSearchCountValidity(searchRooms, 1, 30)
+      ? searchRooms
+      : counts.rooms;
+
+    setAdultsCount(adults);
+    setChildrenCount(children);
+    setRoomsCount(rooms);
+  }, []);
 
   function updateChildren(value) {
     setChildrenCount(value);
@@ -53,6 +56,7 @@ export default function CountInput() {
   }
 
   function updateAdults(value) {
+    console.log(value);
     setAdultsCount(value);
     dispatch(setAdults(value));
     if (value !== 1) {
@@ -76,20 +80,24 @@ export default function CountInput() {
 
   function onDoneClick(e) {
     e.stopPropagation();
-    onCloseClick();
+    onClose();
   }
 
-  const inputValue = `${adultsCount} adult${
-    adultsCount > 1 ? 's' : ''
-  } · ${childrenCount} children · ${roomsCount} room${
-    roomsCount > 1 ? 's' : ''
-  }`;
+  function getInputValue() {
+    return `${adultsCount} adult${
+      adultsCount > 1 ? 's' : ''
+    } · ${childrenCount} children · ${roomsCount} room${
+      roomsCount > 1 ? 's' : ''
+    }`;
+  }
+
+  const inputValue = getInputValue();
 
   return (
     <MainFiltersInput
       isOpen={isOpen}
-      onCloseClick={onCloseClick}
-      onOpenClick={onOpenClick}
+      onClose={onClose}
+      onOpen={onOpen}
       needModal
       needArrow
       inputValue={inputValue}

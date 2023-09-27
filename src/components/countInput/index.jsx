@@ -56,7 +56,6 @@ export default function CountInput() {
   }
 
   function updateAdults(value) {
-    console.log(value);
     setAdultsCount(value);
     dispatch(setAdults(value));
     if (value !== 1) {

@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Main from 'pages/MainPage';
-import Layout from '../components/Layout';
-import Hotel from '../pages/HotelPage';
-import Room from '../pages/RoomPage';
+import Layout from 'components/layout';
+import Hotel from 'pages/HotelPage';
+import Main from 'pages/mainPage';
+import Room from 'pages/RoomPage';
+import SearchResultsPage from 'pages/searchResultsPage';
 
 export default createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export default createBrowserRouter([
       {
         path: '*',
         element: <h1>Page not found</h1>,
+      },
+      {
+        path: 'searchresults',
+        element: <SearchResultsPage />,
       },
     ],
   },

@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import theme from '../../styles/theme';
 
 const StyledHeader = styled.header`
   padding: 12px 16px;
-  background-color: ${theme.colors.oxfordBlue};
-  color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.oxfordBlue};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const Nav = styled.nav`
@@ -17,4 +16,4 @@ const LogoLink = styled(Link)`
   font-size: 36px;
 `;
 
-export { StyledHeader, Nav, LogoLink };
+export { LogoLink, Nav, StyledHeader };

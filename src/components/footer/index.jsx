@@ -1,4 +1,4 @@
-import { MainWrapper } from '../../styles/globalStyle';
+import { MainWrapper } from 'styles/globalStyle';
 import { Copyright, StyledFooter } from './styled';
 
 export default function Footer() {

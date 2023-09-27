@@ -19,6 +19,8 @@ module.exports = {
           ['store', './src/store'],
           ['styles', './src/styles'],
           ['utils', './src/utils'],
+          ['hooks', './src/hooks'],
+          ['constants', './src/constants'],
         ],
         extensions: ['.js', '.jsx'],
       },
@@ -78,6 +80,12 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/extensions': 'off',
+      },
+    },
+    {
+      files: ['src/store/**/*.js'],
+      rules: {
+        'no-param-reassign': 'off',
       },
     },
   ],

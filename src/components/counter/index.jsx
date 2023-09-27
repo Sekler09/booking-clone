@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { number, func, string } from 'prop-types';
 
 import {
   ButtonsWrapper,
@@ -36,9 +36,9 @@ export default function Counter({ label, count, setCount, min, max }) {
 }
 
 Counter.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
-  setCount: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
+  min: number.isRequired,
+  max: number.isRequired,
+  count: number.isRequired,
+  setCount: func.isRequired,
+  label: string.isRequired,
 };

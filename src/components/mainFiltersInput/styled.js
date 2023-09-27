@@ -1,7 +1,5 @@
 import { styled } from 'styled-components';
 
-import { device } from 'styles/theme';
-
 const MainInputWrapper = styled.div`
   position: relative;
   display: flex;
@@ -18,7 +16,7 @@ const MainInputWrapper = styled.div`
     width: 30px;
   }
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     padding: 4px;
 
     svg {
@@ -35,7 +33,7 @@ const MainInput = styled.input`
   line-height: 20px;
   cursor: pointer;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     padding: 4px 3px;
   }
 `;

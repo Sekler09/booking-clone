@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import theme from 'styles/theme';
+import { string, number, arrayOf, shape, func, bool } from 'prop-types';
 
 import {
   CheckboxField,
@@ -27,7 +25,7 @@ function CheckboxFilter({ title, checkboxes }) {
               checked={cb.checked}
             />
             <CheckboxField>
-              <TickIcon $fillColor={theme.colors.white} />
+              <TickIcon />
             </CheckboxField>
             <CheckboxLabelText>{cb.label}</CheckboxLabelText>
             <CheckboxLabelCount>{cb.count}</CheckboxLabelCount>
@@ -40,14 +38,14 @@ function CheckboxFilter({ title, checkboxes }) {
 export default CheckboxFilter;
 
 CheckboxFilter.propTypes = {
-  title: PropTypes.string.isRequired,
-  checkboxes: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-      onChange: PropTypes.func.isRequired,
-      count: PropTypes.number.isRequired,
-      checked: PropTypes.bool.isRequired,
+  title: string.isRequired,
+  checkboxes: arrayOf(
+    shape({
+      value: number.isRequired,
+      label: string.isRequired,
+      onChange: func.isRequired,
+      count: number.isRequired,
+      checked: bool.isRequired,
     }),
   ).isRequired,
 };

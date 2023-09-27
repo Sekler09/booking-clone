@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import { device } from 'styles/theme';
 
 const CountersWrapper = styled.div`
   position: absolute;
@@ -14,7 +13,7 @@ const CountersWrapper = styled.div`
   width: 120%;
   background-color: ${({ theme }) => theme.colors.white};
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     padding: 20px;
     width: 40%;
   }

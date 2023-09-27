@@ -1,14 +1,12 @@
 import { styled } from 'styled-components';
 
-import theme, { device } from 'styles/theme';
-
 const SortOptionsWrapper = styled.div`
   position: relative;
   display: inline-block;
   width: 250px;
   margin: 10px 0;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     width: fit-content;
   }
 `;
@@ -17,12 +15,12 @@ const Button = styled.button`
   border-radius: 20px;
   padding: 8px 16px;
   width: 250px;
-  background-color: ${theme.colors.trueBlue};
+  background-color: ${({ theme }) => theme.colors.trueBlue};
   font-size: 16px;
-  color: ${theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     width: fit-content;
     font-size: 14px;
   }
@@ -36,7 +34,7 @@ const Dropdown = styled.ul`
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   list-style-type: none;
 `;
@@ -46,7 +44,7 @@ const Option = styled.li`
   cursor: pointer;
 
   &:hover {
-    background-color: ${theme.colors.brightGray};
+    background-color: ${({ theme }) => theme.colors.brightGray};
   }
 `;
 

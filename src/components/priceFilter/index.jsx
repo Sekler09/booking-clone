@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { number, func } from 'prop-types';
 
 import {
   Slider,
@@ -93,9 +93,9 @@ function PriceFilter({ min, max, onChange }) {
 }
 
 PriceFilter.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  min: number.isRequired,
+  max: number.isRequired,
+  onChange: func.isRequired,
 };
 
 export default PriceFilter;

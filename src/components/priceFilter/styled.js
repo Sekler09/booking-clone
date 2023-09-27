@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from 'styles/theme';
 
 const SliderWrapper = styled.div`
   margin: 20px 0;
@@ -18,12 +17,12 @@ const SliderTrack = styled.div`
   border-radius: 3px;
   height: 5px;
   width: 100%;
-  background-color: ${theme.colors.oldSilver};
+  background-color: ${({ theme }) => theme.colors.oldSilver};
   z-index: 1;
 `;
 
 const SliderRange = styled(SliderTrack)`
-  background-color: ${theme.colors.trueBlue};
+  background-color: ${({ theme }) => theme.colors.trueBlue};
   z-index: 2;
 `;
 
@@ -44,7 +43,7 @@ const Thumb = styled.input`
     border-radius: 50%;
     height: 18px;
     width: 18px;
-    background-color: ${theme.colors.trueBlue};
+    background-color: ${({ theme }) => theme.colors.trueBlue};
     box-shadow: 0 0 1px 1px #ced4da;
     cursor: pointer;
     pointer-events: all;
@@ -58,7 +57,7 @@ const Thumb = styled.input`
     border-radius: 50%;
     height: 18px;
     width: 18px;
-    background-color: ${theme.colors.trueBlue};
+    background-color: ${({ theme }) => theme.colors.trueBlue};
     box-shadow: 0 0 1px 1px #ced4da;
     cursor: pointer;
     pointer-events: all;

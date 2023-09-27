@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { string, number, shape, arrayOf, func } from 'prop-types';
 
-import CheckboxFilter from '../checkboxFilter';
+import CheckboxFilter from 'components/checkboxFilter';
 
 export default function DistanceFilter({ hotels, onChange }) {
   const [checkedDistance, setCheckedDistance] = useState([]);
@@ -66,25 +66,25 @@ export default function DistanceFilter({ hotels, onChange }) {
 }
 
 DistanceFilter.propTypes = {
-  hotels: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      address: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      distance_from_center: PropTypes.number.isRequired,
-      rooms: PropTypes.arrayOf(
-        PropTypes.shape({
-          price_per_night: PropTypes.number.isRequired,
-          reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              rating: PropTypes.number.isRequired,
+  hotels: arrayOf(
+    shape({
+      id: number.isRequired,
+      name: string.isRequired,
+      city: string.isRequired,
+      address: string.isRequired,
+      image: string.isRequired,
+      distance_from_center: number.isRequired,
+      rooms: arrayOf(
+        shape({
+          price_per_night: number.isRequired,
+          reviews: arrayOf(
+            shape({
+              rating: number.isRequired,
             }),
           ),
         }),
       ),
     }),
   ).isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: func.isRequired,
 };

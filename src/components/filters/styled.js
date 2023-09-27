@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-import theme from 'styles/theme';
-
 const FiltersWrapper = styled.div`
-  border: 1px ${theme.colors.oldSilver} solid;
+  border: 1px ${({ theme }) => theme.colors.oldSilver} solid;
   border-radius: 8px;
   align-self: flex-start;
   width: 25%;
@@ -22,7 +20,7 @@ const FiltersTitle = styled.p`
 
 const FilterItem = styled.div`
   padding: 10px;
-  border-top: 1px ${theme.colors.oldSilver} solid;
+  border-top: 1px ${({ theme }) => theme.colors.oldSilver} solid;
 `;
 
 export { FiltersWrapper, FilterItem, FiltersTitle };

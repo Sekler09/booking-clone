@@ -33,7 +33,7 @@ const ErrorWrapper = styled.div`
 `;
 
 const ErrorIcon = styled(Error)`
-  fill: ${({ $fillColor }) => $fillColor};
+  fill: ${({ theme }) => theme.colors.white};
   width: 30px;
 `;
 
@@ -51,7 +51,7 @@ const EmptyResult = styled.div`
 `;
 
 const SearchIcon = styled(Search)`
-  fill: ${({ $fillColor }) => $fillColor};
+  fill: ${({ theme }) => theme.colors.black};
   width: 50px;
 `;
 

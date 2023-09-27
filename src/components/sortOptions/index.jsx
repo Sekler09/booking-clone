@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 
 import { Button, Dropdown, Option, SortOptionsWrapper } from './styled';
 
@@ -42,7 +42,7 @@ function SortOptions({ onChangeSort }) {
 }
 
 SortOptions.propTypes = {
-  onChangeSort: PropTypes.func.isRequired,
+  onChangeSort: func.isRequired,
 };
 
 export default SortOptions;

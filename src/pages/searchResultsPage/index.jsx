@@ -13,9 +13,8 @@ import Filters from 'components/filters';
 
 import useFetch from 'hooks/useFetch';
 import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
+import { InputsWrapper } from 'pages/mainPage/styled';
 
-import theme from 'styles/theme';
-import { InputsWrapper } from '../mainPage/styled';
 import {
   EmptyResult,
   ErrorIcon,
@@ -182,7 +181,7 @@ export default function SearchResultsPage() {
         )}
         {!loading && !error && filteredHotels.length === 0 && (
           <EmptyResult>
-            <SearchIcon $fillColor={theme.colors.black} />
+            <SearchIcon />
             <p>No properties found in {searchFilters.city}</p>
             <p>
               There are no matching properties for your search criteria. Try
@@ -192,7 +191,7 @@ export default function SearchResultsPage() {
         )}
         {error && (
           <ErrorWrapper>
-            <ErrorIcon $fillColor={theme.colors.white} />
+            <ErrorIcon />
             <p>Something went wrong. Try again later</p>
           </ErrorWrapper>
         )}

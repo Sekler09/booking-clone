@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import theme, { device } from 'styles/theme';
-
 const Card = styled.div`
   display: flex;
-  border: 1px solid ${theme.colors.gainsboro};
+  border: 1px solid ${({ theme }) => theme.colors.gainsboro};
   border-radius: 8px;
   margin: 16px 0;
-  background-color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 `;
 
@@ -18,7 +16,7 @@ const HotelImage = styled.img`
   height: 200px;
   object-fit: cover;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     width: 180px;
     height: 180px;
   }
@@ -31,7 +29,7 @@ const ContentWrapper = styled.div`
   padding: 16px;
   width: 100%;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     padding: 10px;
   }
 `;
@@ -50,15 +48,15 @@ const HotelMainInfoWrapper = styled.div`
 const HotelName = styled.h3`
   margin: 0;
   font-size: 24px;
-  color: ${theme.colors.trueBlue};
+  color: ${({ theme }) => theme.colors.trueBlue};
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     font-size: 20px;
   }
 `;
 
 const HotelLocation = styled.p`
-  color: ${theme.colors.graniteGray};
+  color: ${({ theme }) => theme.colors.graniteGray};
   font-size: 12px;
 `;
 
@@ -66,7 +64,7 @@ const Price = styled.p`
   font-size: 18px;
   font-weight: bold;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     font-size: 16px;
   }
 `;
@@ -76,11 +74,11 @@ const ReviewsInfo = styled.div`
   align-self: flex-start;
   align-items: center;
   gap: 10px;
-  color: ${theme.colors.graniteGray};
+  color: ${({ theme }) => theme.colors.graniteGray};
   font-size: 14px;
   text-align: right;
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     font-size: 12px;
   }
 `;
@@ -94,9 +92,9 @@ const ReviewTitle = styled.div`
 const ReviewRatingText = styled.div`
   font-size: large;
   font-weight: bold;
-  color: ${theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     font-size: 16px;
   }
 `;
@@ -104,9 +102,9 @@ const ReviewRatingText = styled.div`
 const Rating = styled.span`
   border-radius: 4px;
   padding: 10px;
-  background-color: ${theme.colors.pantone};
+  background-color: ${({ theme }) => theme.colors.pantone};
   font-size: 16px;
-  color: ${theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const TotalReviews = styled.div`
@@ -117,13 +115,13 @@ const BookButton = styled(Link)`
   align-self: flex-end;
   border-radius: 4px;
   padding: 10px 20px;
-  background-color: ${theme.colors.trueBlue};
-  color: ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.trueBlue};
+  color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: ${theme.colors.pantone};
+    background-color: ${({ theme }) => theme.colors.pantone};
   }
 `;
 

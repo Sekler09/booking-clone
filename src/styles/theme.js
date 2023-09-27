@@ -14,20 +14,5 @@ export default {
     gainsboro: '#dddddd',
     graniteGray: '#666666',
   },
-};
-
-const size = {
-  tablet: '720px',
-  laptop: '1080px',
-  laptopL: '1440px',
-  desktop: '1920px',
-  desktopL: '2560px',
-};
-
-export const device = {
-  tablet: `(max-width: ${size.tablet})`,
-  laptop: `(max-width: ${size.laptop})`,
-  laptopL: `(max-width: ${size.laptopL})`,
-  desktop: `(max-width: ${size.desktop})`,
-  desktopL: `(max-width: ${size.desktopL})`,
+  sizes: ['1080px', '1440px', '1920px', '2560px'],
 };

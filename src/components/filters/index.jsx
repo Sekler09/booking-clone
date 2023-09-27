@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, number, string, func } from 'prop-types';
 
-import PriceFilter from '../priceFilter';
-import RatingFilter from '../ratingFilter';
-import DistanceFilter from '../distanceFilter';
+import PriceFilter from 'components/priceFilter';
+import RatingFilter from 'components/ratingFilter';
+import DistanceFilter from 'components/distanceFilter';
 
 import { FilterItem, FiltersTitle, FiltersWrapper } from './styled';
 
@@ -116,25 +116,25 @@ export default function Filters({ hotels, onFilter }) {
 }
 
 Filters.propTypes = {
-  hotels: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      address: PropTypes.string.isRequired,
-      distance_from_center: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      rooms: PropTypes.arrayOf(
-        PropTypes.shape({
-          price_per_night: PropTypes.number.isRequired,
-          reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              rating: PropTypes.number.isRequired,
+  hotels: arrayOf(
+    shape({
+      id: number.isRequired,
+      name: string.isRequired,
+      city: string.isRequired,
+      address: string.isRequired,
+      distance_from_center: number.isRequired,
+      image: string.isRequired,
+      rooms: arrayOf(
+        shape({
+          price_per_night: number.isRequired,
+          reviews: arrayOf(
+            shape({
+              rating: number.isRequired,
             }),
           ),
         }),
       ),
     }),
   ).isRequired,
-  onFilter: PropTypes.func.isRequired,
+  onFilter: func.isRequired,
 };

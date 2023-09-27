@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import theme from 'styles/theme';
-
 import { ReactComponent as Tick } from 'assets/tick.svg';
 
 const FilterContainer = styled.div`
@@ -20,7 +18,7 @@ const CheckboxInput = styled.input`
   display: none;
 
   &:checked ~ ${CheckboxField} {
-    background-color: ${theme.colors.trueBlue};
+    background-color: ${({ theme }) => theme.colors.trueBlue};
   }
 `;
 
@@ -41,7 +39,7 @@ const CheckboxLabelCount = styled.p`
 `;
 
 const TickIcon = styled(Tick)`
-  fill: ${({ $fillColor }) => $fillColor};
+  fill: ${({ theme }) => theme.colors.white};
 `;
 
 export {

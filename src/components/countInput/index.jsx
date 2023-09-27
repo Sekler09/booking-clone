@@ -8,6 +8,7 @@ import { useModal } from 'hooks/useModal';
 import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
 import { setAdults, setChildren, setRooms } from 'store/slices/inputsSlice';
 import { ReactComponent as ManIcon } from 'assets/man.svg';
+
 import { CountersWrapper, DoneButton } from './styled';
 
 export default function CountInput() {
@@ -15,35 +16,11 @@ export default function CountInput() {
   const dispatch = useDispatch();
   const counts = useSelector(state => state.inputs.counts);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [adultsCount, setAdultsCount] = useState(
-    getInitCounterStateFormParamsAndRedux(
-      'adults',
-      counts.adults,
-      1,
-      30,
-      searchParams,
-    ),
-  );
+  const [adultsCount, setAdultsCount] = useState(1);
 
-  const [childrenCount, setChildrenCount] = useState(
-    getInitCounterStateFormParamsAndRedux(
-      'children',
-      counts.children,
-      0,
-      10,
-      searchParams,
-    ),
-  );
+  const [childrenCount, setChildrenCount] = useState(0);
 
-  const [roomsCount, setRoomsCount] = useState(
-    getInitCounterStateFormParamsAndRedux(
-      'rooms',
-      counts.rooms,
-      1,
-      30,
-      searchParams,
-    ),
-  );
+  const [roomsCount, setRoomsCount] = useState(1);
 
   function updateChildren(value) {
     setChildrenCount(value);
@@ -79,9 +56,33 @@ export default function CountInput() {
   }
 
   useEffect(() => {
-    dispatch(setAdults(adultsCount));
-    dispatch(setRooms(roomsCount));
-    dispatch(setChildren(childrenCount));
+    const adults = getInitCounterStateFormParamsAndRedux(
+      'adults',
+      counts.adults,
+      1,
+      30,
+      searchParams,
+    );
+    const children = getInitCounterStateFormParamsAndRedux(
+      'children',
+      counts.children,
+      0,
+      10,
+      searchParams,
+    );
+    const rooms = getInitCounterStateFormParamsAndRedux(
+      'rooms',
+      counts.rooms,
+      1,
+      30,
+      searchParams,
+    );
+    setAdultsCount(adults);
+    setChildrenCount(children);
+    setRoomsCount(rooms);
+    dispatch(setAdults(adults));
+    dispatch(setRooms(rooms));
+    dispatch(setChildren(children));
   }, []);
 
   function onDoneClick(e) {

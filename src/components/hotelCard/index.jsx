@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { number, string, shape, arrayOf } from 'prop-types';
 
 import {
   Card,
@@ -73,19 +73,19 @@ function HotelCard({ hotel }) {
 }
 
 HotelCard.propTypes = {
-  hotel: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    distance_from_center: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    rooms: PropTypes.arrayOf(
-      PropTypes.shape({
-        price_per_night: PropTypes.number.isRequired,
-        reviews: PropTypes.arrayOf(
-          PropTypes.shape({
-            rating: PropTypes.number.isRequired,
+  hotel: shape({
+    id: number.isRequired,
+    name: string.isRequired,
+    city: string.isRequired,
+    address: string.isRequired,
+    distance_from_center: number.isRequired,
+    image: string.isRequired,
+    rooms: arrayOf(
+      shape({
+        price_per_night: number.isRequired,
+        reviews: arrayOf(
+          shape({
+            rating: number.isRequired,
           }),
         ),
       }),

@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import theme from 'styles/theme';
 
 const spin = keyframes`
   0% { transform: rotate(0deg);}
@@ -13,8 +12,8 @@ const LoaderContainer = styled.div`
 `;
 
 const Loader = styled.div`
-  border: 6px solid ${theme.colors.lightBlueGray};
-  border-top: 6px solid ${theme.colors.trueBlue};
+  border: 6px solid ${({ theme }) => theme.colors.lightBlueGray};
+  border-top: 6px solid ${({ theme }) => theme.colors.trueBlue};
   border-radius: 50%;
   width: 50px;
   height: 50px;

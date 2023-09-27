@@ -1,5 +1,4 @@
 import { createGlobalStyle, styled } from 'styled-components';
-import { device } from './theme';
 
 export default createGlobalStyle`
   
@@ -59,7 +58,7 @@ export const MainWrapper = styled.div`
   margin: 0 auto;
   width: calc(100% - 10px);
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     max-width: 720px;
   }
 `;

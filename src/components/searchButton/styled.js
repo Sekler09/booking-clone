@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { device } from 'styles/theme';
 
 const Button = styled(Link)`
   display: flex;
@@ -17,7 +16,7 @@ const Button = styled(Link)`
     background-color: ${({ theme }) => theme.colors.pantone};
   }
 
-  @media ${device.laptop} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     padding: 8px;
     width: 100%;
     font-size: 18px;

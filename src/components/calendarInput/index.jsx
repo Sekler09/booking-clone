@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DayPicker } from 'react-day-picker';
-import { addDays, addYears, endOfYear, format, startOfMonth } from 'date-fns';
+import {
+  addDays,
+  addYears,
+  endOfYear,
+  format,
+  startOfMonth,
+  startOfToday,
+} from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
 import MainFiltersInput from 'components/mainFiltersInput';
@@ -10,10 +17,11 @@ import {
   checkSearchFromValidity,
   checkSearchToValidity,
 } from 'utils/urlHelpers';
+import { setDate } from 'store/slices/inputsSlice';
 import { DATE_FORMAT_PATTERN } from 'constants/date';
 
 import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
-import { setDate } from 'store/slices/inputsSlice';
+
 import { DayPickerWrapper } from './styled';
 
 export default function CalendarInput() {
@@ -104,7 +112,7 @@ export default function CalendarInput() {
 
   const text = getInputText();
 
-  const today = new Date();
+  const today = startOfToday();
   const disabledDays = [
     {
       from: startOfMonth(today),

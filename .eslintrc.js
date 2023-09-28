@@ -21,6 +21,7 @@ module.exports = {
           ['utils', './src/utils'],
           ['hooks', './src/hooks'],
           ['constants', './src/constants'],
+          ['api', './src/api'],
         ],
         extensions: ['.js', '.jsx'],
       },

@@ -54,6 +54,11 @@ export default createGlobalStyle`
 `;
 
 export const MainWrapper = styled.div`
-  max-width: 80vw;
+  max-width: 1100px;
   margin: 0 auto;
+  width: calc(100% - 10px);
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    max-width: 720px;
+  }
 `;

@@ -10,27 +10,31 @@ import SearchButton from 'components/searchButton';
 import { InputsWrapper } from './styled';
 
 export default function MainPage() {
-  const inputs = useSelector(state => state.inputs);
+  const {
+    city,
+    dates: { to, from },
+    counts: { adults, rooms, children },
+  } = useSelector(state => state.inputs);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (inputs.city) {
-      searchParams.set('city', inputs.city);
+    if (city && !searchParams.has('city')) {
+      searchParams.set('city', city);
     }
-    if (inputs.dates.to) {
-      searchParams.set('to', inputs.dates.to);
+    if (to && !searchParams.has('to')) {
+      searchParams.set('to', to);
     }
-    if (inputs.dates.from) {
-      searchParams.set('from', inputs.dates.from);
+    if (from && !searchParams.has('from')) {
+      searchParams.set('from', from);
     }
-    if (inputs.counts.children) {
-      searchParams.set('children', inputs.counts.children);
+    if (adults > 1 && !searchParams.has('adults')) {
+      searchParams.set('adults', adults);
     }
-    if (inputs.counts.adults > 1) {
-      searchParams.set('adults', inputs.counts.adults);
+    if (rooms > 1 && !searchParams.has('rooms')) {
+      searchParams.set('rooms', rooms);
     }
-    if (inputs.counts.rooms > 1) {
-      searchParams.set('rooms', inputs.counts.rooms);
+    if (children > 0 && !searchParams.has('children')) {
+      searchParams.set('children', children);
     }
     setSearchParams(searchParams);
   }, []);

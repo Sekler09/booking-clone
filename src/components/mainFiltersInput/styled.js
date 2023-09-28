@@ -15,6 +15,14 @@ const MainInputWrapper = styled.div`
   svg {
     width: 30px;
   }
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    padding: 4px;
+
+    svg {
+      width: 25px;
+    }
+  }
 `;
 
 const MainInput = styled.input`
@@ -24,10 +32,10 @@ const MainInput = styled.input`
   font-size: 16px;
   line-height: 20px;
   cursor: pointer;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    padding: 4px 3px;
+  }
 `;
 
-const MainInputImg = styled.img`
-  width: 30px;
-`;
-
-export { MainInput, MainInputImg, MainInputWrapper };
+export { MainInput, MainInputWrapper };

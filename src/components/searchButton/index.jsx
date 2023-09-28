@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { Button } from './styled';
+import { LinkButton } from './styled';
 
 export default function SearchButton() {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   function refreshPageIfLinkToTheSamePage(pathname) {
     if (location.pathname === pathname) {
@@ -12,14 +13,14 @@ export default function SearchButton() {
     }
   }
 
+  const toUrl = `/searchresults?${searchParams.toString()}`;
+
   return (
-    <Button>
-      <Link
-        to="/searchresults"
-        onClick={() => refreshPageIfLinkToTheSamePage('/searchresults')}
-      >
-        Search
-      </Link>
-    </Button>
+    <LinkButton
+      to={toUrl}
+      onClick={() => refreshPageIfLinkToTheSamePage('/searchresults')}
+    >
+      Search
+    </LinkButton>
   );
 }

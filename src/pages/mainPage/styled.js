@@ -8,6 +8,12 @@ const InputsWrapper = styled.div`
   gap: 10px;
   padding: 8px;
   background-color: ${({ theme }) => theme.colors.alana};
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+  }
 `;
 
 export { InputsWrapper };

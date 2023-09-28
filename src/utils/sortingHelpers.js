@@ -1,0 +1,37 @@
+import getAverageRating from 'utils/getAverageHotelRating';
+
+function sortByPriceLow(a, b) {
+  return (
+    Math.min(...a.rooms.map(room => room.price_per_night)) -
+    Math.min(...b.rooms.map(room => room.price_per_night))
+  );
+}
+function sortByPriceHigh(a, b) {
+  return (
+    Math.max(...b.rooms.map(room => room.price_per_night)) -
+    Math.max(...a.rooms.map(room => room.price_per_night))
+  );
+}
+
+function sortByRatingHigh(a, b) {
+  return getAverageRating(b) - getAverageRating(a);
+}
+
+function sortByRatingLow(a, b) {
+  return getAverageRating(a) - getAverageRating(b);
+}
+
+export function getSorting(sortingString) {
+  switch (sortingString) {
+    case 'PRICE_LOW_TO_HIGH':
+      return sortByPriceLow;
+    case 'PRICE_HIGH_TO_LOW':
+      return sortByPriceHigh;
+    case 'RATING_HIGH_TO_LOW':
+      return sortByRatingHigh;
+    case 'RATING_LOW_TO_HIGH':
+      return sortByRatingLow;
+    default:
+      return () => {};
+  }
+}

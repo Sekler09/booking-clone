@@ -6,11 +6,17 @@ const CountersWrapper = styled.div`
   flex-direction: column;
   top: 130%;
   right: 0;
+  z-index: 5;
   gap: 4px;
   padding: 32px;
   border: 1px ${({ theme }) => theme.colors.black} solid;
   width: 120%;
   background-color: ${({ theme }) => theme.colors.white};
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    padding: 20px;
+    width: 40%;
+  }
 `;
 
 const DoneButton = styled.button`

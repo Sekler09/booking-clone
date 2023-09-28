@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { bool, string, func, node } from 'prop-types';
 
 import { ReactComponent as Arrow } from 'assets/arrow.svg';
 
@@ -50,16 +50,16 @@ export default function MainFiltersInput({
 }
 
 MainFiltersInput.propTypes = {
-  needArrow: PropTypes.bool,
-  Icon: PropTypes.func.isRequired,
-  children: PropTypes.node,
-  inputValue: PropTypes.string.isRequired,
-  isReadOnly: PropTypes.bool,
-  onValueChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  isOpen: PropTypes.bool,
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func,
+  needArrow: bool,
+  Icon: func.isRequired,
+  children: node,
+  inputValue: string.isRequired,
+  isReadOnly: bool,
+  onValueChange: func,
+  placeholder: string,
+  isOpen: bool,
+  onOpen: func,
+  onClose: func,
 };
 
 MainFiltersInput.defaultProps = {

@@ -11,5 +11,8 @@ export default {
     trueBlue: '#006ce4',
     lightBlueGray: 'rgb(0 108 228/ 6%)',
     pantone: '#00249c',
+    gainsboro: '#dddddd',
+    graniteGray: '#666666',
   },
+  sizes: ['1080px', '1440px', '1920px', '2560px'],
 };

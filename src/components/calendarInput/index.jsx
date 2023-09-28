@@ -103,8 +103,7 @@ export default function CalendarInput() {
         text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
           range.to,
           DATE_FORMAT_PATTERN,
-        )}
-          `;
+        )}`;
       }
     }
     return text;

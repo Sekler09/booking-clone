@@ -35,7 +35,7 @@ export default function MainFiltersInput({
   }, [isOpen]);
 
   return (
-    <MainInputWrapper onClick={onOpen}>
+    <MainInputWrapper onClick={onOpen} data-cy="main-input">
       <Icon />
       <MainInput
         value={inputValue}

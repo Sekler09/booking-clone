@@ -1,7 +1,7 @@
-import { endOfYear, addYears } from 'date-fns';
+import { endOfYear, addYears, startOfToday } from 'date-fns';
 
 export function checkSearchFromValidity(searchFrom) {
-  const today = new Date();
+  const today = startOfToday();
 
   if (searchFrom) {
     const fromDate = new Date(searchFrom);
@@ -17,7 +17,7 @@ export function checkSearchFromValidity(searchFrom) {
 }
 
 export function checkSearchToValidity(searchTo) {
-  const today = new Date();
+  const today = startOfToday();
 
   if (searchTo) {
     const toDate = new Date(searchTo);

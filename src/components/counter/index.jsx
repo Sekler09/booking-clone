@@ -23,11 +23,19 @@ export default function Counter({ label, count, setCount, min, max }) {
     <CounterWrapper>
       {label}
       <ButtonsWrapper>
-        <CounterButton onClick={() => onDecrement()} disabled={count === min}>
+        <CounterButton
+          onClick={() => onDecrement()}
+          disabled={count === min}
+          data-cy="count-decrement"
+        >
           <StyledMinus $active={count !== min} />
         </CounterButton>
         <CountValue>{count}</CountValue>
-        <CounterButton onClick={() => onIncrement()} disabled={count === max}>
+        <CounterButton
+          onClick={() => onIncrement()}
+          disabled={count === max}
+          data-cy="count-increment"
+        >
           <StyledPlus $active={count !== max} />
         </CounterButton>
       </ButtonsWrapper>

@@ -160,7 +160,7 @@ export default function SearchResultsPage() {
             <ResultsContainer>
               <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
               <SortOptions onChangeSort={setSorting} />
-              <div>
+              <div data-cy="hotels-list">
                 {filteredHotels.sort(sortingFunction).map(hotel => (
                   <HotelCard hotel={hotel} key={hotel.id} />
                 ))}
@@ -169,7 +169,7 @@ export default function SearchResultsPage() {
           </>
         )}
         {!loading && !error && filteredHotels.length === 0 && (
-          <EmptyResult>
+          <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
             <p>No properties found in {searchFilters.city}</p>
             <p>

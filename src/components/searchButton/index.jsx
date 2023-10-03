@@ -19,6 +19,7 @@ export default function SearchButton() {
     <LinkButton
       to={toUrl}
       onClick={() => refreshPageIfLinkToTheSamePage('/searchresults')}
+      data-cy="search-btn"
     >
       Search
     </LinkButton>

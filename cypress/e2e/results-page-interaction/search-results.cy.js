@@ -30,6 +30,7 @@ describe('Search results must be correct', () => {
     cy.get('@search-btn').click();
     cy.wait('@getHotels');
     cy.get('[data-cy=hotels-list]').children().should('have.length', 1);
+    cy.get('[data-cy=hotels-list]').children().eq(0).contains('Hotel C');
   });
 
   it('There must be no hotels available for 3 adults in 1 room in Paris', () => {
@@ -53,5 +54,6 @@ describe('Search results must be correct', () => {
     cy.get('@search-btn').click();
     cy.wait('@getHotels');
     cy.get('[data-cy=hotels-list]').children().should('have.length', 1);
+    cy.get('[data-cy=hotels-list]').children().eq(0).contains('Hotel C');
   });
 });

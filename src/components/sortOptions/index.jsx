@@ -22,7 +22,7 @@ function SortOptions({ onChangeSort }) {
   };
 
   return (
-    <SortOptionsWrapper>
+    <SortOptionsWrapper data-cy="sort-options">
       <Button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         Sort By:{' '}
         {sortingOptions.find(option => option.value === selectedSort).label}

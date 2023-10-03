@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import failOnConsoleError from 'cypress-fail-on-console-error';
+import 'cypress-real-events';
 import './commands';
 
 failOnConsoleError();

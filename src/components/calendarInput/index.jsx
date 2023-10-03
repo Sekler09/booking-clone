@@ -75,12 +75,11 @@ export default function CalendarInput() {
   }
 
   useEffect(() => {
-    dispatch(
-      setDate({
-        from: range.from ? format(range.from, 'y-M-d') : null,
-        to: range.to ? format(range.to, 'y-M-d') : null,
-      }),
-    );
+    const newDate = {
+      from: range.from ? format(range.from, 'y-M-d') : null,
+      to: range.to ? format(range.to, 'y-M-d') : null,
+    };
+    dispatch(setDate(newDate));
     updateSearchParams();
   }, [range]);
 

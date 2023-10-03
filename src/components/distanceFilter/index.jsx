@@ -40,28 +40,29 @@ export default function DistanceFilter({ hotels, onChange }) {
     {
       value: 5,
       label: 'Less than 5km',
-      onChange: e => onCheckboxChange(e, 5),
       count: hotels.filter(hotel => hotel.distance_from_center <= 5).length,
       checked: checkedDistance.includes(5),
     },
     {
       value: 3,
       label: 'Less than 3km',
-      onChange: e => onCheckboxChange(e, 3),
       count: hotels.filter(hotel => hotel.distance_from_center <= 3).length,
       checked: checkedDistance.includes(3),
     },
     {
       value: 1,
       label: 'Less than 1km',
-      onChange: e => onCheckboxChange(e, 1),
       count: hotels.filter(hotel => hotel.distance_from_center <= 1).length,
       checked: checkedDistance.includes(1),
     },
   ];
 
   return (
-    <CheckboxFilter title="Distance from the center" checkboxes={checkboxes} />
+    <CheckboxFilter
+      title="Distance from the center"
+      checkboxes={checkboxes}
+      onChange={(e, v) => onCheckboxChange(e, v)}
+    />
   );
 }
 

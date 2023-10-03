@@ -48,34 +48,36 @@ export default function RatingFilter({ hotels, onChange }) {
     {
       value: 4.5,
       label: 'Superb: 4.5+',
-      onChange: e => onCheckboxChange(e, 4.5),
       count: hotels.filter(hotel => getAverageRating(hotel) >= 4.5).length,
       checked: checkedRatings.includes(4.5),
     },
     {
       value: 4,
       label: 'Very good: 4+',
-      onChange: e => onCheckboxChange(e, 4),
       count: hotels.filter(hotel => getAverageRating(hotel) >= 4).length,
       checked: checkedRatings.includes(4),
     },
     {
       value: 3.5,
       label: 'Good: 3.5+',
-      onChange: e => onCheckboxChange(e, 3.5),
       count: hotels.filter(hotel => getAverageRating(hotel) >= 3.5).length,
       checked: checkedRatings.includes(3.5),
     },
     {
       value: 3,
       label: 'Pleasant: 3+',
-      onChange: e => onCheckboxChange(e, 3),
       count: hotels.filter(hotel => getAverageRating(hotel) >= 3).length,
       checked: checkedRatings.includes(3),
     },
   ];
 
-  return <CheckboxFilter title="Review Score" checkboxes={checkboxes} />;
+  return (
+    <CheckboxFilter
+      title="Review Score"
+      checkboxes={checkboxes}
+      onChange={(e, v) => onCheckboxChange(e, v)}
+    />
+  );
 }
 
 RatingFilter.propTypes = {

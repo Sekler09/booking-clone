@@ -5,7 +5,7 @@
       "name": "Hotel A",
       "city": "Paris",
       "address": "123 Main Street",
-      "distance_from_center": 3,
+      "distance_from_center": 3.5,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/466014443.webp?k=5d05c2f38b420240d795fe164a35801e9f7b696615728d9786a7809ad7087e9d&o=",
       "rooms": [
         {

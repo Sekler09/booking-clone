@@ -16,7 +16,7 @@ function CheckboxFilter({ title, checkboxes, onChange }) {
     cb => cb.checked || cb.count !== 0,
   );
   return (
-    <FilterContainer>
+    <FilterContainer data-cy="checkbox-filter">
       <h3>{title}</h3>
       {filteredCheckboxes.map(cb => (
         <CheckboxLabel key={cb.label}>
@@ -24,6 +24,7 @@ function CheckboxFilter({ title, checkboxes, onChange }) {
             type="checkbox"
             onChange={e => onChange(e, cb.value)}
             checked={cb.checked}
+            data-cy="checkbox-filter-input"
           />
           <CheckboxField>
             <TickIcon />

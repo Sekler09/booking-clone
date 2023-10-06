@@ -35,13 +35,14 @@ export default function MainFiltersInput({
   }, [isOpen]);
 
   return (
-    <MainInputWrapper onClick={onOpen} data-cy="main-input">
+    <MainInputWrapper onClick={onOpen}>
       <Icon />
       <MainInput
         value={inputValue}
         readOnly={isReadOnly}
         onChange={onValueChange}
         placeholder={placeholder}
+        data-cy="main-input"
       />
       {needArrow && <Arrow />}
       {isOpen && <div ref={popoverRef}>{children}</div>}

@@ -1,5 +1,7 @@
 const DEFAULT_ROUTE = '/searchresults?city=Paris';
 const HOTELS_LIST = '[data-cy=hotels-list]';
+const HOTEL_CARD = '[data-cy=hotel-card]';
+
 const MAX_SLIDER = '[data-cy=thumb-max]';
 const MIN_SLIDER = '[data-cy=thumb-min]';
 const MAX_INIT_VALUE = 300;
@@ -9,16 +11,9 @@ const MIN_TYPED_VALUE = '{rightarrow}'.repeat(16);
 
 describe('Price filter must work correctly', () => {
   beforeEach(() => {
-    cy.fixture('db').then(s => {
-      cy.intercept(
-        'GET',
-        '/hotels*',
-        s.hotels.filter(h => h.city === 'Paris'),
-      ).as('getHotels');
-    });
+    cy.intercept('GET', '/hotels*', { fixture: 'db.json' }.hotels);
 
     cy.visit(DEFAULT_ROUTE);
-    cy.wait('@getHotels');
   });
 
   it('Default value must be 50 and 300', () => {
@@ -32,7 +27,7 @@ describe('Price filter must work correctly', () => {
 
     cy.get(MAX_SLIDER).should('have.value', 140);
     cy.get(HOTELS_LIST).children().should('have.length', 1);
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
   });
 
   it('When min price is set to 210 only 1 hotel must be displayed', () => {
@@ -41,6 +36,6 @@ describe('Price filter must work correctly', () => {
 
     cy.get(MIN_SLIDER).should('have.value', 210);
     cy.get(HOTELS_LIST).children().should('have.length', 1);
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel A');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel A');
   });
 });

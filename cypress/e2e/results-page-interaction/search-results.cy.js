@@ -1,16 +1,11 @@
 const SEARCH_BTN = '[data-cy=search-btn]';
 const HOTELS_LIST = '[data-cy=hotels-list]';
 const NO_HOTELS = '[data-cy=no-hotels-found]';
+const HOTEL_CARD = '[data-cy=hotel-card]';
 
 describe('Search results must be correct', () => {
   beforeEach(() => {
-    cy.fixture('db').then(s => {
-      cy.intercept(
-        'GET',
-        '/hotels*',
-        s.hotels.filter(h => h.city === 'Paris'),
-      ).as('getHotels');
-    });
+    cy.intercept('GET', '/hotels*', { fixture: 'db.json' }.hotels);
 
     cy.visit('/');
     cy.get(SEARCH_BTN).as('search-btn');
@@ -20,16 +15,12 @@ describe('Search results must be correct', () => {
     cy.visit('/?city=Paris');
     cy.get('@search-btn').click();
 
-    cy.wait('@getHotels');
-
     cy.get(HOTELS_LIST).children().should('have.length', 2);
   });
 
   it('There must be 2 hotels available in dates 10th October to 21th October in Paris', () => {
     cy.visit('/?city=Paris&from=2023-10-10&to=2023-10-21');
     cy.get('@search-btn').click();
-
-    cy.wait('@getHotels');
 
     cy.get(HOTELS_LIST).children().should('have.length', 2);
   });
@@ -38,17 +29,13 @@ describe('Search results must be correct', () => {
     cy.visit('/?city=Paris&from=2023-10-3&to=2023-10-21');
     cy.get('@search-btn').click();
 
-    cy.wait('@getHotels');
-
     cy.get(HOTELS_LIST).children().should('have.length', 1);
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
   });
 
   it('There must be no hotels available for 3 adults in 1 room in Paris', () => {
     cy.visit('/?city=Paris&adults=3');
     cy.get('@search-btn').click();
-
-    cy.wait('@getHotels');
 
     cy.get(NO_HOTELS).contains('No properties found in Paris');
   });
@@ -57,8 +44,6 @@ describe('Search results must be correct', () => {
     cy.visit('/?city=Paris&adults=3&rooms=2');
     cy.get('@search-btn').click();
 
-    cy.wait('@getHotels');
-
     cy.get(HOTELS_LIST).children().should('have.length', 2);
   });
 
@@ -66,9 +51,7 @@ describe('Search results must be correct', () => {
     cy.visit('/?city=Paris&from=2023-10-3&to=2023-10-21&adults=3&rooms=2');
     cy.get('@search-btn').click();
 
-    cy.wait('@getHotels');
-
     cy.get(HOTELS_LIST).children().should('have.length', 1);
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
   });
 });

@@ -1,14 +1,17 @@
 const MAIN_INPUT = '[data-cy=main-input]';
+const COUNTERS_WRAPPER = '[data-cy=counters-wrapper]';
+const COUNT_VALUE = '[data-cy=count-value]';
 const DECREMENT = '[data-cy=count-decrement]';
 const INCREMENT = '[data-cy=count-increment]';
+
 const COUNTS_NO_VALUE = '1 adult · 0 children · 1 room';
-const ADULTS_TITLE = 'Adults';
+
 const ADULTS_INIT_VALUE = 1;
 const ADULTS_QUERY_PARAM = 'adults=';
-const ROOMS_TITLE = 'Rooms';
+
 const ROOMS_INIT_VALUE = 1;
 const ROOMS_QUERY_PARAM = 'rooms=';
-const CHILDREN_TITLE = 'Children';
+
 const CHILDREN_INIT_VALUE = 0;
 const CHILDREN_QUERY_PARAM = 'children=';
 
@@ -17,11 +20,10 @@ describe('Counts input interaction', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
-    cy.get('@counts-input').parent().as('counts-input-wrapper');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
-
     cy.get('@counts-input').click();
+
+    cy.get(COUNTERS_WRAPPER).as('counts-input-wrapper');
 
     cy.get('@counts-input-wrapper').contains('Adults');
     cy.get('@counts-input-wrapper').contains('Children');
@@ -33,100 +35,90 @@ describe('Counts input interaction', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
-    cy.get('@counts-input').parent().as('counts-input-wrapper');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input-wrapper')
-      .contains(ADULTS_TITLE)
-      .as('adults-container');
+    cy.get(COUNTERS_WRAPPER).as('counts-input-wrapper');
 
-    cy.get('@adults-container').contains(ADULTS_INIT_VALUE);
+    cy.get(COUNT_VALUE).eq(0).contains(ADULTS_INIT_VALUE);
 
-    cy.get('@adults-container').children().children(DECREMENT).as('decrement');
-    cy.get('@adults-container').children().children(INCREMENT).as('increment');
+    cy.get(DECREMENT).eq(0).as('decrement');
+    cy.get(INCREMENT).eq(0).as('increment');
 
     cy.get('@increment').click();
     cy.get('@counts-input').should(
       'include.value',
       `${ADULTS_INIT_VALUE + 1} adults`,
     );
-    cy.get('@adults-container').contains(ADULTS_INIT_VALUE + 1);
+    cy.get(COUNT_VALUE)
+      .eq(0)
+      .contains(ADULTS_INIT_VALUE + 1);
 
     cy.get('@decrement').click();
     cy.get('@counts-input').should(
       'include.value',
       `${ADULTS_INIT_VALUE} adult`,
     );
-    cy.get('@adults-container').contains(ADULTS_INIT_VALUE);
+    cy.get(COUNT_VALUE).eq(0).contains(ADULTS_INIT_VALUE);
   });
 
   it('Inputs` children value must coincide with value in the box', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
-    cy.get('@counts-input').parent().as('counts-input-wrapper');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input-wrapper')
-      .contains(CHILDREN_TITLE)
-      .as('children-container');
+    cy.get(COUNTERS_WRAPPER).as('counts-input-wrapper');
 
-    cy.get('@children-container').contains(CHILDREN_INIT_VALUE);
+    cy.get(COUNT_VALUE).eq(1).contains(CHILDREN_INIT_VALUE);
 
-    cy.get('@children-container')
-      .children()
-      .children(DECREMENT)
-      .as('decrement');
-    cy.get('@children-container')
-      .children()
-      .children(INCREMENT)
-      .as('increment');
+    cy.get(DECREMENT).eq(1).as('decrement');
+    cy.get(INCREMENT).eq(1).as('increment');
 
     cy.get('@increment').click();
     cy.get('@counts-input').should(
       'include.value',
       `${CHILDREN_INIT_VALUE + 1} children`,
     );
-    cy.get('@children-container').contains(CHILDREN_INIT_VALUE + 1);
+    cy.get(COUNT_VALUE)
+      .eq(1)
+      .contains(CHILDREN_INIT_VALUE + 1);
 
     cy.get('@decrement').click();
     cy.get('@counts-input').should(
       'include.value',
       `${CHILDREN_INIT_VALUE} children`,
     );
-    cy.get('@children-container').contains(CHILDREN_INIT_VALUE);
+    cy.get(COUNT_VALUE).eq(1).contains(CHILDREN_INIT_VALUE);
   });
 
   it('Inputs` rooms value must coincide with value in the box', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
-    cy.get('@counts-input').parent().as('counts-input-wrapper');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input-wrapper').contains(ROOMS_TITLE).as('rooms-container');
+    cy.get(COUNTERS_WRAPPER).as('counts-input-wrapper');
 
-    cy.get('@rooms-container').contains(ROOMS_INIT_VALUE);
+    cy.get(COUNT_VALUE).eq(2).contains(ROOMS_INIT_VALUE);
 
-    cy.get('@rooms-container').children().children(DECREMENT).as('decrement');
-    cy.get('@rooms-container').children().children(INCREMENT).as('increment');
+    cy.get(DECREMENT).eq(2).as('decrement');
+    cy.get(INCREMENT).eq(2).as('increment');
 
     cy.get('@increment').click();
     cy.get('@counts-input').should(
       'include.value',
       `${ROOMS_INIT_VALUE + 1} rooms`,
     );
-    cy.get('@rooms-container').contains(ROOMS_INIT_VALUE + 1);
+    cy.get(COUNT_VALUE)
+      .eq(2)
+      .contains(ROOMS_INIT_VALUE + 1);
 
     cy.get('@decrement').click();
     cy.get('@counts-input').should('include.value', `${ROOMS_INIT_VALUE} room`);
-    cy.get('@rooms-container').contains(ROOMS_INIT_VALUE);
+    cy.get(COUNT_VALUE).eq(2).contains(ROOMS_INIT_VALUE);
   });
 
   it('Url must have search param adults with adults count if it is not 1', () => {
@@ -135,15 +127,10 @@ describe('Counts input interaction', () => {
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input')
-      .parent()
-      .contains(ADULTS_TITLE)
-      .as('adults-container');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.url().should('not.include', ADULTS_QUERY_PARAM);
 
-    cy.get('@adults-container').children().children(INCREMENT).click();
+    cy.get(INCREMENT).eq(0).click();
     cy.url().should('include', `${ADULTS_QUERY_PARAM}${ADULTS_INIT_VALUE + 1}`);
   });
 
@@ -153,15 +140,10 @@ describe('Counts input interaction', () => {
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input')
-      .parent()
-      .contains(CHILDREN_TITLE)
-      .as('children-container');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.url().should('not.include', CHILDREN_QUERY_PARAM);
 
-    cy.get('@children-container').children().children(INCREMENT).click();
+    cy.get(INCREMENT).eq(1).click();
     cy.url().should(
       'include',
       `${CHILDREN_QUERY_PARAM}${CHILDREN_INIT_VALUE + 1}`,
@@ -174,15 +156,10 @@ describe('Counts input interaction', () => {
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input')
-      .parent()
-      .contains(ROOMS_TITLE)
-      .as('rooms-container');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.url().should('not.include', ROOMS_QUERY_PARAM);
 
-    cy.get('@rooms-container').children().children(INCREMENT).click();
+    cy.get(INCREMENT).eq(2).click();
     cy.url().should('include', `${ROOMS_QUERY_PARAM}${ROOMS_INIT_VALUE + 1}`);
   });
 
@@ -192,15 +169,10 @@ describe('Counts input interaction', () => {
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input')
-      .parent()
-      .contains(ADULTS_TITLE)
-      .as('adults-container');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.url().should('not.include', ADULTS_QUERY_PARAM);
 
-    cy.get('@adults-container').children().children(INCREMENT).click();
+    cy.get(INCREMENT).eq(0).click();
 
     cy.get('@counts-input').should(
       'include.value',
@@ -223,15 +195,10 @@ describe('Counts input interaction', () => {
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input')
-      .parent()
-      .contains(CHILDREN_TITLE)
-      .as('children-container');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.url().should('not.include', CHILDREN_QUERY_PARAM);
 
-    cy.get('@children-container').children().children(INCREMENT).click();
+    cy.get(INCREMENT).eq(1).click();
 
     cy.get('@counts-input').should(
       'include.value',
@@ -260,15 +227,10 @@ describe('Counts input interaction', () => {
     cy.get(MAIN_INPUT).eq(2).as('counts-input');
     cy.get('@counts-input').click();
 
-    cy.get('@counts-input')
-      .parent()
-      .contains(ROOMS_TITLE)
-      .as('rooms-container');
-
     cy.get('@counts-input').should('have.value', COUNTS_NO_VALUE);
     cy.url().should('not.include', ROOMS_QUERY_PARAM);
 
-    cy.get('@rooms-container').children().children(INCREMENT).click();
+    cy.get(INCREMENT).eq(2).click();
 
     cy.get('@counts-input').should(
       'include.value',

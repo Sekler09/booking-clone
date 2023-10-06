@@ -4,6 +4,7 @@ import { DATE_FORMAT_PATTERN } from '../../../src/constants/date';
 const today = startOfToday();
 const nextMonth = addMonths(today, 1);
 const MAIN_INPUT = '[data-cy=main-input]';
+const DATES_WRAPPER = '[data-cy=dates-wrapper]';
 const DATE_INIT_NO_VALUE = 'Check-in date -- Check-out date';
 const FROM_QUERY_PARAM = 'from=';
 const TO_QUERY_PARAM = 'to=';
@@ -13,33 +14,33 @@ describe('Dates input interaction', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(1).as('date-input');
-    cy.get('@date-input').parent().parent().as('date-input-wrapper');
 
     cy.get('@date-input').should('have.value', DATE_INIT_NO_VALUE);
 
     cy.get('@date-input').click();
+    cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@date-input-wrapper').contains(format(today, 'MMMM'));
-    cy.get('@date-input-wrapper').contains(format(nextMonth, 'MMMM'));
+    cy.get('@dates-wrapper').contains(format(today, 'MMMM'));
+    cy.get('@dates-wrapper').contains(format(nextMonth, 'MMMM'));
   });
 
   it('Calendar must change value according to selected dates', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(1).as('date-input');
-    cy.get('@date-input').parent().parent().as('date-input-wrapper');
 
     cy.get('@date-input').should('have.value', DATE_INIT_NO_VALUE);
 
     cy.get('@date-input').click();
+    cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@date-input-wrapper')
+    cy.get('@dates-wrapper')
       .contains(format(today, 'MMMM'))
       .parent()
       .parent()
       .contains(today.getDate())
       .click();
-    cy.get('@date-input-wrapper')
+    cy.get('@dates-wrapper')
       .contains(format(nextMonth, 'MMMM'))
       .parent()
       .parent()
@@ -59,7 +60,6 @@ describe('Dates input interaction', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(1).as('date-input');
-    cy.get('@date-input').parent().parent().as('date-input-wrapper');
 
     cy.get('@date-input').should('have.value', DATE_INIT_NO_VALUE);
 
@@ -67,14 +67,15 @@ describe('Dates input interaction', () => {
     cy.url().should('not.include', `${TO_QUERY_PARAM}`);
 
     cy.get('@date-input').click();
+    cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@date-input-wrapper')
+    cy.get('@dates-wrapper')
       .contains(format(today, 'MMMM'))
       .parent()
       .parent()
       .contains(today.getDate())
       .click();
-    cy.get('@date-input-wrapper')
+    cy.get('@dates-wrapper')
       .contains(format(nextMonth, 'MMMM'))
       .parent()
       .parent()
@@ -100,7 +101,6 @@ describe('Dates input interaction', () => {
     cy.visit('/');
 
     cy.get(MAIN_INPUT).eq(1).as('date-input');
-    cy.get('@date-input').parent().parent().as('date-input-wrapper');
 
     cy.get('@date-input').should('have.value', DATE_INIT_NO_VALUE);
 
@@ -108,14 +108,15 @@ describe('Dates input interaction', () => {
     cy.url().should('not.include', `${TO_QUERY_PARAM}`);
 
     cy.get('@date-input').click();
+    cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@date-input-wrapper')
+    cy.get('@dates-wrapper')
       .contains(format(today, 'MMMM'))
       .parent()
       .parent()
       .contains(today.getDate())
       .click();
-    cy.get('@date-input-wrapper')
+    cy.get('@dates-wrapper')
       .contains(format(nextMonth, 'MMMM'))
       .parent()
       .parent()

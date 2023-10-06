@@ -1,82 +1,79 @@
-const DEFAULT_ROUTE = '/?city=Paris';
-const SEARCH_BTN = '[data-cy=search-btn]';
-const SORT_OPTIONS = '[data-cy=sort-options]';
-const HOTELS_LIST = '[data-cy=hotels-list]';
-const DEFAULT_SORT_OPTION = 'Default';
-const PRICE_LOW_FIRST_SORT_OPTION = 'Price (Low to High)';
-const PRICE_HIGH_FIRST_SORT_OPTION = 'Price (High to Low)';
-const RATING_LOW_FIRST_SORT_OPTION = 'Rating (Low to High)';
-const RATING_HIGH_FIRST_SORT_OPTION = 'Rating (High to Low)';
+const DEFAULT_ROUTE = '/searchresults?city=Paris';
+const SORT_OPTIONS_BTN = '[data-cy=sort-options-btn]';
+const HOTEL_CARD = '[data-cy=hotel-card]';
+
+const DEFAULT_SORT_OPTION_NAME = 'Default';
+const PRICE_LOW_FIRST_SORT_OPTION_NAME = 'Price (Low to High)';
+const PRICE_HIGH_FIRST_SORT_OPTION_NAME = 'Price (High to Low)';
+const RATING_LOW_FIRST_SORT_OPTION_NAME = 'Rating (Low to High)';
+const RATING_HIGH_FIRST_SORT_OPTION_NAME = 'Rating (High to Low)';
+
+const DEFAULT_SORT_OPTION = `[data-cy="${DEFAULT_SORT_OPTION_NAME}"]`;
+const PRICE_LOW_FIRST_SORT_OPTION = `[data-cy="${PRICE_LOW_FIRST_SORT_OPTION_NAME}"]`;
+const PRICE_HIGH_FIRST_SORT_OPTION = `[data-cy="${PRICE_HIGH_FIRST_SORT_OPTION_NAME}"]`;
+const RATING_LOW_FIRST_SORT_OPTION = `[data-cy="${RATING_LOW_FIRST_SORT_OPTION_NAME}"]`;
+const RATING_HIGH_FIRST_SORT_OPTION = `[data-cy="${RATING_HIGH_FIRST_SORT_OPTION_NAME}"]`;
 
 describe('Sort options must sort hotels correctly', () => {
   beforeEach(() => {
     cy.visit(DEFAULT_ROUTE);
 
-    cy.fixture('db').then(s => {
-      cy.intercept(
-        'GET',
-        '/hotels*',
-        s.hotels.filter(h => h.city === 'Paris'),
-      ).as('getHotels');
-    });
+    cy.intercept('GET', '/hotels*', { fixture: 'db.json' }.hotels);
 
-    cy.get(SEARCH_BTN).click();
-    cy.wait('@getHotels');
-
-    cy.get(SORT_OPTIONS).as('sort-options');
+    cy.get(SORT_OPTIONS_BTN).as('sort-options-btn');
   });
 
   it('Default sort option must be "default"', () => {
-    cy.get('@sort-options').contains(DEFAULT_SORT_OPTION);
+    cy.get('@sort-options-btn').contains(DEFAULT_SORT_OPTION_NAME);
   });
 
   it('Sort options list must be opened on button click', () => {
-    cy.get('@sort-options').click();
+    cy.get('@sort-options-btn').click();
 
-    cy.get('@sort-options').contains(DEFAULT_SORT_OPTION);
-    cy.get('@sort-options').contains(PRICE_LOW_FIRST_SORT_OPTION);
-    cy.get('@sort-options').contains(PRICE_HIGH_FIRST_SORT_OPTION);
-    cy.get('@sort-options').contains(RATING_LOW_FIRST_SORT_OPTION);
-    cy.get('@sort-options').contains(RATING_HIGH_FIRST_SORT_OPTION);
+    cy.get(DEFAULT_SORT_OPTION);
+    cy.get(PRICE_LOW_FIRST_SORT_OPTION);
+    cy.get(PRICE_HIGH_FIRST_SORT_OPTION);
+    cy.get(RATING_LOW_FIRST_SORT_OPTION);
+    cy.get(RATING_HIGH_FIRST_SORT_OPTION);
   });
 
   it('Price (Low to High) sort options displays hotels in correct order', () => {
-    cy.get('@sort-options').click();
+    cy.get('@sort-options-btn').click();
 
-    cy.get('@sort-options').contains(PRICE_LOW_FIRST_SORT_OPTION).click();
-    cy.get('@sort-options').contains(PRICE_LOW_FIRST_SORT_OPTION);
+    cy.get(PRICE_LOW_FIRST_SORT_OPTION).click();
+    cy.get('@sort-options-btn').contains(PRICE_LOW_FIRST_SORT_OPTION_NAME);
 
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel C');
-    cy.get(HOTELS_LIST).children().eq(1).contains('Hotel A');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(1).contains('Hotel A');
   });
 
   it('Price (High to Low) sort options displays hotels in correct order', () => {
-    cy.get('@sort-options').click();
+    cy.get('@sort-options-btn').click();
 
-    cy.get('@sort-options').contains(PRICE_HIGH_FIRST_SORT_OPTION).click();
-    cy.get('@sort-options').contains(PRICE_HIGH_FIRST_SORT_OPTION);
+    cy.get(PRICE_HIGH_FIRST_SORT_OPTION).click();
+    cy.get('@sort-options-btn').contains(PRICE_HIGH_FIRST_SORT_OPTION_NAME);
 
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel A');
-    cy.get(HOTELS_LIST).children().eq(1).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel A');
+    cy.get(HOTEL_CARD).eq(1).contains('Hotel C');
   });
 
   it('Rating (High to Low) sort options displays hotels in correct order', () => {
-    cy.get('@sort-options').click();
+    cy.get('@sort-options-btn').click();
 
-    cy.get('@sort-options').contains(RATING_HIGH_FIRST_SORT_OPTION).click();
-    cy.get('@sort-options').contains(RATING_HIGH_FIRST_SORT_OPTION);
+    cy.get(RATING_HIGH_FIRST_SORT_OPTION).click();
+    cy.get('@sort-options-btn').contains(RATING_HIGH_FIRST_SORT_OPTION_NAME);
 
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel A');
-    cy.get(HOTELS_LIST).children().eq(1).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel A');
+    cy.get(HOTEL_CARD).eq(1).contains('Hotel C');
   });
 
   it('Rating (Low to High) sort options displays hotels in correct order', () => {
-    cy.get('@sort-options').click();
+    cy.get('@sort-options-btn').click();
 
-    cy.get('@sort-options').contains(RATING_LOW_FIRST_SORT_OPTION).click();
-    cy.get('@sort-options').contains(RATING_LOW_FIRST_SORT_OPTION);
+    cy.get(RATING_LOW_FIRST_SORT_OPTION).click();
+    cy.get('@sort-options-btn').contains(RATING_LOW_FIRST_SORT_OPTION_NAME);
 
-    cy.get(HOTELS_LIST).children().eq(0).contains('Hotel C');
-    cy.get(HOTELS_LIST).children().eq(1).contains('Hotel A');
+    cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
+    cy.get(HOTEL_CARD).eq(1).contains('Hotel A');
   });
 });

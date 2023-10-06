@@ -19,7 +19,7 @@ function CheckboxFilter({ title, checkboxes, onChange }) {
     <FilterContainer data-cy="checkbox-filter">
       <h3>{title}</h3>
       {filteredCheckboxes.map(cb => (
-        <CheckboxLabel key={cb.label}>
+        <CheckboxLabel key={cb.label} data-cy={cb.label}>
           <CheckboxInput
             type="checkbox"
             onChange={e => onChange(e, cb.value)}

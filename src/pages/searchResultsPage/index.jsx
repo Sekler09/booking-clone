@@ -157,7 +157,9 @@ export default function SearchResultsPage() {
         <CountInput />
         <SearchButton />
       </InputsWrapper>
+
       {loading && <FancyLoader />}
+
       <ResultsWrapper>
         {!loading && !error && hotels.length !== 0 && (
           <>
@@ -165,7 +167,7 @@ export default function SearchResultsPage() {
             <ResultsContainer>
               <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
               <SortOptions onChangeSort={setSorting} />
-              <div data-cy="hotels-list">
+              <div>
                 {filteredHotels.sort(sortingFunction).map(hotel => (
                   <HotelCard hotel={hotel} key={hotel.id} />
                 ))}
@@ -173,6 +175,7 @@ export default function SearchResultsPage() {
             </ResultsContainer>
           </>
         )}
+
         {!loading && !error && filteredHotels.length === 0 && (
           <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
@@ -183,6 +186,7 @@ export default function SearchResultsPage() {
             </p>
           </EmptyResult>
         )}
+
         {error && (
           <ErrorWrapper>
             <ErrorIcon />

@@ -1,5 +1,4 @@
 const DEFAULT_ROUTE = '/searchresults?city=Paris';
-const HOTELS_LIST = '[data-cy=hotels-list]';
 const HOTEL_CARD = '[data-cy=hotel-card]';
 
 const MAX_SLIDER = '[data-cy=thumb-max]';
@@ -26,7 +25,7 @@ describe('Price filter must work correctly', () => {
     cy.get(MAX_SLIDER).realType(MAX_TYPED_VALUE);
 
     cy.get(MAX_SLIDER).should('have.value', 140);
-    cy.get(HOTELS_LIST).children().should('have.length', 1);
+    cy.get(HOTEL_CARD).should('have.length', 1);
     cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
   });
 
@@ -35,7 +34,7 @@ describe('Price filter must work correctly', () => {
     cy.get(MIN_SLIDER).realType(MIN_TYPED_VALUE);
 
     cy.get(MIN_SLIDER).should('have.value', 210);
-    cy.get(HOTELS_LIST).children().should('have.length', 1);
+    cy.get(HOTEL_CARD).should('have.length', 1);
     cy.get(HOTEL_CARD).eq(0).contains('Hotel A');
   });
 });

@@ -1,5 +1,4 @@
 const DEFAULT_ROUTE = '/searchresults?city=Paris';
-const HOTELS_LIST = '[data-cy=hotels-list]';
 const HOTEL_CARD = '[data-cy=hotel-card]';
 const CHECKBOX_FILTER = '[data-cy=checkbox-filter]';
 const CHECKBOX = '[data-cy=checkbox-filter-input]';
@@ -30,7 +29,7 @@ describe('Rating filter must show correct information', () => {
 
     cy.get(CHECKBOX).eq(0).should('be.checked');
 
-    cy.get(HOTELS_LIST).children().should('have.length', 1);
+    cy.get(HOTEL_CARD).should('have.length', 1);
     cy.get(HOTEL_CARD).eq(0).contains('Hotel A');
   });
 
@@ -38,7 +37,7 @@ describe('Rating filter must show correct information', () => {
     cy.get(VERY_GOOD).click();
 
     cy.get(CHECKBOX).eq(0).should('be.checked');
-    cy.get(HOTELS_LIST).children().should('have.length', 1);
+    cy.get(HOTEL_CARD).should('have.length', 1);
     cy.get(HOTEL_CARD).eq(0).contains('Hotel A');
 
     cy.get(PLEASANT).click();
@@ -46,6 +45,6 @@ describe('Rating filter must show correct information', () => {
     cy.get(CHECKBOX).eq(0).should('be.checked');
     cy.get(CHECKBOX).eq(2).should('be.checked');
 
-    cy.get(HOTELS_LIST).children().should('have.length', 2);
+    cy.get(HOTEL_CARD).should('have.length', 2);
   });
 });

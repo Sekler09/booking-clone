@@ -1,5 +1,4 @@
 const DEFAULT_ROUTE = '/searchresults?city=Paris';
-const HOTELS_LIST = '[data-cy=hotels-list]';
 const HOTEL_CARD = '[data-cy=hotel-card]';
 
 const LABELS = ['Less than 5km', 'Less than 3km', 'Less than 1km'];
@@ -23,7 +22,7 @@ describe('Rating filter must show correct information', () => {
   it('When selecting less than 3km only Hotel C must be displayed', () => {
     cy.get(LESS_THAN_3KM).click();
 
-    cy.get(HOTELS_LIST).children().should('have.length', 1);
+    cy.get(HOTEL_CARD).should('have.length', 1);
     cy.get(HOTEL_CARD).eq(0).contains('Hotel C');
   });
 
@@ -34,6 +33,6 @@ describe('Rating filter must show correct information', () => {
 
     cy.get(LESS_THAN_5KM).click();
 
-    cy.get(HOTELS_LIST).children().should('have.length', 2);
+    cy.get(HOTEL_CARD).should('have.length', 2);
   });
 });

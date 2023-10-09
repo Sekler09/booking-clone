@@ -42,6 +42,7 @@ export default function MainFiltersInput({
         readOnly={isReadOnly}
         onChange={onValueChange}
         placeholder={placeholder}
+        data-cy="main-input"
       />
       {needArrow && <Arrow />}
       {isOpen && <div ref={popoverRef}>{children}</div>}

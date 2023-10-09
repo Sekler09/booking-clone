@@ -71,6 +71,7 @@ function PriceFilter({ min, max, onChange }) {
               const value = Math.min(+event.target.value, maxVal - 10);
               setMinVal(value);
             }}
+            data-cy="thumb-min"
           />
           <Thumb
             type="range"
@@ -83,6 +84,7 @@ function PriceFilter({ min, max, onChange }) {
               const value = Math.max(+event.target.value, minVal + 10);
               setMaxVal(value);
             }}
+            data-cy="thumb-max"
           />
           <SliderTrack />
           <SliderRange ref={range} />

@@ -14,7 +14,10 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import failOnConsoleError from 'cypress-fail-on-console-error';
+import 'cypress-real-events';
+import './commands';
 
+failOnConsoleError();
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

@@ -12,11 +12,12 @@ export default function getInitCounterStateFormParamsAndRedux(
     }
     return counterFromRedux;
   }
+
   const isCounterFromSearchValid =
     +counterFromSearch >= min && +counterFromSearch <= max;
-
   if (isCounterFromSearchValid) {
     return +counterFromSearch;
   }
+
   return min;
 }

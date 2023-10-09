@@ -26,23 +26,28 @@ import {
   SearchIcon,
 } from './styled';
 
+const defaultSearchFilters = {
+  city: '',
+  from: null,
+  to: null,
+  adults: 1,
+  children: 0,
+  rooms: 1,
+};
+
+const defaultSortType = 'DEFAULT';
+
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
+  const [searchParams] = useSearchParams();
+
   const [initInputs] = useState(inputs);
-  const [sorting, setSorting] = useState('DEFAULT');
+  const [sorting, setSorting] = useState(defaultSortType);
   const [hotels, setHotels] = useState([]);
   const [filteredHotels, setFilteredHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchParams] = useSearchParams();
-  const [searchFilters, setSearchFilters] = useState({
-    city: '',
-    from: null,
-    to: null,
-    adults: 1,
-    children: 0,
-    rooms: 1,
-  });
+  const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
 
   function checkRoomsAvailability(rooms, from, to, capacity, count) {
     if (rooms.length < count) {
@@ -152,7 +157,9 @@ export default function SearchResultsPage() {
         <CountInput />
         <SearchButton />
       </InputsWrapper>
+
       {loading && <FancyLoader />}
+
       <ResultsWrapper>
         {!loading && !error && hotels.length !== 0 && (
           <>
@@ -168,8 +175,9 @@ export default function SearchResultsPage() {
             </ResultsContainer>
           </>
         )}
+
         {!loading && !error && filteredHotels.length === 0 && (
-          <EmptyResult>
+          <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
             <p>No properties found in {searchFilters.city}</p>
             <p>
@@ -178,6 +186,7 @@ export default function SearchResultsPage() {
             </p>
           </EmptyResult>
         )}
+
         {error && (
           <ErrorWrapper>
             <ErrorIcon />

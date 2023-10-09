@@ -75,12 +75,11 @@ export default function CalendarInput() {
   }
 
   useEffect(() => {
-    dispatch(
-      setDate({
-        from: range.from ? format(range.from, 'y-M-d') : null,
-        to: range.to ? format(range.to, 'y-M-d') : null,
-      }),
-    );
+    const newDate = {
+      from: range.from ? format(range.from, 'y-M-d') : null,
+      to: range.to ? format(range.to, 'y-M-d') : null,
+    };
+    dispatch(setDate(newDate));
     updateSearchParams();
   }, [range]);
 
@@ -103,8 +102,7 @@ export default function CalendarInput() {
         text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
           range.to,
           DATE_FORMAT_PATTERN,
-        )}
-          `;
+        )}`;
       }
     }
     return text;
@@ -130,7 +128,7 @@ export default function CalendarInput() {
       isReadOnly
       Icon={CalendarLogo}
     >
-      <DayPickerWrapper>
+      <DayPickerWrapper data-cy="dates-wrapper">
         <DayPicker
           style={{ color: 'black' }}
           mode="range"

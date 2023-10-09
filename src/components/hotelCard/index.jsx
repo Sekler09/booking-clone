@@ -40,7 +40,7 @@ function HotelCard({ hotel }) {
   const startPrice = Math.min(...hotel.rooms.map(room => room.price_per_night));
 
   return (
-    <Card>
+    <Card data-cy="hotel-card">
       <HotelImage src={hotel.image} alt={hotel.name} />
       <ContentWrapper>
         <HotelInfoWrapper>

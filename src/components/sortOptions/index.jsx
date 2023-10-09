@@ -22,8 +22,11 @@ function SortOptions({ onChangeSort }) {
   };
 
   return (
-    <SortOptionsWrapper data-cy="sort-options">
-      <Button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+    <SortOptionsWrapper>
+      <Button
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        data-cy="sort-options-btn"
+      >
         Sort By:{' '}
         {sortingOptions.find(option => option.value === selectedSort).label}
       </Button>
@@ -32,6 +35,7 @@ function SortOptions({ onChangeSort }) {
           <Option
             key={option.value}
             onClick={() => handleOptionClick(option.value)}
+            data-cy={option.label}
           >
             {option.label}
           </Option>

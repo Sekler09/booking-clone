@@ -30,7 +30,7 @@ export default function Counter({ label, count, setCount, min, max }) {
         >
           <StyledMinus $active={count !== min} />
         </CounterButton>
-        <CountValue>{count}</CountValue>
+        <CountValue data-cy="count-value">{count}</CountValue>
         <CounterButton
           onClick={() => onIncrement()}
           disabled={count === max}

@@ -128,7 +128,7 @@ export default function CalendarInput() {
       isReadOnly
       Icon={CalendarLogo}
     >
-      <DayPickerWrapper>
+      <DayPickerWrapper data-cy="dates-wrapper">
         <DayPicker
           style={{ color: 'black' }}
           mode="range"

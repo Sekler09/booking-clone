@@ -111,7 +111,7 @@ export default function CountInput() {
       isReadOnly
       Icon={ManIcon}
     >
-      <CountersWrapper>
+      <CountersWrapper data-cy="counters-wrapper">
         <Counter
           max={30}
           min={1}

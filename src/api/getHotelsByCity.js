@@ -1,4 +1,6 @@
 export default async function getHotelsByCity(city) {
-  const response = await fetch(`http://localhost:3000/hotels?city=${city}`);
+  const response = await fetch(
+    `https://booking-db.onrender.com/hotels?city=${city}`,
+  );
   return response;
 }

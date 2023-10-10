@@ -1,6 +1,6 @@
+import { devLink } from './helpers';
+
 export default async function getHotelsByCity(city) {
-  const response = await fetch(
-    `https://booking-db.onrender.com/hotels?city=${city}`,
-  );
+  const response = await fetch(`${devLink}/hotels?city=${city}`);
   return response;
 }

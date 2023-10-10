@@ -1,5 +1,6 @@
 import React from 'react';
 import { number, string, shape, arrayOf } from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 
 import {
   Card,
@@ -20,6 +21,8 @@ import {
 } from './styled';
 
 function HotelCard({ hotel }) {
+  const [searchParams] = useSearchParams();
+
   const reviews = hotel.rooms.reduce(
     (allReviews, room) => allReviews.concat(room.reviews),
     [],
@@ -38,6 +41,8 @@ function HotelCard({ hotel }) {
 
   const ratingText = getRatingText(averageRating);
   const startPrice = Math.min(...hotel.rooms.map(room => room.price_per_night));
+
+  const toUrl = `/hotels/${hotel.id}?${searchParams.toString()}`;
 
   return (
     <Card data-cy="hotel-card">
@@ -64,7 +69,7 @@ function HotelCard({ hotel }) {
             </ReviewsInfo>
           )}
         </HotelInfoWrapper>
-        <BookButton to={`/hotels/${hotel.id}`}>Book Now</BookButton>
+        <BookButton to={toUrl}>Book Now</BookButton>
       </ContentWrapper>
     </Card>
   );

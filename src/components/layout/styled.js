@@ -19,7 +19,7 @@ const BlueBg = styled.div`
   background-color: ${({ theme }) => theme.colors.oxfordBlue};
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
-    height: 80px;
+    height: ${({ $isBlueBgNeeded }) => ($isBlueBgNeeded ? '80px' : 0)};
   }
 `;
 

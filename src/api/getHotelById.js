@@ -1,6 +1,6 @@
-import { devLink } from './helpers';
+const URL = import.meta.env.VITE_FETCH_URL;
 
 export default async function getHotelById(id) {
-  const response = await fetch(`${devLink}/hotels/${id}`);
+  const response = await fetch(`${URL}/hotels/${id}`);
   return response;
 }

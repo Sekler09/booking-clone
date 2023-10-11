@@ -15,7 +15,6 @@ import {
   ReviewTitle,
   Rating,
   TotalReviews,
-  BookButton,
   ReviewRatingText,
   Distance,
 } from './styled';
@@ -45,7 +44,7 @@ function HotelCard({ hotel }) {
   const toUrl = `/hotels/${hotel.id}?${searchParams.toString()}`;
 
   return (
-    <Card data-cy="hotel-card">
+    <Card to={toUrl} data-cy="hotel-card">
       <HotelImage src={hotel.image} alt={hotel.name} />
       <ContentWrapper>
         <HotelInfoWrapper>
@@ -69,7 +68,6 @@ function HotelCard({ hotel }) {
             </ReviewsInfo>
           )}
         </HotelInfoWrapper>
-        <BookButton to={toUrl}>Book Now</BookButton>
       </ContentWrapper>
     </Card>
   );

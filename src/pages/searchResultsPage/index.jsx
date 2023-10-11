@@ -37,6 +37,10 @@ const defaultSearchFilters = {
 
 const defaultSortType = 'DEFAULT';
 
+function capitalizeCity(city) {
+  return city ? city[0].toUpperCase() + city.slice(1).toLowerCase() : city;
+}
+
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [searchParams] = useSearchParams();
@@ -120,7 +124,7 @@ export default function SearchResultsPage() {
       children,
     });
 
-    getHotelsByCity(city)
+    getHotelsByCity(capitalizeCity(city))
       .then(r => r.json())
       .then(data => {
         const initHotels = filterHotelsByDateAndCounts(
@@ -144,7 +148,7 @@ export default function SearchResultsPage() {
   const sortingFunction = getSorting(sorting);
   const resultInfo = (
     <h1>
-      {searchFilters.city}: {filteredHotels.length} hotel
+      {capitalizeCity(searchFilters.city)}: {filteredHotels.length} hotel
       {filteredHotels.length > 1 ? 's' : ''} found
     </h1>
   );

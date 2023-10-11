@@ -42,6 +42,11 @@ const RoomCapacity = styled.p`
   color: ${({ theme }) => theme.colors.oldSilver};
 `;
 
+const RoomPrice = styled.p`
+  margin-top: 10px;
+  font-weight: bold;
+`;
+
 const BookButton = styled.button`
   align-self: center;
   margin-left: auto;
@@ -63,4 +68,5 @@ export {
   BookButton,
   ImageAmount,
   ImageContainer,
+  RoomPrice,
 };

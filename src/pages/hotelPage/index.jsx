@@ -13,6 +13,7 @@ import {
 
 import HotelGallery from 'components/hotelGallery';
 import HotelRoom from 'components/hotelRoom';
+import Review from 'components/review';
 import Modal from 'components/modal';
 import { useModal } from 'hooks/useModal';
 import { setDate } from 'store/slices/inputsSlice';
@@ -31,8 +32,11 @@ import {
   HotelDistanceFromTheCenter,
   HotelHeaderContainer,
   HotelName,
+  HotelReviewsContainer,
   HotelTitleWrapper,
   PriceStart,
+  ReviewsContainer,
+  ReviewsTitle,
   RoomsContainer,
   SuccessTitle,
   TimeValue,
@@ -142,6 +146,16 @@ export default function Hotel() {
           />
         ))}
       </RoomsContainer>
+      <HotelReviewsContainer>
+        <ReviewsTitle>Reviews</ReviewsTitle>
+        <ReviewsContainer>
+          {hotel.rooms.map(room =>
+            room.reviews.map(review => (
+              <Review review={review} key={room.id + review.username} />
+            )),
+          )}
+        </ReviewsContainer>
+      </HotelReviewsContainer>
 
       {isOpen && (
         <Modal onClose={onClose}>

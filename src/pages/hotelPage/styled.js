@@ -39,7 +39,7 @@ const PriceStart = styled.div`
 
 const DatesOfStayContainer = styled(ContentContainer)`
   display: flex;
-  gap: 40px;
+  gap: 35px;
 `;
 
 const DateOfStay = styled.div`
@@ -68,7 +68,7 @@ const TimeValue = styled.p`
 
 const ChangeDateButton = styled.button`
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 8px 16px;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.lightBlueGray};
@@ -94,7 +94,25 @@ const SuccessTitle = styled.p`
   font-size: x-large;
 `;
 
+const HotelReviewsContainer = styled(ContentContainer)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ReviewsTitle = styled(AvailableRoomsTitle)`
+  margin-bottom: 20px;
+`;
+
+const ReviewsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+
 export {
+  ReviewsContainer,
+  ReviewsTitle,
+  HotelReviewsContainer,
   SuccessTitle,
   HotelHeaderContainer,
   HotelTitleWrapper,

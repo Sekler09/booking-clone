@@ -10,6 +10,7 @@ import {
   RoomContainer,
   RoomImage,
   RoomName,
+  RoomPrice,
 } from './styled';
 
 const Image = 'https://placehold.co/600x400';
@@ -24,6 +25,7 @@ function HotelRoom({ room, onBook }) {
       <InfoContainer>
         <RoomName>{room.room_type}</RoomName>
         <RoomCapacity>{room.capacity} person</RoomCapacity>
+        <RoomPrice>${room.price_per_night}</RoomPrice>
       </InfoContainer>
       <BookButton onClick={() => onBook(room.room_id)}>Book now</BookButton>
     </RoomContainer>

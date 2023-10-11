@@ -34,6 +34,7 @@ import {
   HotelTitleWrapper,
   PriceStart,
   RoomsContainer,
+  SuccessTitle,
   TimeValue,
 } from './styled';
 
@@ -45,6 +46,7 @@ export default function Hotel() {
   const navigate = useNavigate();
   const { from, to } = useSelector(state => state.inputs.dates);
   const [isOpen, onOpen, onClose] = useModal();
+  const [isBookOpen, onBookOpen] = useModal();
 
   function onNewRange(newRange) {
     if (!newRange) {
@@ -65,7 +67,7 @@ export default function Hotel() {
         ...getArrayOfDatesBetween(new Date(from), new Date(to)),
       );
       await updateHotel(hotel);
-      navigate('/');
+      onBookOpen();
     }
   }
 
@@ -129,6 +131,18 @@ export default function Hotel() {
         </DateOfStay>
         <ChangeDateButton onClick={onOpen}>Change</ChangeDateButton>
       </DatesOfStayContainer>
+      <RoomsContainer>
+        <AvailableRoomsTitle>Available rooms</AvailableRoomsTitle>
+        {availableRooms.map(room => (
+          <HotelRoom
+            key={room.room_id}
+            room={room}
+            hotelId={hotel.id}
+            onBook={id => onBook(id)}
+          />
+        ))}
+      </RoomsContainer>
+
       {isOpen && (
         <Modal onClose={onClose}>
           <DayPicker
@@ -146,17 +160,16 @@ export default function Hotel() {
           />
         </Modal>
       )}
-      <RoomsContainer>
-        <AvailableRoomsTitle>Available rooms</AvailableRoomsTitle>
-        {availableRooms.map(room => (
-          <HotelRoom
-            key={room.room_id}
-            room={room}
-            hotelId={hotel.id}
-            onBook={id => onBook(id)}
-          />
-        ))}
-      </RoomsContainer>
+
+      {isBookOpen && (
+        <Modal
+          onClose={() => {
+            navigate('/');
+          }}
+        >
+          <SuccessTitle>You have successfully booked a hotel!</SuccessTitle>
+        </Modal>
+      )}
     </>
   );
 }

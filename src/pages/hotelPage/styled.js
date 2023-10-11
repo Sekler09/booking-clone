@@ -88,7 +88,14 @@ const AvailableRoomsTitle = styled.p`
   font-size: larger;
 `;
 
+const SuccessTitle = styled.p`
+  padding: 40px;
+  font-weight: bold;
+  font-size: x-large;
+`;
+
 export {
+  SuccessTitle,
   HotelHeaderContainer,
   HotelTitleWrapper,
   HotelName,

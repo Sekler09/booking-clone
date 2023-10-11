@@ -14,11 +14,38 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0 0 0 / 30%);
+  position: relative;
   padding: 20px;
-  max-width: 80%;
+  border-radius: 8px;
+  max-width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0 0 0 / 30%);
 `;
 
-export { ModalOverlay, ModalContainer };
+const CloseButton = styled.button`
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  cursor: pointer;
+
+  &::after,
+  &::before {
+    position: absolute;
+    border-radius: 2px;
+    content: '';
+    width: 20px;
+    height: 4px;
+    transform: rotate(45deg);
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
+`;
+
+export { ModalOverlay, ModalContainer, CloseButton };

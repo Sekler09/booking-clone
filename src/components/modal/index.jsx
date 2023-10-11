@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { func, node } from 'prop-types';
 
-import { ModalContainer, ModalOverlay } from './styled';
+import { CloseButton, ModalContainer, ModalOverlay } from './styled';
 
 function Modal({ onClose, children }) {
   const modalRef = useRef(null);
@@ -16,9 +16,7 @@ function Modal({ onClose, children }) {
     <ModalOverlay onClick={e => onOverlayClick(e)}>
       <ModalContainer ref={modalRef}>
         {children}
-        <button type="button" onClick={onClose}>
-          Close
-        </button>
+        <CloseButton type="button" onClick={onClose} />
       </ModalContainer>
     </ModalOverlay>
   );

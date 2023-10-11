@@ -77,6 +77,17 @@ const ChangeDateButton = styled.button`
   cursor: pointer;
 `;
 
+const RoomsContainer = styled(ContentContainer)`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
+const AvailableRoomsTitle = styled.p`
+  font-weight: bold;
+  font-size: larger;
+`;
+
 export {
   HotelHeaderContainer,
   HotelTitleWrapper,
@@ -91,4 +102,6 @@ export {
   DateValue,
   TimeValue,
   ChangeDateButton,
+  RoomsContainer,
+  AvailableRoomsTitle,
 };

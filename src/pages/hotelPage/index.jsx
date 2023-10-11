@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { DayPicker } from 'react-day-picker';
 import {
@@ -12,11 +12,15 @@ import {
 } from 'date-fns';
 
 import HotelGallery from 'components/hotelGallery';
+import HotelRoom from 'components/hotelRoom';
 import Modal from 'components/modal';
 import { useModal } from 'hooks/useModal';
 import { setDate } from 'store/slices/inputsSlice';
+import { getArrayOfDatesBetween } from 'utils/dateHelpers';
+import updateHotel from 'api/updateHotel';
 
 import {
+  AvailableRoomsTitle,
   ChangeDateButton,
   DateAndTimeContainer,
   DateOfStay,
@@ -29,6 +33,7 @@ import {
   HotelName,
   HotelTitleWrapper,
   PriceStart,
+  RoomsContainer,
   TimeValue,
 } from './styled';
 
@@ -37,6 +42,7 @@ const DATE_FORMAT_PATTERN = 'd MMM y, iii';
 export default function Hotel() {
   const hotel = useLoaderData();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { from, to } = useSelector(state => state.inputs.dates);
   const [isOpen, onOpen, onClose] = useModal();
 
@@ -50,6 +56,17 @@ export default function Hotel() {
       to: newRange.to ? format(newRange.to, 'y-M-d') : null,
     };
     dispatch(setDate(newDate));
+  }
+
+  async function onBook(roomId) {
+    const roomToUpdate = hotel.rooms.find(room => room.room_id === roomId);
+    if (roomToUpdate) {
+      roomToUpdate.booked_dates.push(
+        ...getArrayOfDatesBetween(new Date(from), new Date(to)),
+      );
+      await updateHotel(hotel);
+      navigate('/');
+    }
   }
 
   const startPrice = Math.min(...hotel.rooms.map(room => room.price_per_night));
@@ -68,6 +85,13 @@ export default function Hotel() {
       to: addDays(today, -1),
     },
   ];
+  const availableRooms = hotel.rooms.filter(
+    room =>
+      !room.booked_dates.find(
+        date =>
+          new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
+      ),
+  );
 
   return (
     <>
@@ -122,6 +146,17 @@ export default function Hotel() {
           />
         </Modal>
       )}
+      <RoomsContainer>
+        <AvailableRoomsTitle>Available rooms</AvailableRoomsTitle>
+        {availableRooms.map(room => (
+          <HotelRoom
+            key={room.room_id}
+            room={room}
+            hotelId={hotel.id}
+            onBook={id => onBook(id)}
+          />
+        ))}
+      </RoomsContainer>
     </>
   );
 }

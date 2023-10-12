@@ -41,6 +41,7 @@ import {
   SuccessTitle,
   TimeValue,
 } from './styled';
+import AddReviewForm from '../../components/addReviewForm';
 
 const DATE_FORMAT_PATTERN = 'd MMM y, iii';
 
@@ -49,8 +50,9 @@ export default function Hotel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { from, to } = useSelector(state => state.inputs.dates);
-  const [isOpen, onOpen, onClose] = useModal();
+  const [isDateOpen, onDateOpen, onDateClose] = useModal();
   const [isBookOpen, onBookOpen] = useModal();
+  const [isReviewOpen, onReviewOpen, onReviewClose] = useModal();
 
   function onNewRange(newRange) {
     if (!newRange) {
@@ -72,6 +74,15 @@ export default function Hotel() {
       );
       await updateHotel(hotel);
       onBookOpen();
+    }
+  }
+
+  async function onReviewAdd(roomId, review) {
+    const roomToUpdate = hotel.rooms.find(room => room.room_id === roomId);
+    if (roomToUpdate) {
+      roomToUpdate.reviews.push(review);
+      await updateHotel(hotel);
+      onReviewClose();
     }
   }
 
@@ -118,7 +129,7 @@ export default function Hotel() {
         <DateOfStay>
           <DateTitle>Check-in</DateTitle>
           <DateAndTimeContainer>
-            <DateValue onClick={onOpen}>
+            <DateValue onClick={onDateOpen}>
               {format(new Date(from), DATE_FORMAT_PATTERN)}
             </DateValue>
             <TimeValue>{checkinTime}</TimeValue>
@@ -127,13 +138,13 @@ export default function Hotel() {
         <DateOfStay>
           <DateTitle>Check-out</DateTitle>
           <DateAndTimeContainer>
-            <DateValue onClick={onOpen}>
+            <DateValue onClick={onDateOpen}>
               {format(new Date(to), DATE_FORMAT_PATTERN)}
             </DateValue>
             <TimeValue>{checkoutTime}</TimeValue>
           </DateAndTimeContainer>
         </DateOfStay>
-        <ChangeDateButton onClick={onOpen}>Change</ChangeDateButton>
+        <ChangeDateButton onClick={onDateOpen}>Change</ChangeDateButton>
       </DatesOfStayContainer>
       <RoomsContainer>
         <AvailableRoomsTitle>Available rooms</AvailableRoomsTitle>
@@ -155,10 +166,11 @@ export default function Hotel() {
             )),
           )}
         </ReviewsContainer>
+        <ChangeDateButton onClick={onReviewOpen}>Leave review</ChangeDateButton>
       </HotelReviewsContainer>
 
-      {isOpen && (
-        <Modal onClose={onClose}>
+      {isDateOpen && (
+        <Modal onClose={onDateClose}>
           <DayPicker
             style={{ color: 'black' }}
             mode="range"
@@ -182,6 +194,16 @@ export default function Hotel() {
           }}
         >
           <SuccessTitle>You have successfully booked a hotel!</SuccessTitle>
+        </Modal>
+      )}
+
+      {isReviewOpen && (
+        <Modal onClose={onReviewClose}>
+          <AddReviewForm
+            onReviewAdd={(id, rev) => onReviewAdd(id, rev)}
+            rooms={hotel.rooms}
+            onClose={onReviewClose}
+          />
         </Modal>
       )}
     </>

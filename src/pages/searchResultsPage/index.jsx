@@ -23,6 +23,7 @@ import {
   ResultsContainer,
   ResultsCountInfo,
   ResultsWrapper,
+  SearchCity,
   SearchIcon,
 } from './styled';
 
@@ -56,7 +57,7 @@ export default function SearchResultsPage() {
 
     const availableRooms = rooms.filter(
       room =>
-        !room.booked_dates.find(
+        !room.bookedDates.find(
           date =>
             new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
         ),
@@ -120,7 +121,7 @@ export default function SearchResultsPage() {
       children,
     });
 
-    getHotelsByCity(city)
+    getHotelsByCity(city.toLowerCase())
       .then(r => r.json())
       .then(data => {
         const initHotels = filterHotelsByDateAndCounts(
@@ -144,7 +145,8 @@ export default function SearchResultsPage() {
   const sortingFunction = getSorting(sorting);
   const resultInfo = (
     <h1>
-      {searchFilters.city}: {filteredHotels.length} hotel
+      <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>:{' '}
+      {filteredHotels.length} hotel
       {filteredHotels.length > 1 ? 's' : ''} found
     </h1>
   );
@@ -179,7 +181,10 @@ export default function SearchResultsPage() {
         {!loading && !error && filteredHotels.length === 0 && (
           <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
-            <p>No properties found in {searchFilters.city}</p>
+            <p>
+              No properties found in{' '}
+              <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
+            </p>
             <p>
               There are no matching properties for your search criteria. Try
               updating your search.

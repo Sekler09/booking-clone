@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Card = styled.div`
+const Card = styled(Link)`
   display: flex;
   border: 1px solid ${({ theme }) => theme.colors.gainsboro};
   border-radius: 8px;
   margin: 16px 0;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  cursor: pointer;
 `;
 
 const HotelImage = styled.img`
@@ -42,7 +43,7 @@ const HotelInfoWrapper = styled.div`
 const HotelMainInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
 `;
 
 const HotelName = styled.h3`
@@ -111,20 +112,6 @@ const TotalReviews = styled.div`
   margin-top: 4px;
 `;
 
-const BookButton = styled(Link)`
-  align-self: flex-end;
-  border-radius: 4px;
-  padding: 10px 20px;
-  background-color: ${({ theme }) => theme.colors.trueBlue};
-  color: ${({ theme }) => theme.colors.white};
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.pantone};
-  }
-`;
-
 const Distance = styled.div`
   font-size: small;
 `;
@@ -143,6 +130,5 @@ export {
   ReviewTitle,
   Rating,
   TotalReviews,
-  BookButton,
   ReviewRatingText,
 };

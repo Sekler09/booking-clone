@@ -1,10 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from 'components/layout';
-import Hotel from 'pages/HotelPage';
+import Hotel from 'pages/hotelPage';
 import Main from 'pages/mainPage';
 import Room from 'pages/RoomPage';
 import SearchResultsPage from 'pages/searchResultsPage';
+import getHotelById from 'api/getHotelById';
 
 export default createBrowserRouter([
   {
@@ -17,6 +18,9 @@ export default createBrowserRouter([
       },
       {
         path: 'hotels/:id',
+        loader: async ({ params }) => {
+          return getHotelById(params.id);
+        },
         element: <Hotel />,
       },
       {

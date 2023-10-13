@@ -1,5 +1,6 @@
 import React from 'react';
 import { number, string, shape, arrayOf } from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 
 import {
   Card,
@@ -14,12 +15,13 @@ import {
   ReviewTitle,
   Rating,
   TotalReviews,
-  BookButton,
   ReviewRatingText,
   Distance,
 } from './styled';
 
 function HotelCard({ hotel }) {
+  const [searchParams] = useSearchParams();
+
   const reviews = hotel.rooms.reduce(
     (allReviews, room) => allReviews.concat(room.reviews),
     [],
@@ -37,10 +39,12 @@ function HotelCard({ hotel }) {
   }
 
   const ratingText = getRatingText(averageRating);
-  const startPrice = Math.min(...hotel.rooms.map(room => room.price_per_night));
+  const startPrice = Math.min(...hotel.rooms.map(room => room.pricePerNight));
+
+  const toUrl = `/hotels/${hotel.id}?${searchParams.toString()}`;
 
   return (
-    <Card data-cy="hotel-card">
+    <Card to={toUrl} data-cy="hotel-card">
       <HotelImage src={hotel.image} alt={hotel.name} />
       <ContentWrapper>
         <HotelInfoWrapper>
@@ -51,7 +55,7 @@ function HotelCard({ hotel }) {
             </HotelLocation>
             <Price>from ${startPrice} per night</Price>
             <Distance>
-              Distance from the center: {hotel.distance_from_center}km
+              Distance from the center: {hotel.distanceFromCenter}km
             </Distance>
           </HotelMainInfoWrapper>
           {!!reviews.length && (
@@ -64,7 +68,6 @@ function HotelCard({ hotel }) {
             </ReviewsInfo>
           )}
         </HotelInfoWrapper>
-        <BookButton to={`/hotels/${hotel.id}`}>Book Now</BookButton>
       </ContentWrapper>
     </Card>
   );
@@ -76,11 +79,11 @@ HotelCard.propTypes = {
     name: string.isRequired,
     city: string.isRequired,
     address: string.isRequired,
-    distance_from_center: number.isRequired,
+    distanceFromCenter: number.isRequired,
     image: string.isRequired,
     rooms: arrayOf(
       shape({
-        price_per_night: number.isRequired,
+        pricePerNight: number.isRequired,
         reviews: arrayOf(
           shape({
             rating: number.isRequired,

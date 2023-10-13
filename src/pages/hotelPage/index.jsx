@@ -60,9 +60,9 @@ export default function Hotel() {
   }
 
   async function onBook(roomId) {
-    const roomToUpdate = hotel.rooms.find(room => room.room_id === roomId);
+    const roomToUpdate = hotel.rooms.find(room => room.roomId === roomId);
     if (roomToUpdate) {
-      roomToUpdate.booked_dates.push(
+      roomToUpdate.bookedDates.push(
         ...getArrayOfDatesBetween(new Date(from), new Date(to)),
       );
       await updateHotel(hotel);
@@ -71,7 +71,7 @@ export default function Hotel() {
   }
 
   async function onReviewAdd(roomId, review) {
-    const roomToUpdate = hotel.rooms.find(room => room.room_id === roomId);
+    const roomToUpdate = hotel.rooms.find(room => room.roomId === roomId);
     if (roomToUpdate) {
       roomToUpdate.reviews.push(review);
       await updateHotel(hotel);
@@ -79,7 +79,7 @@ export default function Hotel() {
     }
   }
 
-  const startPrice = Math.min(...hotel.rooms.map(room => room.price_per_night));
+  const startPrice = Math.min(...hotel.rooms.map(room => room.pricePerNight));
   const checkinTime = 'From 14:00 to 00:00';
   const checkoutTime = 'Before 12:00';
 
@@ -90,7 +90,7 @@ export default function Hotel() {
 
   const availableRooms = hotel.rooms.filter(
     room =>
-      !room.booked_dates.find(
+      !room.bookedDates.find(
         date =>
           new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
       ),
@@ -105,7 +105,7 @@ export default function Hotel() {
             {hotel.city}, {hotel.address}
           </HotelAddress>
           <HotelDistanceFromTheCenter>
-            {hotel.distance_from_center}km from the center
+            {hotel.distanceFromCenter}km from the center
           </HotelDistanceFromTheCenter>
         </HotelTitleWrapper>
         <PriceStart>from ${startPrice}</PriceStart>
@@ -136,7 +136,7 @@ export default function Hotel() {
         <AvailableRoomsTitle>Available rooms</AvailableRoomsTitle>
         {availableRooms.map(room => (
           <HotelRoom
-            key={room.room_id}
+            key={room.roomId}
             room={room}
             hotelId={hotel.id}
             onBook={id => onBook(id)}

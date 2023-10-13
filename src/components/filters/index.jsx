@@ -9,7 +9,7 @@ import { FilterItem, FiltersTitle, FiltersWrapper } from './styled';
 
 function getMaxAndMinPrice(hotels) {
   const prices = hotels
-    .map(hotel => hotel.rooms.map(room => room.price_per_night))
+    .map(hotel => hotel.rooms.map(room => room.pricePerNight))
     .flat();
   return { max: Math.max(...prices), min: Math.min(...prices) };
 }
@@ -52,7 +52,7 @@ export default function Filters({ hotels, onFilter }) {
       ...prev,
       price: hotel =>
         hotel.rooms
-          .map(room => room.price_per_night)
+          .map(room => room.pricePerNight)
           .find(price => price <= max && price >= min),
     }));
   }
@@ -122,11 +122,11 @@ Filters.propTypes = {
       name: string.isRequired,
       city: string.isRequired,
       address: string.isRequired,
-      distance_from_center: number.isRequired,
+      distanceFromCenter: number.isRequired,
       image: string.isRequired,
       rooms: arrayOf(
         shape({
-          price_per_night: number.isRequired,
+          pricePerNight: number.isRequired,
           reviews: arrayOf(
             shape({
               rating: number.isRequired,

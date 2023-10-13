@@ -1,23 +1,25 @@
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
 
-const MainNoBlueBgNeededStyles = {
-  marginTop: '40px',
-  transform: 'translateY(0)',
-};
-
-const Main = styled.main`
-  color: ${({ theme }) => theme.colors.black};
-  margin-bottom: 40px;
+const blueBgNeededStyles = css`
   margin-top: 0;
-  padding: 0 10px;
   transform: translateY(-35px);
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     transform: translateY(-80px);
-    ${({ $isBlueBgNeeded }) => !$isBlueBgNeeded && MainNoBlueBgNeededStyles}
+  }
+`;
+const Main = styled.main`
+  color: ${({ theme }) => theme.colors.black};
+  margin-bottom: 40px;
+  margin-top: 40px;
+  padding: 0 10px;
+  transform: translateY(0);
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    transform: translateY(0);
   }
 
-  ${({ $isBlueBgNeeded }) => !$isBlueBgNeeded && MainNoBlueBgNeededStyles}
+  ${({ $isBlueBgNeeded }) => $isBlueBgNeeded && blueBgNeededStyles}
 `;
 
 const BlueBg = styled.div`

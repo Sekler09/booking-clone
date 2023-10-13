@@ -57,7 +57,7 @@ export default function SearchResultsPage() {
 
     const availableRooms = rooms.filter(
       room =>
-        !room.booked_dates.find(
+        !room.bookedDates.find(
           date =>
             new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
         ),

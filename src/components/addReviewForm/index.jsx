@@ -13,7 +13,7 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
   const [username, setUsername] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const [roomId, setRoomId] = useState(rooms[0].room_id);
+  const [roomId, setRoomId] = useState(rooms[0].roomId);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -39,8 +39,8 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
         Pick a room:
         <Select value={roomId} onChange={e => setRoomId(e.target.value)}>
           {rooms.map(room => (
-            <option value={room.room_id} key={room.room_id}>
-              {room.room_type}
+            <option value={room.roomId} key={room.roomId}>
+              {room.roomType}
             </option>
           ))}
         </Select>
@@ -71,8 +71,8 @@ AddReviewForm.propTypes = {
   onReviewAdd: func.isRequired,
   rooms: arrayOf(
     shape({
-      room_id: number.isRequired,
-      room_type: string.isRequired,
+      roomId: number.isRequired,
+      roomType: string.isRequired,
     }),
   ).isRequired,
   onClose: func.isRequired,

@@ -5,15 +5,15 @@
       "name": "Hotel A",
       "city": "paris",
       "address": "123 Main Street",
-      "distance_from_center": 3.5,
+      "distanceFromCenter": 3.5,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/466014443.webp?k=5d05c2f38b420240d795fe164a35801e9f7b696615728d9786a7809ad7087e9d&o=",
       "rooms": [
         {
-          "room_id": 101,
-          "room_type": "Single",
+          "roomId": 101,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 300,
-          "booked_dates": [
+          "pricePerNight": 300,
+          "bookedDates": [
             "2023-10-1",
             "2023-10-5"
           ],
@@ -31,11 +31,11 @@
           ]
         },
         {
-          "room_id": 102,
-          "room_type": "Double",
+          "roomId": 102,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 150,
-          "booked_dates": [
+          "pricePerNight": 150,
+          "bookedDates": [
             "2023-10-7"
           ],
           "reviews": [
@@ -53,15 +53,15 @@
       "name": "Hotel B",
       "city": "moscow",
       "address": "456 Elm Street",
-      "distance_from_center": 2,
+      "distanceFromCenter": 2,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/482818914.webp?k=956909b72bd50eb028d1327daaa55ff5f5bd2f75e8549fdb0ed705eb57cab621&o=",
       "rooms": [
         {
-          "room_id": 201,
-          "room_type": "Suite",
+          "roomId": 201,
+          "roomType": "Suite",
           "capacity": 3,
-          "price_per_night": 250,
-          "booked_dates": [
+          "pricePerNight": 250,
+          "bookedDates": [
             "2023-09-24"
           ],
           "reviews": [
@@ -73,11 +73,11 @@
           ]
         },
         {
-          "room_id": 202,
-          "room_type": "Double",
+          "roomId": 202,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 180,
-          "booked_dates": [
+          "pricePerNight": 180,
+          "bookedDates": [
             "2023-09-23"
           ],
           "reviews": [
@@ -95,15 +95,15 @@
       "name": "Hotel C",
       "city": "paris",
       "address": "789 Ocean Avenue",
-      "distance_from_center": 1.1,
+      "distanceFromCenter": 1.1,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/474974813.webp?k=958d39a75f7b81caae2341ebffe3e0d280f1aa7146ee7f4280525fd71f8fc61b&o=",
       "rooms": [
         {
-          "room_id": 301,
-          "room_type": "Single",
+          "roomId": 301,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 50,
-          "booked_dates": [
+          "pricePerNight": 50,
+          "bookedDates": [
             "2023-09-25"
           ],
           "reviews": [
@@ -115,11 +115,11 @@
           ]
         },
         {
-          "room_id": 302,
-          "room_type": "Double",
+          "roomId": 302,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 200,
-          "booked_dates": [],
+          "pricePerNight": 200,
+          "bookedDates": [],
           "reviews": []
         }
       ]
@@ -129,15 +129,15 @@
       "name": "Hotel D",
       "city": "london",
       "address": "567 Lakeview Drive",
-      "distance_from_center": 2.2,
+      "distanceFromCenter": 2.2,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/295688310.webp?k=f71e92e009a9ad7e95810b38af6b50cb456d3bfaf88355bbd60954abf2302a79&o=",
       "rooms": [
         {
-          "room_id": 401,
-          "room_type": "Single",
+          "roomId": 401,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 110,
-          "booked_dates": [
+          "pricePerNight": 110,
+          "bookedDates": [
             "2023-09-26"
           ],
           "reviews": [
@@ -149,11 +149,11 @@
           ]
         },
         {
-          "room_id": 402,
-          "room_type": "Double",
+          "roomId": 402,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 180,
-          "booked_dates": [
+          "pricePerNight": 180,
+          "bookedDates": [
             "2023-09-27"
           ],
           "reviews": [
@@ -171,15 +171,15 @@
       "name": "Hotel E",
       "city": "madrid",
       "address": "789 Golden Gate Avenue",
-      "distance_from_center": 0.85,
+      "distanceFromCenter": 0.85,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/474887711.webp?k=7e6d429edfe072d48ca0373f75cb4f89658de8c5a18e826effabc3335be78dbc&o=",
       "rooms": [
         {
-          "room_id": 501,
-          "room_type": "Suite",
+          "roomId": 501,
+          "roomType": "Suite",
           "capacity": 4,
-          "price_per_night": 300,
-          "booked_dates": [],
+          "pricePerNight": 300,
+          "bookedDates": [],
           "reviews": [
             {
               "username": "LauraTaylor",
@@ -194,11 +194,11 @@
           ]
         },
         {
-          "room_id": 502,
-          "room_type": "Double",
+          "roomId": 502,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 160,
-          "booked_dates": [
+          "pricePerNight": 160,
+          "bookedDates": [
             "2023-09-28",
             "2023-09-29"
           ],
@@ -211,23 +211,23 @@
       "name": "Hotel F",
       "city": "barcelona",
       "address": "101 Casino Boulevard",
-      "distance_from_center": 1.8,
+      "distanceFromCenter": 1.8,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/136062776.webp?k=cec8fa1472b7e32761c3dadf2eca7f9e27d3b21e5641591eefd8c0a6693d52c1&o=",
       "rooms": [
         {
-          "room_id": 601,
-          "room_type": "Single",
+          "roomId": 601,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 90,
-          "booked_dates": [],
+          "pricePerNight": 90,
+          "bookedDates": [],
           "reviews": []
         },
         {
-          "room_id": 602,
-          "room_type": "Double",
+          "roomId": 602,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 140,
-          "booked_dates": [
+          "pricePerNight": 140,
+          "bookedDates": [
             "2023-09-30"
           ],
           "reviews": [
@@ -245,23 +245,23 @@
       "name": "Hotel G",
       "city": "minsk",
       "address": "246 Disney Drive",
-      "distance_from_center": 1.5,
+      "distanceFromCenter": 1.5,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/387481220.webp?k=59a278c08d9986acffa596567da428a2f493f5e6534a51030fc46f734f014339&o=",
       "rooms": [
         {
-          "room_id": 701,
-          "room_type": "Suite",
+          "roomId": 701,
+          "roomType": "Suite",
           "capacity": 4,
-          "price_per_night": 280,
-          "booked_dates": [],
+          "pricePerNight": 280,
+          "bookedDates": [],
           "reviews": []
         },
         {
-          "room_id": 702,
-          "room_type": "Single",
+          "roomId": 702,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 110,
-          "booked_dates": [
+          "pricePerNight": 110,
+          "bookedDates": [
             "2023-10-01"
           ],
           "reviews": [
@@ -279,25 +279,25 @@
       "name": "Hotel H",
       "city": "rome",
       "address": "369 Beacon Street",
-      "distance_from_center": 3.6,
+      "distanceFromCenter": 3.6,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/31984062.webp?k=3eee5960207be2be7fcfeff15c9da5fa618bd9cbd78b28570bd8a83dbfe0d55f&o=",
       "rooms": [
         {
-          "room_id": 801,
-          "room_type": "Double",
+          "roomId": 801,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 170,
-          "booked_dates": [
+          "pricePerNight": 170,
+          "bookedDates": [
             "2023-10-02"
           ],
           "reviews": []
         },
         {
-          "room_id": 802,
-          "room_type": "Single",
+          "roomId": 802,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 100,
-          "booked_dates": [
+          "pricePerNight": 100,
+          "bookedDates": [
             "2023-10-03"
           ],
           "reviews": [
@@ -315,23 +315,23 @@
       "name": "Hotel I",
       "city": "berlin",
       "address": "456 Beachfront Drive",
-      "distance_from_center": 4.5,
+      "distanceFromCenter": 4.5,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/244503067.webp?k=7945b0b1f97d177f75ced14d0321ac403a6e655c2fa8d8db3fe855f8d0bf4dc9&o=",
       "rooms": [
         {
-          "room_id": 901,
-          "room_type": "Suite",
+          "roomId": 901,
+          "roomType": "Suite",
           "capacity": 4,
-          "price_per_night": 300,
-          "booked_dates": [],
+          "pricePerNight": 300,
+          "bookedDates": [],
           "reviews": []
         },
         {
-          "room_id": 902,
-          "room_type": "Single",
+          "roomId": 902,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 120,
-          "booked_dates": [
+          "pricePerNight": 120,
+          "bookedDates": [
             "2023-10-06"
           ],
           "reviews": [
@@ -349,15 +349,15 @@
       "name": "Hotel J",
       "city": "milan",
       "address": "789 Rocky Road",
-      "distance_from_center": 2,
+      "distanceFromCenter": 2,
       "image": "https://cf.bstatic.com/xdata/images/hotel/square200/106687932.webp?k=b8025c33bd658950355f333c21eb4f8bd702747e23a30707bbf3b3a9e3b36003&o=",
       "rooms": [
         {
-          "room_id": 1001,
-          "room_type": "Single",
+          "roomId": 1001,
+          "roomType": "Single",
           "capacity": 1,
-          "price_per_night": 110,
-          "booked_dates": [
+          "pricePerNight": 110,
+          "bookedDates": [
             "2023-10-04"
           ],
           "reviews": [
@@ -369,11 +369,11 @@
           ]
         },
         {
-          "room_id": 1002,
-          "room_type": "Double",
+          "roomId": 1002,
+          "roomType": "Double",
           "capacity": 2,
-          "price_per_night": 180,
-          "booked_dates": [
+          "pricePerNight": 180,
+          "bookedDates": [
             "2023-10-05"
           ],
           "reviews": [

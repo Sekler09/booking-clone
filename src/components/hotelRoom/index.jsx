@@ -23,22 +23,22 @@ function HotelRoom({ room, onBook }) {
         <ImageAmount>{room.capacity} photo</ImageAmount>
       </ImageContainer>
       <InfoContainer>
-        <RoomName>{room.room_type}</RoomName>
+        <RoomName>{room.roomType}</RoomName>
         <RoomCapacity>{room.capacity} person</RoomCapacity>
-        <RoomPrice>${room.price_per_night}</RoomPrice>
+        <RoomPrice>${room.pricePerNight}</RoomPrice>
       </InfoContainer>
-      <BookButton onClick={() => onBook(room.room_id)}>Book now</BookButton>
+      <BookButton onClick={() => onBook(room.roomId)}>Book now</BookButton>
     </RoomContainer>
   );
 }
 
 HotelRoom.propTypes = {
   room: shape({
-    room_id: number,
-    room_type: string,
+    roomId: number,
+    roomType: string,
     capacity: number,
-    price_per_night: number,
-    booked_dates: arrayOf(string),
+    pricePerNight: number,
+    bookedDates: arrayOf(string),
     reviews: arrayOf(
       shape({
         username: string,

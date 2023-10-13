@@ -67,11 +67,11 @@ HotelGallery.propTypes = {
     name: string.isRequired,
     city: string.isRequired,
     address: string.isRequired,
-    distance_from_center: number.isRequired,
+    distanceFromCenter: number.isRequired,
     image: string.isRequired,
     rooms: arrayOf(
       shape({
-        price_per_night: number.isRequired,
+        pricePerNight: number.isRequired,
         reviews: arrayOf(
           shape({
             rating: number.isRequired,

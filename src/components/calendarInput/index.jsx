@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DayPicker } from 'react-day-picker';
-import {
-  addDays,
-  addYears,
-  endOfYear,
-  format,
-  startOfMonth,
-  startOfToday,
-} from 'date-fns';
+import { format } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 
 import MainFiltersInput from 'components/mainFiltersInput';
+import DateRangePicker from 'components/dateRangePicker';
 import { useModal } from 'hooks/useModal';
 import {
   checkSearchFromValidity,
@@ -110,14 +103,6 @@ export default function CalendarInput() {
 
   const text = getInputText();
 
-  const today = startOfToday();
-  const disabledDays = [
-    {
-      from: startOfMonth(today),
-      to: addDays(today, -1),
-    },
-  ];
-
   return (
     <MainFiltersInput
       isOpen={isOpen}
@@ -129,17 +114,9 @@ export default function CalendarInput() {
       Icon={CalendarLogo}
     >
       <DayPickerWrapper data-cy="dates-wrapper">
-        <DayPicker
-          style={{ color: 'black' }}
-          mode="range"
-          fromMonth={today}
-          toMonth={endOfYear(addYears(today, 1))}
-          defaultMonth={today}
-          selected={range}
-          onSelect={newRange => onRangeSelect(newRange)}
-          numberOfMonths={2}
-          disabled={disabledDays}
-          weekStartsOn={1}
+        <DateRangePicker
+          selectedDays={range}
+          onNewRange={newRange => onRangeSelect(newRange)}
         />
       </DayPickerWrapper>
     </MainFiltersInput>

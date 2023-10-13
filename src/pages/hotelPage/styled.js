@@ -26,6 +26,7 @@ const HotelName = styled.h1`
 
 const HotelAddress = styled.div`
   color: ${({ theme }) => theme.colors.graniteGray};
+  text-transform: capitalize;
 `;
 
 const HotelDistanceFromTheCenter = styled.div`

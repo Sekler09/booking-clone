@@ -22,6 +22,8 @@ const Label = styled.label`
 const RatingInput = styled(Input)`
   width: 50px;
   text-align: center;
+  appearance: auto;
+  -moz-appearance: textfield;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

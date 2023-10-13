@@ -23,6 +23,7 @@ import {
   ResultsContainer,
   ResultsCountInfo,
   ResultsWrapper,
+  SearchCity,
   SearchIcon,
 } from './styled';
 
@@ -36,10 +37,6 @@ const defaultSearchFilters = {
 };
 
 const defaultSortType = 'DEFAULT';
-
-function capitalizeCity(city) {
-  return city ? city[0].toUpperCase() + city.slice(1).toLowerCase() : city;
-}
 
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
@@ -124,7 +121,7 @@ export default function SearchResultsPage() {
       children,
     });
 
-    getHotelsByCity(capitalizeCity(city))
+    getHotelsByCity(city.toLowerCase())
       .then(r => r.json())
       .then(data => {
         const initHotels = filterHotelsByDateAndCounts(
@@ -148,7 +145,8 @@ export default function SearchResultsPage() {
   const sortingFunction = getSorting(sorting);
   const resultInfo = (
     <h1>
-      {capitalizeCity(searchFilters.city)}: {filteredHotels.length} hotel
+      <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>:{' '}
+      {filteredHotels.length} hotel
       {filteredHotels.length > 1 ? 's' : ''} found
     </h1>
   );
@@ -183,7 +181,10 @@ export default function SearchResultsPage() {
         {!loading && !error && filteredHotels.length === 0 && (
           <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
-            <p>No properties found in {searchFilters.city}</p>
+            <p>
+              No properties found in{' '}
+              <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
+            </p>
             <p>
               There are no matching properties for your search criteria. Try
               updating your search.

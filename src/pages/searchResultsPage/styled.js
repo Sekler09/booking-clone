@@ -55,6 +55,10 @@ const SearchIcon = styled(Search)`
   width: 50px;
 `;
 
+const SearchCity = styled.span`
+  text-transform: capitalize;
+`;
+
 export {
   SearchIcon,
   EmptyResult,
@@ -63,4 +67,5 @@ export {
   ResultsCountInfo,
   ErrorWrapper,
   ErrorIcon,
+  SearchCity,
 };

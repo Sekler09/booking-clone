@@ -1,20 +1,14 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import { DayPicker } from 'react-day-picker';
-import {
-  addDays,
-  addYears,
-  endOfYear,
-  format,
-  startOfMonth,
-  startOfToday,
-} from 'date-fns';
 
 import HotelGallery from 'components/hotelGallery';
 import HotelRoom from 'components/hotelRoom';
 import Review from 'components/review';
 import Modal from 'components/modal';
+import DateRangePicker from 'components/dateRangePicker';
+import AddReviewForm from 'components/addReviewForm';
 import { useModal } from 'hooks/useModal';
 import { setDate } from 'store/slices/inputsSlice';
 import { getArrayOfDatesBetween } from 'utils/dateHelpers';
@@ -41,7 +35,6 @@ import {
   SuccessTitle,
   TimeValue,
 } from './styled';
-import AddReviewForm from '../../components/addReviewForm';
 
 const DATE_FORMAT_PATTERN = 'd MMM y, iii';
 
@@ -95,13 +88,6 @@ export default function Hotel() {
     to: to ? new Date(to) : to,
   };
 
-  const today = startOfToday();
-  const disabledDays = [
-    {
-      from: startOfMonth(today),
-      to: addDays(today, -1),
-    },
-  ];
   const availableRooms = hotel.rooms.filter(
     room =>
       !room.booked_dates.find(
@@ -171,18 +157,9 @@ export default function Hotel() {
 
       {isDateOpen && (
         <Modal onClose={onDateClose}>
-          <DayPicker
-            style={{ color: 'black' }}
-            mode="range"
-            fromMonth={today}
-            toMonth={endOfYear(addYears(today, 1))}
-            defaultMonth={today}
-            numberOfMonths={2}
-            disabled={disabledDays}
-            weekStartsOn={1}
-            selected={selectedDays}
-            onSelect={newRange => onNewRange(newRange)}
-            fixedWeeks
+          <DateRangePicker
+            selectedDays={selectedDays}
+            onNewRange={newRange => onNewRange(newRange)}
           />
         </Modal>
       )}

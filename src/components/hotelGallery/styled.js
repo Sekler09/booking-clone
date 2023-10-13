@@ -35,13 +35,13 @@ const ImageWrapper = styled.div`
   align-items: center;
   width: 160px;
   height: 160px;
+`;
 
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+const GalleryImage = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const FirstImageWrapper = styled(ImageWrapper)`
@@ -83,4 +83,5 @@ export {
   NextArrow,
   PrevArrow,
   ControlBtnsContainer,
+  GalleryImage,
 };

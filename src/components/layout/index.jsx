@@ -15,7 +15,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <BlueBg $isBlueBgNeeded={isBlueBgNeeded} />
+      {isBlueBgNeeded && <BlueBg />}
       <Main $isBlueBgNeeded={isBlueBgNeeded}>
         <MainWrapper>
           <Outlet />

@@ -1,25 +1,31 @@
 import { styled } from 'styled-components';
 
+const MainNoBlueBgNeededStyles = {
+  marginTop: '40px',
+  transform: 'translateY(0)',
+};
+
 const Main = styled.main`
   color: ${({ theme }) => theme.colors.black};
   margin-bottom: 40px;
-  margin-top: ${({ $isBlueBgNeeded }) => ($isBlueBgNeeded ? 0 : '40px')};
+  margin-top: 0;
   padding: 0 10px;
-  transform: ${({ $isBlueBgNeeded }) =>
-    $isBlueBgNeeded ? 'translateY(-35px)' : 0};
+  transform: translateY(-35px);
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
-    transform: ${({ $isBlueBgNeeded }) =>
-      $isBlueBgNeeded ? 'translateY(-80px)' : 0};
+    transform: translateY(-80px);
+    ${({ $isBlueBgNeeded }) => !$isBlueBgNeeded && MainNoBlueBgNeededStyles}
   }
+
+  ${({ $isBlueBgNeeded }) => !$isBlueBgNeeded && MainNoBlueBgNeededStyles}
 `;
 
 const BlueBg = styled.div`
-  height: ${({ $isBlueBgNeeded }) => ($isBlueBgNeeded ? '50px' : 0)};
+  height: 50px;
   background-color: ${({ theme }) => theme.colors.oxfordBlue};
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
-    height: ${({ $isBlueBgNeeded }) => ($isBlueBgNeeded ? '80px' : 0)};
+    height: 80px;
   }
 `;
 

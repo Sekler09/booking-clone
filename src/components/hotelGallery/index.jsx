@@ -11,6 +11,7 @@ import {
   NextArrow,
   ControlBtnsContainer,
   PhotoGallery,
+  GalleryImage,
 } from './styled';
 
 export default function HotelGallery({ hotel }) {
@@ -33,16 +34,16 @@ export default function HotelGallery({ hotel }) {
         <>
           <SwiperSlide>
             <FirstImageWrapper>
-              <img src={imgUrl} alt="" />
+              <GalleryImage src={imgUrl} alt="" />
             </FirstImageWrapper>
           </SwiperSlide>
           {arr.map(el => (
             <SwiperSlide key={el}>
               <ImageWrapper>
-                <img src={imgUrl} alt="" />
+                <GalleryImage src={imgUrl} alt="" />
               </ImageWrapper>
               <ImageWrapper>
-                <img src={imgUrl} alt="" />
+                <GalleryImage src={imgUrl} alt="" />
               </ImageWrapper>
             </SwiperSlide>
           ))}

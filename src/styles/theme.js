@@ -31,7 +31,7 @@ export const lightTheme = {
   elementsBg: theme.colors.cultured,
   calendarHover: theme.colors.lavender,
   hotelCardBg: theme.colors.white,
-  elementsBorder: theme.colors.black,
+  elementsBorder: theme.colors.gainsboro,
 };
 
 export const darkTheme = {

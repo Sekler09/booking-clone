@@ -1,14 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
-
+import { bool } from 'prop-types';
 import { MainWrapper } from 'styles/globalStyle';
 
 import { LogoLink, Nav, StyledHeader } from './styled';
 
-export default function Footer() {
+export default function Header({ isExtraBgNeeded }) {
   const [searchParams] = useSearchParams();
   const toUrl = `/?${searchParams.toString()}`;
   return (
-    <StyledHeader>
+    <StyledHeader $isExtraBgNeeded={isExtraBgNeeded}>
       <MainWrapper>
         <Nav>
           <LogoLink to={toUrl}>RoomBook</LogoLink>
@@ -17,3 +17,7 @@ export default function Footer() {
     </StyledHeader>
   );
 }
+
+Header.propTypes = {
+  isExtraBgNeeded: bool.isRequired,
+};

@@ -1,11 +1,11 @@
-export default {
+export const theme = {
   colors: {
     brightGray: '#e7eff6',
     white: '#fff',
     auroMetalSaurus: '#6f7c85',
     oxfordBlue: '#011f4b',
     red: '#ff0000',
-    alana: '#f3d082',
+    alana: '#ffb700',
     black: '#000000',
     oldSilver: '#868686',
     trueBlue: '#006ce4',
@@ -13,6 +13,22 @@ export default {
     pantone: '#00249c',
     gainsboro: '#dddddd',
     graniteGray: '#666666',
+    charlestonGreen: '#2b2b2b',
+    eerieBlack: '#1A1A1A',
   },
   sizes: ['1080px', '1440px', '1920px', '2560px'],
+};
+
+export const lightTheme = {
+  appBg: theme.colors.white,
+  textColor: theme.colors.black,
+  headerBg: theme.colors.oxfordBlue,
+  elementsBg: theme.colors.white,
+};
+
+export const darkTheme = {
+  appBg: theme.colors.charlestonGreen,
+  textColor: theme.colors.white,
+  headerBg: theme.colors.charlestonGreen,
+  elementsBg: theme.colors.eerieBlack,
 };

@@ -7,6 +7,7 @@ export default createGlobalStyle`
     position: relative;
     min-height: 100vh;
     padding-bottom: 85px;
+    background-color: ${({ theme }) => theme.appBg};
   }
 
   * {

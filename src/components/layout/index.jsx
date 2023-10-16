@@ -4,19 +4,18 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import { MainWrapper } from 'styles/globalStyle';
 
-import { BlueBg, Main } from './styled';
+import { Main } from './styled';
 
 export default function Layout() {
   const location = useLocation();
 
-  const isBlueBgNeeded =
+  const isExtraBgNeeded =
     location.pathname === '/' || location.pathname === '/searchresults';
 
   return (
     <>
-      <Header />
-      {isBlueBgNeeded && <BlueBg />}
-      <Main $isBlueBgNeeded={isBlueBgNeeded}>
+      <Header isExtraBgNeeded={isExtraBgNeeded} />
+      <Main $isExtraBgNeeded={isExtraBgNeeded}>
         <MainWrapper>
           <Outlet />
         </MainWrapper>

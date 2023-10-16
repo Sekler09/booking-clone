@@ -11,7 +11,7 @@ const extraBgNeededStyles = css`
 
 const StyledHeader = styled.header`
   padding: 12px 16px;
-  background-color: ${({ theme }) => theme.headerBg};
+  background-color: ${({ theme }) => theme.mode.headerBg};
   color: ${({ theme }) => theme.colors.white};
 
   ${({ $isExtraBgNeeded }) => $isExtraBgNeeded && extraBgNeededStyles}
@@ -26,4 +26,10 @@ const LogoLink = styled(Link)`
   font-size: 36px;
 `;
 
-export { LogoLink, Nav, StyledHeader };
+const HeaderInnerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export { LogoLink, Nav, StyledHeader, HeaderInnerContainer };

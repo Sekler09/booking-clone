@@ -11,12 +11,12 @@ const MainInputWrapper = styled.div`
   padding: 8px;
   border-radius: 8px;
   width: 100%;
-  background-color: ${({ theme }) => theme.appBg};
+  background-color: ${({ theme }) => theme.mode.appBg};
   cursor: pointer;
 
   svg {
     width: 30px;
-    fill: ${({ theme }) => theme.textColor};
+    fill: ${({ theme }) => theme.mode.textColor};
   }
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
@@ -31,10 +31,10 @@ const MainInputWrapper = styled.div`
 const MainInput = styled.input`
   padding: 8px 6px;
   width: 100%;
-  background-color: ${({ theme }) => theme.appBg};
+  background-color: ${({ theme }) => theme.mode.appBg};
   font-size: 16px;
   line-height: 20px;
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme }) => theme.mode.textColor};
   cursor: pointer;
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
@@ -43,7 +43,7 @@ const MainInput = styled.input`
 `;
 
 const Arrow = styled(ArrowIcon)`
-  fill: ${({ theme }) => theme.textColor};
+  fill: ${({ theme }) => theme.mode.textColor};
 `;
 
 export { MainInput, MainInputWrapper, Arrow };

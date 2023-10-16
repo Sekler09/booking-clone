@@ -7,7 +7,7 @@ export default createGlobalStyle`
     position: relative;
     min-height: 100vh;
     padding-bottom: 85px;
-    background-color: ${({ theme }) => theme.appBg};
+    background-color: ${({ theme }) => theme.mode.appBg};
   }
 
   * {
@@ -15,6 +15,7 @@ export default createGlobalStyle`
 	  margin: 0;
 	  border: none;
     font-family: Roboto, sans-serif;
+    transition: background-color 0.3s ease;
   }
 
   *,
@@ -52,6 +53,14 @@ export default createGlobalStyle`
   *:focus {
     outline: none;
   }
+
+  .preload-transitions {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
 `;
 
 export const MainWrapper = styled.div`

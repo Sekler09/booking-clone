@@ -6,7 +6,7 @@ const DayPickerWrapper = styled.div`
   left: 0;
   z-index: 5;
   border: 1px black solid;
-  background-color: ${({ theme }) => theme.appBg};
+  background-color: ${({ theme }) => theme.mode.appBg};
 `;
 
 export { DayPickerWrapper };

@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 
 import inputsReducer from './slices/inputsSlice';
+import themeReducer from './slices/themeSlice';
 
 const persistConfig = {
   key: 'root',
@@ -19,6 +20,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   inputs: inputsReducer,
+  theme: themeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

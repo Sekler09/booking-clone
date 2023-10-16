@@ -2,7 +2,7 @@ import { DayPicker } from 'react-day-picker';
 import styled from 'styled-components';
 
 const StyledDayPicker = styled(DayPicker)`
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme }) => theme.mode.textColor};
 
   /* stylelint-disable selector-class-pattern, selector-not-notation */
   .rdp-nav_button {
@@ -11,7 +11,7 @@ const StyledDayPicker = styled(DayPicker)`
   }
 
   .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
-    background-color: ${({ theme }) => theme.calendarHover};
+    background-color: ${({ theme }) => theme.mode.calendarHover};
   }
   /* stylelint-enable selector-class-pattern, selector-not-notation */
 `;

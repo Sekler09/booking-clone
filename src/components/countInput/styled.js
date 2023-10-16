@@ -11,8 +11,8 @@ const CountersWrapper = styled.div`
   padding: 32px;
   border: 1px ${({ theme }) => theme.colors.black} solid;
   width: 120%;
-  background-color: ${({ theme }) => theme.appBg};
-  color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme }) => theme.mode.appBg};
+  color: ${({ theme }) => theme.mode.textColor};
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     padding: 20px;
@@ -30,7 +30,7 @@ const DoneButton = styled.button`
   margin-top: 20px;
   width: 100%;
   color: ${({ theme }) => theme.colors.trueBlue};
-  background-color: ${({ theme }) => theme.appBg};
+  background-color: ${({ theme }) => theme.mode.appBg};
   line-height: 20px;
   font-size: 14px;
   cursor: pointer;

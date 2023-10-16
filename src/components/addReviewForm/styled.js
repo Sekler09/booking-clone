@@ -9,10 +9,10 @@ const ReviewForm = styled.form`
 
 const Input = styled.input`
   padding: 8px 10px;
-  border: 1px ${({ theme }) => theme.elementsBorder} solid;
+  border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.appBg};
-  color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme }) => theme.mode.appBg};
+  color: ${({ theme }) => theme.mode.textColor};
 `;
 
 const Label = styled.label`

@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 const RoomContainer = styled.div`
   display: flex;
   margin-bottom: 0;
-  border: 1px ${({ theme }) => theme.elementsBorder} solid;
+  border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
   border-radius: 8px;
 `;
 

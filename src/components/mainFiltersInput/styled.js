@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 
+import { ReactComponent as ArrowIcon } from 'assets/arrow.svg';
+
 const MainInputWrapper = styled.div`
   position: relative;
   display: flex;
@@ -9,11 +11,12 @@ const MainInputWrapper = styled.div`
   padding: 8px;
   border-radius: 8px;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.appBg};
   cursor: pointer;
 
   svg {
     width: 30px;
+    fill: ${({ theme }) => theme.textColor};
   }
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
@@ -28,9 +31,10 @@ const MainInputWrapper = styled.div`
 const MainInput = styled.input`
   padding: 8px 6px;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.appBg};
   font-size: 16px;
   line-height: 20px;
+  color: ${({ theme }) => theme.textColor};
   cursor: pointer;
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
@@ -38,4 +42,8 @@ const MainInput = styled.input`
   }
 `;
 
-export { MainInput, MainInputWrapper };
+const Arrow = styled(ArrowIcon)`
+  fill: ${({ theme }) => theme.textColor};
+`;
+
+export { MainInput, MainInputWrapper, Arrow };

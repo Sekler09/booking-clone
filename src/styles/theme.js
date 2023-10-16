@@ -15,20 +15,31 @@ export const theme = {
     graniteGray: '#666666',
     charlestonGreen: '#2b2b2b',
     eerieBlack: '#1A1A1A',
+    lavender: '#FFF9E7',
+    sonicSilver: '#767676',
+    cultured: '#f5f5f5',
+    raisinBlack: '#242424',
+    outerSpace: '#474747',
   },
   sizes: ['1080px', '1440px', '1920px', '2560px'],
 };
 
 export const lightTheme = {
-  appBg: theme.colors.white,
+  appBg: theme.colors.cultured,
   textColor: theme.colors.black,
   headerBg: theme.colors.oxfordBlue,
-  elementsBg: theme.colors.white,
+  elementsBg: theme.colors.cultured,
+  calendarHover: theme.colors.lavender,
+  hotelCardBg: theme.colors.white,
+  elementsBorder: theme.colors.black,
 };
 
 export const darkTheme = {
   appBg: theme.colors.charlestonGreen,
-  textColor: theme.colors.white,
+  textColor: theme.colors.cultured,
   headerBg: theme.colors.charlestonGreen,
   elementsBg: theme.colors.eerieBlack,
+  calendarHover: theme.colors.sonicSilver,
+  hotelCardBg: theme.colors.raisinBlack,
+  elementsBorder: theme.colors.outerSpace,
 };

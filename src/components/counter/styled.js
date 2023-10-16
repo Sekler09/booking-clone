@@ -17,7 +17,7 @@ const CounterButton = styled.button`
   padding: 4px 8px;
   height: 40px;
   width: 40px;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.appBg};
   cursor: pointer;
 
   &:disabled {
@@ -29,7 +29,7 @@ const CounterButton = styled.button`
   }
 
   &:disabled:hover {
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.appBg};
   }
 `;
 

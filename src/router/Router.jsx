@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from 'components/layout';
 import Hotel from 'pages/hotelPage';
 import Main from 'pages/mainPage';
-import Room from 'pages/RoomPage';
 import SearchResultsPage from 'pages/searchResultsPage';
 import getHotelById from 'api/getHotelById';
 
@@ -22,10 +21,6 @@ export default createBrowserRouter([
           return getHotelById(params.id);
         },
         element: <Hotel />,
-      },
-      {
-        path: 'hotels/:hotelId/rooms/:roomId',
-        element: <Room />,
       },
       {
         path: '*',

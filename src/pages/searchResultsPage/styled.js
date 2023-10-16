@@ -18,6 +18,7 @@ const ResultsContainer = styled.div`
 const ResultsCountInfo = styled.div`
   font-size: large;
   margin-bottom: 10px;
+  color: ${({ theme }) => theme.textColor};
 `;
 
 const ErrorWrapper = styled.div`

@@ -7,7 +7,7 @@ const ReviewContainer = styled.div`
   flex-direction: column;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px ${({ theme }) => theme.elementsBorder} solid;
   border-radius: 8px;
   width: 200px;
 `;
@@ -38,6 +38,7 @@ const Text = styled.div`
 
 const Profile = styled(ProfileIcon)`
   width: 30px;
+  fill: ${({ theme }) => theme.textColor};
 `;
 
 export { UserContainer, ReviewContainer, ReviewerName, Rating, Text, Profile };

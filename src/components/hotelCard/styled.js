@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 const Card = styled(Link)`
   display: flex;
-  border: 1px solid ${({ theme }) => theme.colors.gainsboro};
+  border: 1px solid ${({ theme }) => theme.elementsBorder};
   border-radius: 8px;
   margin: 16px 0;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.hotelCardBg};
+  color: ${({ theme }) => theme.textColor};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   cursor: pointer;
 `;
@@ -93,7 +94,7 @@ const ReviewTitle = styled.div`
 const ReviewRatingText = styled.div`
   font-size: large;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.textColor};
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     font-size: 16px;

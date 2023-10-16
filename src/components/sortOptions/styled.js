@@ -34,7 +34,8 @@ const Dropdown = styled.ul`
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.appBg};
+  color: ${({ theme }) => theme.textColor};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   list-style-type: none;
 `;

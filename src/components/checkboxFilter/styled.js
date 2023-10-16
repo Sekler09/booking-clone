@@ -7,11 +7,12 @@ const FilterContainer = styled.div`
 `;
 
 const CheckboxField = styled.div`
-  border: 1px black solid;
+  border: 1px ${({ theme }) => theme.textColor} solid;
   border-radius: 4px;
   margin-right: 5px;
   width: 20px;
   height: 20px;
+  background-color: ${({ theme }) => theme.appBg};
 `;
 
 const CheckboxInput = styled.input`

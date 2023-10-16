@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 const RoomContainer = styled.div`
   display: flex;
   margin-bottom: 0;
-  border: 1px ${({ theme }) => theme.colors.gainsboro} solid;
+  border: 1px ${({ theme }) => theme.elementsBorder} solid;
   border-radius: 8px;
 `;
 
@@ -18,13 +18,6 @@ const RoomImage = styled.img`
   border-bottom-left-radius: 8px;
   height: 100%;
   object-fit: cover;
-`;
-
-const ImageAmount = styled.div`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const InfoContainer = styled.div`
@@ -66,7 +59,6 @@ export {
   RoomName,
   RoomCapacity,
   BookButton,
-  ImageAmount,
   ImageContainer,
   RoomPrice,
 };

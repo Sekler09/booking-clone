@@ -34,5 +34,21 @@
   "perNight" : "за ночь",
   "fromCenter" : "от центра",
   "checkin" : "Заезд",
-  "checkout" : "Выезд"
+  "checkout" : "Выезд",
+  "checkinFrom" : "С",
+  "checkinTo" : "До",
+  "checkoutBefore" : "До",
+  "dateChange" : "Изменить",
+  "availableRoomsTitle" : "Доступные номера",
+  "reviewsTitle" : "Отзывы",
+  "bookNow" : "Забронировать",
+  "person" : "персона",
+  "persons" : "персоны",
+  "leaveReview" : "Оставить отзыв",
+  "usernameInputPlaceholder" : "Введите ваше имя",
+  "commentInputPlaceholder" : "Введите ваш отзыв",
+  "pickRoom" : "Выберите номер",
+  "rating" : "Рейтинг",
+  "reviewFormSubmit" : "Отправить",
+  "successBookText" : "Вы успешно забронировали отель!"
 }

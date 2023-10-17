@@ -34,5 +34,21 @@
   "perNight" : "per night",
   "fromCenter" : "from the center",
   "checkin" : "Check-in",
-  "checkout" : "Check-out"
+  "checkout" : "Check-out",
+  "checkinFrom" : "From",
+  "checkinTo" : "To",
+  "checkoutBefore" : "Before",
+  "dateChange" : "Change",
+  "availableRoomsTitle" : "Available rooms",
+  "reviewsTitle" : "Reviews",
+  "bookNow" : "Book now",
+  "person" : "person",
+  "persons" : "persons",
+  "leaveReview" : "Leave review",
+  "usernameInputPlaceholder" : "Enter your name",
+  "commentInputPlaceholder" : "Enter your feedback",
+  "pickRoom" : "Pick a room",
+  "rating" : "Rating",
+  "reviewFormSubmit" : "Send",
+  "successBookText" : "You have successfully booked a hotel!"
 }

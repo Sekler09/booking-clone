@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { arrayOf, func, number, shape, string } from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
 import {
   Input,
   Label,
@@ -10,6 +12,7 @@ import {
 } from './styled';
 
 function AddReviewForm({ onReviewAdd, rooms, onClose }) {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -32,11 +35,11 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
       <Input
         type="text"
         value={username}
-        placeholder="Enter your name"
+        placeholder={t('usernameInputPlaceholder')}
         onChange={e => setUsername(e.target.value)}
       />
       <Label>
-        Pick a room:
+        {t('pickRoom')}:
         <Select value={roomId} onChange={e => setRoomId(e.target.value)}>
           {rooms.map(room => (
             <option value={room.roomId} key={room.roomId}>
@@ -46,7 +49,7 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
         </Select>
       </Label>
       <Label>
-        Rating (from 0 to 5):
+        {t('rating')} (0 - 5):
         <RatingInput
           type="number"
           value={rating}
@@ -59,10 +62,10 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
       <Input
         type="text"
         value={comment}
-        placeholder="Enter your feedback"
+        placeholder={t('commentInputPlaceholder')}
         onChange={e => setComment(e.target.value)}
       />
-      <SubmitButton type="submit">Send</SubmitButton>
+      <SubmitButton type="submit">{t('reviewFormSubmit')}</SubmitButton>
     </ReviewForm>
   );
 }

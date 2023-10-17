@@ -3,7 +3,9 @@ import { bool } from 'prop-types';
 
 import { MainWrapper } from 'styles/globalStyle';
 
+import LanguageSwitcher from 'components/languageSwitcher';
 import ThemeSwitcher from 'components/themeSwitcher';
+
 import { LogoLink, Nav, StyledHeader, HeaderInnerContainer } from './styled';
 
 export default function Header({ isBigHeader }) {
@@ -19,6 +21,7 @@ export default function Header({ isBigHeader }) {
             <LogoLink to={toUrl}>RoomBook</LogoLink>
           </Nav>
           <ThemeSwitcher />
+          <LanguageSwitcher />
         </HeaderInnerContainer>
       </MainWrapper>
     </StyledHeader>

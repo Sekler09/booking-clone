@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import MainFiltersInput from 'components/mainFiltersInput';
 import DateRangePicker from 'components/dateRangePicker';
@@ -11,10 +12,11 @@ import {
   checkSearchToValidity,
 } from 'utils/urlHelpers';
 import { setDate } from 'store/slices/inputsSlice';
-import { DATE_FORMAT_PATTERN } from 'constants/date';
+import { DATE_FORMAT_PATTERN_RU, DATE_FORMAT_PATTERN_EN } from 'constants/date';
 
 import { ReactComponent as CalendarLogo } from 'assets/calendar.svg';
 
+import { enUS, ru } from 'date-fns/locale';
 import { DayPickerWrapper } from './styled';
 
 export default function CalendarInput() {
@@ -22,6 +24,8 @@ export default function CalendarInput() {
   const dispatch = useDispatch();
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { i18n } = useTranslation();
 
   function getFromDate(searchFrom) {
     if (checkSearchFromValidity(searchFrom)) {
@@ -86,16 +90,21 @@ export default function CalendarInput() {
     }
   }
 
+  const locale = i18n.language === 'en' ? enUS : ru;
+  const DATE_FORMAT_PATTERN =
+    i18n.language === 'en' ? DATE_FORMAT_PATTERN_EN : DATE_FORMAT_PATTERN_RU;
+
   function getInputText() {
     let text = 'Check-in date -- Check-out date';
     if (range.from) {
       if (!range.to) {
-        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- Check-out date`;
+        text = `${format(range.from, DATE_FORMAT_PATTERN, {
+          locale,
+        })} -- Check-out date`;
       } else {
-        text = `${format(range.from, DATE_FORMAT_PATTERN)} -- ${format(
-          range.to,
-          DATE_FORMAT_PATTERN,
-        )}`;
+        text = `${format(range.from, DATE_FORMAT_PATTERN, {
+          locale,
+        })} -- ${format(range.to, DATE_FORMAT_PATTERN, { locale })}`;
       }
     }
     return text;

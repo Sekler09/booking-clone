@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Counter from 'components/counter';
 import MainFiltersInput from 'components/mainFiltersInput';
@@ -16,6 +17,8 @@ export default function CountInput() {
   const dispatch = useDispatch();
   const counts = useSelector(state => state.inputs.counts);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
+
   const [adultsCount, setAdultsCount] = useState(1);
 
   const [childrenCount, setChildrenCount] = useState(0);
@@ -91,7 +94,7 @@ export default function CountInput() {
   }
 
   function getInputValue() {
-    return `${adultsCount} adult${
+    return `${adultsCount} ${t('adult')}${
       adultsCount > 1 ? 's' : ''
     } · ${childrenCount} children · ${roomsCount} room${
       roomsCount > 1 ? 's' : ''

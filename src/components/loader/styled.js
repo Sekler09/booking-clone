@@ -13,8 +13,8 @@ const LoaderContainer = styled.div`
 `;
 
 const Loader = styled.div`
-  border: 6px solid ${({ theme }) => theme.colors.lightBlueGray};
-  border-top: 6px solid ${({ theme }) => theme.colors.trueBlue};
+  border: 6px solid rgb(0 108 228/ 6%);
+  border-top: 6px solid #006ce4;
   border-radius: 50%;
   width: 50px;
   height: 50px;

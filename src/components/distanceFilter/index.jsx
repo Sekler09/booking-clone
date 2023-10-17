@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { string, number, shape, arrayOf, func } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import CheckboxFilter from 'components/checkboxFilter';
 
 export default function DistanceFilter({ hotels, onChange }) {
+  const { t } = useTranslation();
+
   const [checkedDistance, setCheckedDistance] = useState([]);
 
   function getFilterByDistance(dist) {
@@ -39,19 +42,19 @@ export default function DistanceFilter({ hotels, onChange }) {
   const checkboxes = [
     {
       value: 5,
-      label: 'Less than 5km',
+      label: `${t('lessThan')} 5 ${t('km')}`,
       count: hotels.filter(hotel => hotel.distanceFromCenter <= 5).length,
       checked: checkedDistance.includes(5),
     },
     {
       value: 3,
-      label: 'Less than 3km',
+      label: `${t('lessThan')} 3 ${t('km')}`,
       count: hotels.filter(hotel => hotel.distanceFromCenter <= 3).length,
       checked: checkedDistance.includes(3),
     },
     {
       value: 1,
-      label: 'Less than 1km',
+      label: `${t('lessThan')} 1 ${t('km')}`,
       count: hotels.filter(hotel => hotel.distanceFromCenter <= 1).length,
       checked: checkedDistance.includes(1),
     },
@@ -59,7 +62,7 @@ export default function DistanceFilter({ hotels, onChange }) {
 
   return (
     <CheckboxFilter
-      title="Distance from the center"
+      title={t('distanceFilterTitle')}
       checkboxes={checkboxes}
       onChange={(e, v) => onCheckboxChange(e, v)}
     />

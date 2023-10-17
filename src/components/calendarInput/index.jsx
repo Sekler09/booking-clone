@@ -25,7 +25,7 @@ export default function CalendarInput() {
   const { from, to } = useSelector(state => state.inputs.dates);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   function getFromDate(searchFrom) {
     if (checkSearchFromValidity(searchFrom)) {
@@ -95,12 +95,12 @@ export default function CalendarInput() {
     i18n.language === 'en' ? DATE_FORMAT_PATTERN_EN : DATE_FORMAT_PATTERN_RU;
 
   function getInputText() {
-    let text = 'Check-in date -- Check-out date';
+    let text = `${t('checkinDate')} -- ${t('checkoutDate')}`;
     if (range.from) {
       if (!range.to) {
         text = `${format(range.from, DATE_FORMAT_PATTERN, {
           locale,
-        })} -- Check-out date`;
+        })} -- ${t('checkoutDate')}`;
       } else {
         text = `${format(range.from, DATE_FORMAT_PATTERN, {
           locale,

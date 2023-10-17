@@ -29,8 +29,9 @@ const DoneButton = styled.button`
   padding: 4px 12px;
   margin-top: 20px;
   width: 100%;
-  color: ${({ theme }) => theme.colors.trueBlue};
   background-color: ${({ theme }) => theme.mode.appBg};
+  color: ${({ theme }) => theme.colors.trueBlue};
+  text-transform: capitalize;
   line-height: 20px;
   font-size: 14px;
   cursor: pointer;

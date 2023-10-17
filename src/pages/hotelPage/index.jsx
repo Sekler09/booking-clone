@@ -2,6 +2,7 @@ import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import HotelGallery from 'components/hotelGallery';
 import HotelRoom from 'components/hotelRoom';
@@ -43,6 +44,7 @@ export default function Hotel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { from, to } = useSelector(state => state.inputs.dates);
+  const { t } = useTranslation();
   const [isDateOpen, onDateOpen, onDateClose] = useModal();
   const [isBookOpen, onBookOpen] = useModal();
   const [isReviewOpen, onReviewOpen, onReviewClose] = useModal();
@@ -105,15 +107,17 @@ export default function Hotel() {
             {hotel.city}, {hotel.address}
           </HotelAddress>
           <HotelDistanceFromTheCenter>
-            {hotel.distanceFromCenter}km from the center
+            {hotel.distanceFromCenter} {t('km')} {t('fromCenter')}
           </HotelDistanceFromTheCenter>
         </HotelTitleWrapper>
-        <PriceStart>from ${startPrice}</PriceStart>
+        <PriceStart>
+          {t('priceFrom')} ${startPrice}
+        </PriceStart>
       </HotelHeaderContainer>
       <HotelGallery hotel={hotel} />
       <DatesOfStayContainer>
         <DateOfStay>
-          <DateTitle>Check-in</DateTitle>
+          <DateTitle>{t('checkin')}</DateTitle>
           <DateAndTimeContainer>
             <DateValue onClick={onDateOpen}>
               {format(new Date(from), DATE_FORMAT_PATTERN)}
@@ -122,7 +126,7 @@ export default function Hotel() {
           </DateAndTimeContainer>
         </DateOfStay>
         <DateOfStay>
-          <DateTitle>Check-out</DateTitle>
+          <DateTitle>{t('checkout')}</DateTitle>
           <DateAndTimeContainer>
             <DateValue onClick={onDateOpen}>
               {format(new Date(to), DATE_FORMAT_PATTERN)}

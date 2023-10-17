@@ -94,11 +94,11 @@ export default function CountInput() {
   }
 
   function getInputValue() {
-    return `${adultsCount} ${t('adult')}${
-      adultsCount > 1 ? 's' : ''
-    } · ${childrenCount} children · ${roomsCount} room${
-      roomsCount > 1 ? 's' : ''
-    }`;
+    return `${adultsCount} ${t(
+      `adult${adultsCount > 1 ? 's' : ''}`,
+    )} · ${childrenCount} ${t('children')} · ${roomsCount} ${t(
+      `room${roomsCount > 1 ? 's' : ''}`,
+    )}`;
   }
 
   const inputValue = getInputValue();
@@ -120,23 +120,23 @@ export default function CountInput() {
           min={1}
           setCount={count => updateAdults(count)}
           count={adultsCount}
-          label="Adults"
+          label={t('adults')}
         />
         <Counter
           max={10}
           min={0}
           setCount={count => updateChildren(count)}
           count={childrenCount}
-          label="Children"
+          label={t('children')}
         />
         <Counter
           max={30}
           min={1}
           setCount={count => updateRooms(count)}
           count={roomsCount}
-          label="Rooms"
+          label={t('rooms')}
         />
-        <DoneButton onClick={e => onDoneClick(e)}>Done</DoneButton>
+        <DoneButton onClick={e => onDoneClick(e)}>{t('done')}</DoneButton>
       </CountersWrapper>
     </MainFiltersInput>
   );

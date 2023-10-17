@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { css, styled } from 'styled-components';
 
-const extraBgNeededStyles = css`
+const bigHeader = css`
   padding-bottom: 62px;
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
@@ -14,7 +14,7 @@ const StyledHeader = styled.header`
   background-color: ${({ theme }) => theme.mode.headerBg};
   color: ${({ theme }) => theme.colors.white};
 
-  ${({ $isExtraBgNeeded }) => $isExtraBgNeeded && extraBgNeededStyles}
+  ${({ $isBigHeader }) => $isBigHeader && bigHeader}
 `;
 
 const Nav = styled.nav`

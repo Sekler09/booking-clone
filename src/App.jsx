@@ -4,17 +4,15 @@ import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from 'styles/globalStyle';
-import { theme, darkTheme, lightTheme } from 'styles/theme';
+import { darkTheme, lightTheme } from 'styles/theme';
 
 import Router from './router/Router';
 
 function App() {
-  const mode = useSelector(state => state.theme.mode);
+  const theme = useSelector(state => state.theme.theme);
 
   return (
-    <ThemeProvider
-      theme={{ ...theme, mode: mode === 'dark' ? darkTheme : lightTheme }}
-    >
+    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <GlobalStyle />
       <RouterProvider router={Router} />
     </ThemeProvider>

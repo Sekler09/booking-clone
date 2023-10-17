@@ -25,21 +25,29 @@ export const theme = {
 };
 
 export const lightTheme = {
-  appBg: theme.colors.cultured,
-  textColor: theme.colors.black,
-  headerBg: theme.colors.oxfordBlue,
-  elementsBg: theme.colors.cultured,
-  calendarHover: theme.colors.lavender,
-  hotelCardBg: theme.colors.white,
-  elementsBorder: theme.colors.gainsboro,
+  mode: {
+    appBg: theme.colors.cultured,
+    textColor: theme.colors.black,
+    headerBg: theme.colors.oxfordBlue,
+    elementsBg: theme.colors.cultured,
+    calendarHover: theme.colors.lavender,
+    hotelCardBg: theme.colors.white,
+    elementsBorder: theme.colors.gainsboro,
+  },
+  colors: theme.colors,
+  sizes: theme.sizes,
 };
 
 export const darkTheme = {
-  appBg: theme.colors.charlestonGreen,
-  textColor: theme.colors.cultured,
-  headerBg: theme.colors.charlestonGreen,
-  elementsBg: theme.colors.eerieBlack,
-  calendarHover: theme.colors.sonicSilver,
-  hotelCardBg: theme.colors.raisinBlack,
-  elementsBorder: theme.colors.outerSpace,
+  mode: {
+    appBg: theme.colors.charlestonGreen,
+    textColor: theme.colors.cultured,
+    headerBg: theme.colors.charlestonGreen,
+    elementsBg: theme.colors.eerieBlack,
+    calendarHover: theme.colors.sonicSilver,
+    hotelCardBg: theme.colors.raisinBlack,
+    elementsBorder: theme.colors.outerSpace,
+  },
+  colors: theme.colors,
+  sizes: theme.sizes,
 };

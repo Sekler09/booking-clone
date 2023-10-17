@@ -9,13 +9,13 @@ import { Main } from './styled';
 export default function Layout() {
   const location = useLocation();
 
-  const isExtraBgNeeded =
+  const isBigHeader =
     location.pathname === '/' || location.pathname === '/searchresults';
 
   return (
     <>
-      <Header isExtraBgNeeded={isExtraBgNeeded} />
-      <Main $isExtraBgNeeded={isExtraBgNeeded}>
+      <Header isBigHeader={isBigHeader} />
+      <Main $isBigHeader={isBigHeader}>
         <MainWrapper>
           <Outlet />
         </MainWrapper>

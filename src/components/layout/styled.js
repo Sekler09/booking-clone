@@ -1,6 +1,6 @@
 import { styled, css } from 'styled-components';
 
-const extraBgNeededStyles = css`
+const bigHeader = css`
   margin-top: 0;
   transform: translateY(-35px);
 
@@ -19,7 +19,7 @@ const Main = styled.main`
     transform: translateY(0);
   }
 
-  ${({ $isExtraBgNeeded }) => $isExtraBgNeeded && extraBgNeededStyles}
+  ${({ $isBigHeader }) => $isBigHeader && bigHeader}
 `;
 
 export { Main };

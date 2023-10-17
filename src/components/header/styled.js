@@ -32,4 +32,14 @@ const HeaderInnerContainer = styled.div`
   align-items: center;
 `;
 
-export { LogoLink, Nav, StyledHeader, HeaderInnerContainer };
+const SiteOptionsContainer = styled.div`
+  display: flex;
+`;
+
+export {
+  LogoLink,
+  Nav,
+  StyledHeader,
+  HeaderInnerContainer,
+  SiteOptionsContainer,
+};

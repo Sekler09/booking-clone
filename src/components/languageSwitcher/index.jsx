@@ -1,19 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { IconContainer, Moon, Sun } from './styled';
+import { IconContainer, Rus, Usa } from './styled';
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
-  const isDark = i18n.language === 'en';
+  const isRu = i18n.language === 'ru';
   return (
     <IconContainer
-      $isDark={isDark}
-      onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en')}
+      $isRu={isRu}
+      onClick={() => i18n.changeLanguage(isRu ? 'en' : 'ru')}
     >
-      <Moon $isDark={isDark} />
-      <Sun $isDark={isDark} />
+      <Rus $isRu={isRu} />
+      <Usa $isRu={isRu} />
     </IconContainer>
   );
 }

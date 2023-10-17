@@ -1,30 +1,26 @@
 import styled from 'styled-components';
 
-import { ReactComponent as MoonIcon } from 'assets/moon.svg';
-import { ReactComponent as SunIcon } from 'assets/sun.svg';
+import { ReactComponent as RusIcon } from 'assets/russia.svg';
+import { ReactComponent as UsaIcon } from 'assets/usa.svg';
 
 const IconContainer = styled.div`
-  position: relative;
-  height: 100%;
-  width: 100%;
   cursor: pointer;
 
   svg {
-    position: absolute;
-    right: 0;
-    top: calc(50% - 15px);
     width: 30px;
-    fill: ${({ theme }) => theme.colors.white};
-    transform: rotate(${({ $isDark }) => ($isDark ? 0 : 90)}deg);
-    transition: all 0.5s ease;
+    transition: all 0.5s ease-in-out;
   }
 `;
 
-const Moon = styled(MoonIcon)`
-  opacity: ${({ $isDark }) => ($isDark ? 1 : 0)};
+const Rus = styled(RusIcon)`
+  opacity: ${({ $isRu }) => ($isRu ? 1 : 0)};
+  transform: scale(${({ $isRu }) => ($isRu ? 1 : 0)});
 `;
-const Sun = styled(SunIcon)`
-  opacity: ${({ $isDark }) => ($isDark ? 0 : 1)};
+const Usa = styled(UsaIcon)`
+  position: relative;
+  left: -50%;
+  opacity: ${({ $isRu }) => ($isRu ? 0 : 1)};
+  transform: scale(${({ $isRu }) => ($isRu ? 0 : 1)});
 `;
 
-export { IconContainer, Moon, Sun };
+export { IconContainer, Rus, Usa };

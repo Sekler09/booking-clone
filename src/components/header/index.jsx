@@ -6,7 +6,13 @@ import { MainWrapper } from 'styles/globalStyle';
 import LanguageSwitcher from 'components/languageSwitcher';
 import ThemeSwitcher from 'components/themeSwitcher';
 
-import { LogoLink, Nav, StyledHeader, HeaderInnerContainer } from './styled';
+import {
+  LogoLink,
+  Nav,
+  StyledHeader,
+  HeaderInnerContainer,
+  SiteOptionsContainer,
+} from './styled';
 
 export default function Header({ isBigHeader }) {
   const [searchParams] = useSearchParams();
@@ -20,8 +26,10 @@ export default function Header({ isBigHeader }) {
           <Nav>
             <LogoLink to={toUrl}>RoomBook</LogoLink>
           </Nav>
-          <ThemeSwitcher />
-          <LanguageSwitcher />
+          <SiteOptionsContainer>
+            <LanguageSwitcher />
+            <ThemeSwitcher />
+          </SiteOptionsContainer>
         </HeaderInnerContainer>
       </MainWrapper>
     </StyledHeader>

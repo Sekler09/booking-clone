@@ -6,7 +6,8 @@
   "rules":{
     "property-no-vendor-prefix": [true, {
       "ignoreProperties": [
-          "appearance"
+          "appearance",
+          "transition"
       ]
     }],
     "media-query-no-invalid" : null

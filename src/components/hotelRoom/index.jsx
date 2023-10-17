@@ -3,7 +3,6 @@ import { number, func, string, shape, arrayOf } from 'prop-types';
 
 import {
   BookButton,
-  ImageAmount,
   ImageContainer,
   InfoContainer,
   RoomCapacity,
@@ -20,7 +19,6 @@ function HotelRoom({ room, onBook }) {
     <RoomContainer>
       <ImageContainer>
         <RoomImage src={Image} />
-        <ImageAmount>{room.capacity} photo</ImageAmount>
       </ImageContainer>
       <InfoContainer>
         <RoomName>{room.roomType}</RoomName>

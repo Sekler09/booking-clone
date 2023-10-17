@@ -1,6 +1,6 @@
 import { styled, css } from 'styled-components';
 
-const blueBgNeededStyles = css`
+const bigHeader = css`
   margin-top: 0;
   transform: translateY(-35px);
 
@@ -19,16 +19,7 @@ const Main = styled.main`
     transform: translateY(0);
   }
 
-  ${({ $isBlueBgNeeded }) => $isBlueBgNeeded && blueBgNeededStyles}
+  ${({ $isBigHeader }) => $isBigHeader && bigHeader}
 `;
 
-const BlueBg = styled.div`
-  height: 50px;
-  background-color: ${({ theme }) => theme.colors.oxfordBlue};
-
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
-    height: 80px;
-  }
-`;
-
-export { Main, BlueBg };
+export { Main };

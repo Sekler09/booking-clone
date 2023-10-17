@@ -3,8 +3,10 @@ import { styled } from 'styled-components';
 const ContentContainer = styled.div`
   margin-bottom: 10px;
   padding: 16px;
-  border: 1px ${({ theme }) => theme.colors.brightGray} solid;
+  border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
   border-radius: 8px;
+  background-color: ${({ theme }) => theme.mode.hotelCardBg};
+  color: ${({ theme }) => theme.mode.textColor};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 `;
 

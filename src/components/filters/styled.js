@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 const FiltersWrapper = styled.div`
-  border: 1px ${({ theme }) => theme.colors.oldSilver} solid;
+  border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
   border-radius: 8px;
   align-self: flex-start;
   width: 25%;
+  background-color: ${({ theme }) => theme.mode.elementsBg};
+  color: ${({ theme }) => theme.mode.textColor};
 
   h3 {
     font-weight: bold;
@@ -20,7 +22,7 @@ const FiltersTitle = styled.p`
 
 const FilterItem = styled.div`
   padding: 10px;
-  border-top: 1px ${({ theme }) => theme.colors.oldSilver} solid;
+  border-top: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
 `;
 
 export { FiltersWrapper, FilterItem, FiltersTitle };

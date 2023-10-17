@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from 'components/layout';
 import Hotel from 'pages/hotelPage';
 import Main from 'pages/mainPage';
-import Room from 'pages/RoomPage';
+import NotFoundPage from 'pages/notFoundPage';
 import SearchResultsPage from 'pages/searchResultsPage';
 import getHotelById from 'api/getHotelById';
 
@@ -24,12 +24,8 @@ export default createBrowserRouter([
         element: <Hotel />,
       },
       {
-        path: 'hotels/:hotelId/rooms/:roomId',
-        element: <Room />,
-      },
-      {
         path: '*',
-        element: <h1>Page not found</h1>,
+        element: <NotFoundPage />,
       },
       {
         path: 'searchresults',

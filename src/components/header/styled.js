@@ -1,10 +1,20 @@
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
+
+const bigHeader = css`
+  padding-bottom: 62px;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    padding-bottom: 92px;
+  }
+`;
 
 const StyledHeader = styled.header`
   padding: 12px 16px;
-  background-color: ${({ theme }) => theme.colors.oxfordBlue};
+  background-color: ${({ theme }) => theme.mode.headerBg};
   color: ${({ theme }) => theme.colors.white};
+
+  ${({ $isBigHeader }) => $isBigHeader && bigHeader}
 `;
 
 const Nav = styled.nav`
@@ -16,4 +26,10 @@ const LogoLink = styled(Link)`
   font-size: 36px;
 `;
 
-export { LogoLink, Nav, StyledHeader };
+const HeaderInnerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export { LogoLink, Nav, StyledHeader, HeaderInnerContainer };

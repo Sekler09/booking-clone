@@ -1,19 +1,30 @@
 import { useSearchParams } from 'react-router-dom';
+import { bool } from 'prop-types';
 
 import { MainWrapper } from 'styles/globalStyle';
 
-import { LogoLink, Nav, StyledHeader } from './styled';
+import ThemeSwitcher from 'components/themeSwitcher';
+import { LogoLink, Nav, StyledHeader, HeaderInnerContainer } from './styled';
 
-export default function Footer() {
+export default function Header({ isBigHeader }) {
   const [searchParams] = useSearchParams();
+
   const toUrl = `/?${searchParams.toString()}`;
+
   return (
-    <StyledHeader>
+    <StyledHeader $isBigHeader={isBigHeader}>
       <MainWrapper>
-        <Nav>
-          <LogoLink to={toUrl}>RoomBook</LogoLink>
-        </Nav>
+        <HeaderInnerContainer>
+          <Nav>
+            <LogoLink to={toUrl}>RoomBook</LogoLink>
+          </Nav>
+          <ThemeSwitcher />
+        </HeaderInnerContainer>
       </MainWrapper>
     </StyledHeader>
   );
 }
+
+Header.propTypes = {
+  isBigHeader: bool.isRequired,
+};

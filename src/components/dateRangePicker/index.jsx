@@ -1,5 +1,4 @@
 import React from 'react';
-import { DayPicker } from 'react-day-picker';
 import {
   addDays,
   addYears,
@@ -8,6 +7,8 @@ import {
   startOfToday,
 } from 'date-fns';
 import { func, instanceOf, shape } from 'prop-types';
+
+import { StyledDayPicker } from './styled';
 
 function DateRangePicker({ selectedDays, onNewRange }) {
   const today = startOfToday();
@@ -18,8 +19,7 @@ function DateRangePicker({ selectedDays, onNewRange }) {
     },
   ];
   return (
-    <DayPicker
-      style={{ color: 'black' }}
+    <StyledDayPicker
       mode="range"
       fromMonth={today}
       toMonth={endOfYear(addYears(today, 1))}

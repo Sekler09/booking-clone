@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { bool, string, func, node } from 'prop-types';
 
-import { ReactComponent as Arrow } from 'assets/arrow.svg';
-
-import { MainInput, MainInputWrapper } from './styled';
+import { MainInput, MainInputWrapper, Arrow } from './styled';
 
 export default function MainFiltersInput({
   isOpen,

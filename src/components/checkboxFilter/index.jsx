@@ -26,9 +26,7 @@ function CheckboxFilter({ title, checkboxes, onChange }) {
             checked={cb.checked}
             data-cy="checkbox-filter-input"
           />
-          <CheckboxField>
-            <TickIcon />
-          </CheckboxField>
+          <CheckboxField>{cb.checked && <TickIcon />}</CheckboxField>
           <CheckboxLabelText>{cb.label}</CheckboxLabelText>
           <CheckboxLabelCount>{cb.count}</CheckboxLabelCount>
         </CheckboxLabel>

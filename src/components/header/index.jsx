@@ -6,13 +6,13 @@ import { MainWrapper } from 'styles/globalStyle';
 import ThemeSwitcher from 'components/themeSwitcher';
 import { LogoLink, Nav, StyledHeader, HeaderInnerContainer } from './styled';
 
-export default function Header({ isExtraBgNeeded }) {
+export default function Header({ isBigHeader }) {
   const [searchParams] = useSearchParams();
 
   const toUrl = `/?${searchParams.toString()}`;
 
   return (
-    <StyledHeader $isExtraBgNeeded={isExtraBgNeeded}>
+    <StyledHeader $isBigHeader={isBigHeader}>
       <MainWrapper>
         <HeaderInnerContainer>
           <Nav>
@@ -26,5 +26,5 @@ export default function Header({ isExtraBgNeeded }) {
 }
 
 Header.propTypes = {
-  isExtraBgNeeded: bool.isRequired,
+  isBigHeader: bool.isRequired,
 };

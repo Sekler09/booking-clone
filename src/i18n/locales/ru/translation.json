@@ -50,5 +50,7 @@
   "pickRoom" : "Выберите номер",
   "rating" : "Рейтинг",
   "reviewFormSubmit" : "Отправить",
-  "successBookText" : "Вы успешно забронировали отель!"
+  "successBookText" : "Вы успешно забронировали отель!",
+  "cityInputPlaceholder" : "Куда вы хотите поехать?",
+  "reviews" : "отзывов"
 }

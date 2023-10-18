@@ -50,5 +50,7 @@
   "pickRoom" : "Pick a room",
   "rating" : "Rating",
   "reviewFormSubmit" : "Send",
-  "successBookText" : "You have successfully booked a hotel!"
+  "successBookText" : "You have successfully booked a hotel!",
+  "cityInputPlaceholder" : "Where are you going?",
+  "reviews" : "reviews"
 }

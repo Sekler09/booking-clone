@@ -66,7 +66,9 @@ function HotelCard({ hotel }) {
             <ReviewsInfo>
               <ReviewTitle>
                 <ReviewRatingText>{ratingText}</ReviewRatingText>
-                <TotalReviews>{reviews.length} reviews</TotalReviews>
+                <TotalReviews>
+                  {t('reviews')}: {reviews.length}
+                </TotalReviews>
               </ReviewTitle>
               <Rating>{averageRating.toFixed(1)}</Rating>
             </ReviewsInfo>

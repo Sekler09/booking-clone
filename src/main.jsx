@@ -8,7 +8,7 @@ import FancyLoader from 'components/loader';
 import store from 'store/store';
 
 import App from './App';
-import './i18n';
+import 'i18n/i18n';
 
 const persistor = persistStore(store);
 

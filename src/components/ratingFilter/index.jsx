@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { string, number, shape, arrayOf, func } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import CheckboxFilter from 'components/checkboxFilter';
 import getAverageRating from 'utils/getAverageHotelRating';
 
 export default function RatingFilter({ hotels, onChange }) {
+  const { t } = useTranslation();
   const [checkedRatings, setCheckedRatings] = useState([]);
 
   useEffect(() => {
@@ -47,25 +49,25 @@ export default function RatingFilter({ hotels, onChange }) {
   const checkboxes = [
     {
       value: 4.5,
-      label: 'Superb: 4.5+',
+      label: `${t('superb')}: 4.5+`,
       count: hotels.filter(hotel => getAverageRating(hotel) >= 4.5).length,
       checked: checkedRatings.includes(4.5),
     },
     {
       value: 4,
-      label: 'Very good: 4+',
+      label: `${t('veryGood')}: 4+`,
       count: hotels.filter(hotel => getAverageRating(hotel) >= 4).length,
       checked: checkedRatings.includes(4),
     },
     {
       value: 3.5,
-      label: 'Good: 3.5+',
+      label: `${t('good')}: 3.5+`,
       count: hotels.filter(hotel => getAverageRating(hotel) >= 3.5).length,
       checked: checkedRatings.includes(3.5),
     },
     {
       value: 3,
-      label: 'Pleasant: 3+',
+      label: `${t('pleasant')}: 3+`,
       count: hotels.filter(hotel => getAverageRating(hotel) >= 3).length,
       checked: checkedRatings.includes(3),
     },
@@ -73,7 +75,7 @@ export default function RatingFilter({ hotels, onChange }) {
 
   return (
     <CheckboxFilter
-      title="Review Score"
+      title={t('reviewFilterTitle')}
       checkboxes={checkboxes}
       onChange={(e, v) => onCheckboxChange(e, v)}
     />

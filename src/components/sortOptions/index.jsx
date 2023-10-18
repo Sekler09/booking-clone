@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { func } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Dropdown, Option, SortOptionsWrapper } from './styled';
 
 const sortingOptions = [
-  { value: 'DEFAULT', label: 'Default' },
-  { value: 'PRICE_LOW_TO_HIGH', label: 'Price (Low to High)' },
-  { value: 'PRICE_HIGH_TO_LOW', label: 'Price (High to Low)' },
-  { value: 'RATING_HIGH_TO_LOW', label: 'Rating (High to Low)' },
-  { value: 'RATING_LOW_TO_HIGH', label: 'Rating (Low to High)' },
+  { value: 'DEFAULT', label: 'defaultSortName' },
+  { value: 'PRICE_LOW_TO_HIGH', label: 'priceLowFirstSortName' },
+  { value: 'PRICE_HIGH_TO_LOW', label: 'priceHighFirstSortName' },
+  { value: 'RATING_HIGH_TO_LOW', label: 'ratingLowFirstSortName' },
+  { value: 'RATING_LOW_TO_HIGH', label: 'ratingHighFirstSortName' },
 ];
 
 function SortOptions({ onChangeSort }) {
+  const { t } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState('DEFAULT');
 
@@ -27,8 +29,8 @@ function SortOptions({ onChangeSort }) {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         data-cy="sort-options-btn"
       >
-        Sort By:{' '}
-        {sortingOptions.find(option => option.value === selectedSort).label}
+        {t('sortBy')}:{' '}
+        {t(sortingOptions.find(option => option.value === selectedSort).label)}
       </Button>
       <Dropdown $isOpen={isDropdownOpen}>
         {sortingOptions.map(option => (
@@ -37,7 +39,7 @@ function SortOptions({ onChangeSort }) {
             onClick={() => handleOptionClick(option.value)}
             data-cy={option.label}
           >
-            {option.label}
+            {t(option.label)}
           </Option>
         ))}
       </Dropdown>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { number, string, shape, arrayOf } from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import {
   Card,
@@ -21,6 +22,7 @@ import {
 
 function HotelCard({ hotel }) {
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const reviews = hotel.rooms.reduce(
     (allReviews, room) => allReviews.concat(room.reviews),
@@ -30,12 +32,12 @@ function HotelCard({ hotel }) {
   const averageRating = totalRatings / reviews.length;
 
   function getRatingText(rating) {
-    if (rating < 3.5) return 'Review score';
-    if (rating < 4) return 'Good';
-    if (rating < 4.25) return 'Very good';
-    if (rating < 4.5) return 'Fabulous';
-    if (rating < 4.75) return 'Superb';
-    return 'Exceptional';
+    if (rating < 3.5) return t('reviewFilterTitle');
+    if (rating < 4) return t('good');
+    if (rating < 4.25) return t('veryGood');
+    if (rating < 4.5) return t('fabulous');
+    if (rating < 4.75) return t('superb');
+    return t('exceptional');
   }
 
   const ratingText = getRatingText(averageRating);
@@ -53,16 +55,20 @@ function HotelCard({ hotel }) {
             <HotelLocation>
               {hotel.city}, {hotel.address}
             </HotelLocation>
-            <Price>from ${startPrice} per night</Price>
+            <Price>
+              {t('priceFrom')} ${startPrice} {t('perNight')}{' '}
+            </Price>
             <Distance>
-              Distance from the center: {hotel.distanceFromCenter}km
+              {t('distanceFilterTitle')}: {hotel.distanceFromCenter} {t('km')}
             </Distance>
           </HotelMainInfoWrapper>
           {!!reviews.length && (
             <ReviewsInfo>
               <ReviewTitle>
                 <ReviewRatingText>{ratingText}</ReviewRatingText>
-                <TotalReviews>{reviews.length} reviews</TotalReviews>
+                <TotalReviews>
+                  {t('reviews')}: {reviews.length}
+                </TotalReviews>
               </ReviewTitle>
               <Rating>{averageRating.toFixed(1)}</Rating>
             </ReviewsInfo>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { number, func } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import {
   Slider,
@@ -10,6 +11,7 @@ import {
 } from './styled';
 
 function PriceFilter({ min, max, onChange }) {
+  const { t } = useTranslation();
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(null);
@@ -54,7 +56,7 @@ function PriceFilter({ min, max, onChange }) {
 
   return (
     <>
-      <h3>Your budget (per night)</h3>
+      <h3>{t('budgetFilterTitle')}</h3>
       <div>
         ${minVal} - ${maxVal}
       </div>

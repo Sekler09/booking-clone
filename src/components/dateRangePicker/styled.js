@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledDayPicker = styled(DayPicker)`
   color: ${({ theme }) => theme.mode.textColor};
+  text-transform: capitalize;
 
   /* stylelint-disable selector-class-pattern, selector-not-notation */
   .rdp-nav_button {

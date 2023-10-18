@@ -1,7 +1,9 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { enUS, ru } from 'date-fns/locale';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import HotelGallery from 'components/hotelGallery';
 import HotelRoom from 'components/hotelRoom';
@@ -43,6 +45,7 @@ export default function Hotel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { from, to } = useSelector(state => state.inputs.dates);
+  const { t, i18n } = useTranslation();
   const [isDateOpen, onDateOpen, onDateClose] = useModal();
   const [isBookOpen, onBookOpen] = useModal();
   const [isReviewOpen, onReviewOpen, onReviewClose] = useModal();
@@ -80,8 +83,8 @@ export default function Hotel() {
   }
 
   const startPrice = Math.min(...hotel.rooms.map(room => room.pricePerNight));
-  const checkinTime = 'From 14:00 to 00:00';
-  const checkoutTime = 'Before 12:00';
+  const checkinTime = `${t('checkinFrom')} 14:00 ${t('checkinTo')} 00:00`;
+  const checkoutTime = `${t('checkoutBefore')} 12:00`;
 
   const selectedDays = {
     from: from ? new Date(from) : from,
@@ -96,6 +99,7 @@ export default function Hotel() {
       ),
   );
 
+  const locale = i18n.language === 'en' ? enUS : ru;
   return (
     <>
       <HotelHeaderContainer>
@@ -105,35 +109,39 @@ export default function Hotel() {
             {hotel.city}, {hotel.address}
           </HotelAddress>
           <HotelDistanceFromTheCenter>
-            {hotel.distanceFromCenter}km from the center
+            {hotel.distanceFromCenter} {t('km')} {t('fromCenter')}
           </HotelDistanceFromTheCenter>
         </HotelTitleWrapper>
-        <PriceStart>from ${startPrice}</PriceStart>
+        <PriceStart>
+          {t('priceFrom')} ${startPrice}
+        </PriceStart>
       </HotelHeaderContainer>
       <HotelGallery hotel={hotel} />
       <DatesOfStayContainer>
         <DateOfStay>
-          <DateTitle>Check-in</DateTitle>
+          <DateTitle>{t('checkin')}</DateTitle>
           <DateAndTimeContainer>
             <DateValue onClick={onDateOpen}>
-              {format(new Date(from), DATE_FORMAT_PATTERN)}
+              {format(new Date(from), DATE_FORMAT_PATTERN, { locale })}
             </DateValue>
             <TimeValue>{checkinTime}</TimeValue>
           </DateAndTimeContainer>
         </DateOfStay>
         <DateOfStay>
-          <DateTitle>Check-out</DateTitle>
+          <DateTitle>{t('checkout')}</DateTitle>
           <DateAndTimeContainer>
             <DateValue onClick={onDateOpen}>
-              {format(new Date(to), DATE_FORMAT_PATTERN)}
+              {format(new Date(to), DATE_FORMAT_PATTERN, { locale })}
             </DateValue>
             <TimeValue>{checkoutTime}</TimeValue>
           </DateAndTimeContainer>
         </DateOfStay>
-        <ChangeDateButton onClick={onDateOpen}>Change</ChangeDateButton>
+        <ChangeDateButton onClick={onDateOpen}>
+          {t('dateChange')}
+        </ChangeDateButton>
       </DatesOfStayContainer>
       <RoomsContainer>
-        <AvailableRoomsTitle>Available rooms</AvailableRoomsTitle>
+        <AvailableRoomsTitle>{t('availableRoomsTitle')}</AvailableRoomsTitle>
         {availableRooms.map(room => (
           <HotelRoom
             key={room.roomId}
@@ -144,7 +152,7 @@ export default function Hotel() {
         ))}
       </RoomsContainer>
       <HotelReviewsContainer>
-        <ReviewsTitle>Reviews</ReviewsTitle>
+        <ReviewsTitle>{t('reviewsTitle')}</ReviewsTitle>
         <ReviewsContainer>
           {hotel.rooms.map(room =>
             room.reviews.map(review => (
@@ -152,7 +160,9 @@ export default function Hotel() {
             )),
           )}
         </ReviewsContainer>
-        <ChangeDateButton onClick={onReviewOpen}>Leave review</ChangeDateButton>
+        <ChangeDateButton onClick={onReviewOpen}>
+          {t('leaveReview')}
+        </ChangeDateButton>
       </HotelReviewsContainer>
 
       {isDateOpen && (
@@ -170,7 +180,7 @@ export default function Hotel() {
             navigate('/');
           }}
         >
-          <SuccessTitle>You have successfully booked a hotel!</SuccessTitle>
+          <SuccessTitle>{t('successBookText')}</SuccessTitle>
         </Modal>
       )}
 

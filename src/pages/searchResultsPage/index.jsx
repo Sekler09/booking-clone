@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import CalendarInput from 'components/calendarInput';
 import CityInput from 'components/cityInput';
@@ -41,6 +42,7 @@ const defaultSortType = 'DEFAULT';
 export default function SearchResultsPage() {
   const inputs = useSelector(state => state.inputs);
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const [initInputs] = useState(inputs);
   const [sorting, setSorting] = useState(defaultSortType);
@@ -146,8 +148,7 @@ export default function SearchResultsPage() {
   const resultInfo = (
     <h1>
       <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>:{' '}
-      {filteredHotels.length} hotel
-      {filteredHotels.length > 1 ? 's' : ''} found
+      {filteredHotels.length} {t('searchResultText')}
     </h1>
   );
 
@@ -182,20 +183,17 @@ export default function SearchResultsPage() {
           <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
             <p>
-              No properties found in{' '}
+              {t('emptyResultTitle')}{' '}
               <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
             </p>
-            <p>
-              There are no matching properties for your search criteria. Try
-              updating your search.
-            </p>
+            <p>{t('emptyResultText')}</p>
           </EmptyResult>
         )}
 
         {error && (
           <ErrorWrapper>
             <ErrorIcon />
-            <p>Something went wrong. Try again later</p>
+            <p>{t('fetchErrorText')}</p>
           </ErrorWrapper>
         )}
       </ResultsWrapper>

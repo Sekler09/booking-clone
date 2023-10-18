@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { arrayOf, shape, number, string, func } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import PriceFilter from 'components/priceFilter';
 import RatingFilter from 'components/ratingFilter';
@@ -15,6 +16,7 @@ function getMaxAndMinPrice(hotels) {
 }
 
 export default function Filters({ hotels, onFilter }) {
+  const { t } = useTranslation();
   const [prices, setPrices] = useState(getMaxAndMinPrice(hotels));
   const [filteringFunctions, setFilteringFunctions] = useState({
     rating: null,
@@ -81,7 +83,7 @@ export default function Filters({ hotels, onFilter }) {
 
   return (
     <FiltersWrapper>
-      <FiltersTitle>FilterBy:</FiltersTitle>
+      <FiltersTitle>{t('filtersTitle')}</FiltersTitle>
       <FilterItem>
         <PriceFilter
           min={prices.min}

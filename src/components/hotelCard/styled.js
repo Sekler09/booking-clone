@@ -59,6 +59,7 @@ const HotelName = styled.h3`
 
 const HotelLocation = styled.p`
   color: ${({ theme }) => theme.colors.graniteGray};
+  text-transform: capitalize;
   font-size: 12px;
 `;
 

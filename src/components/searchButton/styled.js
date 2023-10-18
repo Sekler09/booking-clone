@@ -9,6 +9,7 @@ const LinkButton = styled(Link)`
   padding: 12px;
   background-color: ${({ theme }) => theme.colors.trueBlue};
   color: ${({ theme }) => theme.colors.white};
+  text-transform: capitalize;
   font-size: 24px;
   cursor: pointer;
 

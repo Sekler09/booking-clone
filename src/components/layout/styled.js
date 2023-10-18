@@ -13,7 +13,6 @@ const Main = styled.main`
   margin-bottom: 40px;
   margin-top: 40px;
   padding: 0 10px;
-  transform: translateY(0);
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
     transform: translateY(0);

@@ -6,11 +6,15 @@ import {
   startOfMonth,
   startOfToday,
 } from 'date-fns';
+import { ru, enUS } from 'date-fns/locale';
 import { func, instanceOf, shape } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { StyledDayPicker } from './styled';
 
 function DateRangePicker({ selectedDays, onNewRange }) {
+  const { i18n } = useTranslation();
+
   const today = startOfToday();
   const disabledDays = [
     {
@@ -30,6 +34,7 @@ function DateRangePicker({ selectedDays, onNewRange }) {
       selected={selectedDays}
       onSelect={newRange => onNewRange(newRange)}
       fixedWeeks
+      locale={i18n.language === 'en' ? enUS : ru}
     />
   );
 }

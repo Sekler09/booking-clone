@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 const SortOptionsWrapper = styled.div`
   position: relative;
   display: inline-block;
-  width: 250px;
+  width: fit-content;
   margin: 10px 0;
 
   @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
@@ -14,7 +14,6 @@ const SortOptionsWrapper = styled.div`
 const Button = styled.button`
   border-radius: 20px;
   padding: 8px 16px;
-  width: 250px;
   background-color: ${({ theme }) => theme.colors.trueBlue};
   font-size: 16px;
   color: ${({ theme }) => theme.colors.white};
@@ -33,7 +32,7 @@ const Dropdown = styled.ul`
   display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 250px;
   background-color: ${({ theme }) => theme.mode.appBg};
   color: ${({ theme }) => theme.mode.textColor};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);

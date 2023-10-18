@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import MainFiltersInput from 'components/mainFiltersInput';
 import { setCity } from 'store/slices/inputsSlice';
@@ -11,6 +12,8 @@ export default function CityInput() {
   const city = useSelector(state => state.inputs.city);
   const [searchParams, setSearchParams] = useSearchParams({});
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const [place, setPlace] = useState(() => {
     const searchCity = searchParams.get('city');
     return searchCity || city;
@@ -34,7 +37,7 @@ export default function CityInput() {
       Icon={HotelIcon}
       inputValue={place}
       onValueChange={e => onPlaceChange(e)}
-      placeholder="Where are you going?"
+      placeholder={t('cityInputPlaceholder')}
     />
   );
 }

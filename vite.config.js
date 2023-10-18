@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => {
         hooks: path.resolve(__dirname, './src/hooks'),
         constants: path.resolve(__dirname, './src/constants'),
         api: path.resolve(__dirname, './src/api'),
+        i18n: path.resolve(__dirname, './src/i18n'),
       },
     },
     server: {

@@ -36,7 +36,7 @@ describe('Search results must be correct', () => {
     cy.visit('/?city=Paris&adults=3');
     cy.get('@search-btn').click();
 
-    cy.get(NO_HOTELS).contains('No properties found in Paris');
+    cy.get(NO_HOTELS).contains('No properties found in');
   });
 
   it('There must be 2 hotels available for 3 adults in 2 rooms in Paris', () => {

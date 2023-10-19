@@ -1,5 +1,5 @@
 import { format, addMonths, startOfToday } from 'date-fns';
-import { DATE_FORMAT_PATTERN } from '../../../src/constants/date';
+import { DATE_FORMAT_PATTERN_EN } from '../../../src/constants/date';
 
 const today = startOfToday();
 const nextMonth = addMonths(today, 1);
@@ -49,9 +49,9 @@ describe('Dates input interaction', () => {
 
     cy.get('@date-input').should(
       'have.value',
-      `${format(today, DATE_FORMAT_PATTERN)} -- ${format(
+      `${format(today, DATE_FORMAT_PATTERN_EN)} -- ${format(
         nextMonth,
-        DATE_FORMAT_PATTERN,
+        DATE_FORMAT_PATTERN_EN,
       )}`,
     );
   });
@@ -84,9 +84,9 @@ describe('Dates input interaction', () => {
 
     cy.get('@date-input').should(
       'have.value',
-      `${format(today, DATE_FORMAT_PATTERN)} -- ${format(
+      `${format(today, DATE_FORMAT_PATTERN_EN)} -- ${format(
         nextMonth,
-        DATE_FORMAT_PATTERN,
+        DATE_FORMAT_PATTERN_EN,
       )}`,
     );
 
@@ -125,9 +125,9 @@ describe('Dates input interaction', () => {
 
     cy.get('@date-input').should(
       'have.value',
-      `${format(today, DATE_FORMAT_PATTERN)} -- ${format(
+      `${format(today, DATE_FORMAT_PATTERN_EN)} -- ${format(
         nextMonth,
-        DATE_FORMAT_PATTERN,
+        DATE_FORMAT_PATTERN_EN,
       )}`,
     );
 
@@ -141,9 +141,9 @@ describe('Dates input interaction', () => {
 
     cy.get('@date-input').should(
       'have.value',
-      `${format(today, DATE_FORMAT_PATTERN)} -- ${format(
+      `${format(today, DATE_FORMAT_PATTERN_EN)} -- ${format(
         nextMonth,
-        DATE_FORMAT_PATTERN,
+        DATE_FORMAT_PATTERN_EN,
       )}`,
     );
 
@@ -162,9 +162,9 @@ describe('Dates input interaction', () => {
       .eq(1)
       .should(
         'have.value',
-        `${format(today, DATE_FORMAT_PATTERN)} -- ${format(
+        `${format(today, DATE_FORMAT_PATTERN_EN)} -- ${format(
           nextMonth,
-          DATE_FORMAT_PATTERN,
+          DATE_FORMAT_PATTERN_EN,
         )}`,
       );
   });

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import path from 'path';
+import istanbul from 'vite-plugin-istanbul';
 
 export default defineConfig(({ mode }) => {
   const envFiles = {
@@ -29,7 +30,14 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
     },
-    plugins: [react(), svgr()],
+    plugins: [
+      react(),
+      svgr(),
+      istanbul({
+        cypress: true,
+        requireEnv: false,
+      }),
+    ],
     define: {
       'import.meta.env': JSON.stringify(envFiles[mode].parsed),
     },

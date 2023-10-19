@@ -37,7 +37,7 @@ function SortOptions({ onChangeSort }) {
           <Option
             key={option.value}
             onClick={() => handleOptionClick(option.value)}
-            data-cy={option.label}
+            data-cy={t(option.label)}
           >
             {t(option.label)}
           </Option>

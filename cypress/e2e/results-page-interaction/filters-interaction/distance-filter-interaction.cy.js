@@ -1,7 +1,7 @@
 const DEFAULT_ROUTE = '/searchresults?city=Paris';
 const HOTEL_CARD = '[data-cy=hotel-card]';
 
-const LABELS = ['Less than 5km', 'Less than 3km', 'Less than 1km'];
+const LABELS = ['Less than 5 km', 'Less than 3 km', 'Less than 1 km'];
 const LESS_THAN_1KM = `[data-cy="${LABELS[2]}"]`;
 const LESS_THAN_3KM = `[data-cy="${LABELS[1]}"]`;
 const LESS_THAN_5KM = `[data-cy="${LABELS[0]}"]`;

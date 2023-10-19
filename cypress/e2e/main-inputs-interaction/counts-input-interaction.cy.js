@@ -25,10 +25,10 @@ describe('Counts input interaction', () => {
 
     cy.get(COUNTERS_WRAPPER).as('counts-input-wrapper');
 
-    cy.get('@counts-input-wrapper').contains('Adults');
-    cy.get('@counts-input-wrapper').contains('Children');
-    cy.get('@counts-input-wrapper').contains('Rooms');
-    cy.get('@counts-input-wrapper').contains('Done');
+    cy.get('@counts-input-wrapper').contains('adults');
+    cy.get('@counts-input-wrapper').contains('children');
+    cy.get('@counts-input-wrapper').contains('rooms');
+    cy.get('@counts-input-wrapper').contains('done');
   });
 
   it('Inputs` adults value must coincide with value in the box', () => {

@@ -3,6 +3,8 @@ import { DATE_FORMAT_PATTERN_EN } from '../../../src/constants/date';
 
 const today = startOfToday();
 const nextMonth = addMonths(today, 1);
+
+const CALENDAR_TABLE = '.rdp-table';
 const MAIN_INPUT = '[data-cy=main-input]';
 const DATES_WRAPPER = '[data-cy=dates-wrapper]';
 const DATE_INIT_NO_VALUE = 'Check-in date -- Check-out date';
@@ -34,18 +36,8 @@ describe('Dates input interaction', () => {
     cy.get('@date-input').click();
     cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@dates-wrapper')
-      .contains(format(today, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(today.getDate())
-      .click();
-    cy.get('@dates-wrapper')
-      .contains(format(nextMonth, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(nextMonth.getDate())
-      .click();
+    cy.get(CALENDAR_TABLE).eq(0).contains(today.getDate()).click();
+    cy.get(CALENDAR_TABLE).eq(1).contains(nextMonth.getDate()).click();
 
     cy.get('@date-input').should(
       'have.value',
@@ -69,18 +61,8 @@ describe('Dates input interaction', () => {
     cy.get('@date-input').click();
     cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@dates-wrapper')
-      .contains(format(today, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(today.getDate())
-      .click();
-    cy.get('@dates-wrapper')
-      .contains(format(nextMonth, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(nextMonth.getDate())
-      .click();
+    cy.get(CALENDAR_TABLE).eq(0).contains(today.getDate()).click();
+    cy.get(CALENDAR_TABLE).eq(1).contains(nextMonth.getDate()).click();
 
     cy.get('@date-input').should(
       'have.value',
@@ -110,18 +92,8 @@ describe('Dates input interaction', () => {
     cy.get('@date-input').click();
     cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@dates-wrapper')
-      .contains(format(today, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(today.getDate())
-      .click();
-    cy.get('@dates-wrapper')
-      .contains(format(nextMonth, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(nextMonth.getDate())
-      .click();
+    cy.get(CALENDAR_TABLE).eq(0).contains(today.getDate()).click();
+    cy.get(CALENDAR_TABLE).eq(1).contains(nextMonth.getDate()).click();
 
     cy.get('@date-input').should(
       'have.value',

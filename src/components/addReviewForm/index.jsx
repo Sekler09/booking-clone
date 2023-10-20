@@ -31,16 +31,21 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
   }
 
   return (
-    <ReviewForm onSubmit={e => onSubmit(e)}>
+    <ReviewForm onSubmit={e => onSubmit(e)} data-cy="review-form">
       <Input
         type="text"
         value={username}
         placeholder={t('usernameInputPlaceholder')}
         onChange={e => setUsername(e.target.value)}
+        data-cy="review-username-input"
       />
       <Label>
         {t('pickRoom')}:
-        <Select value={roomId} onChange={e => setRoomId(e.target.value)}>
+        <Select
+          value={roomId}
+          onChange={e => setRoomId(e.target.value)}
+          data-cy="review-room-select"
+        >
           {rooms.map(room => (
             <option value={room.roomId} key={room.roomId}>
               {room.roomType}
@@ -57,6 +62,7 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
           step={0.1}
           max={5}
           onChange={e => setRating(e.target.value)}
+          data-cy="review-rating-input"
         />
       </Label>
       <Input
@@ -64,8 +70,11 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
         value={comment}
         placeholder={t('commentInputPlaceholder')}
         onChange={e => setComment(e.target.value)}
+        data-cy="review-comment-input"
       />
-      <SubmitButton type="submit">{t('reviewFormSubmit')}</SubmitButton>
+      <SubmitButton type="submit" data-cy="review-submit-btn">
+        {t('reviewFormSubmit')}
+      </SubmitButton>
     </ReviewForm>
   );
 }

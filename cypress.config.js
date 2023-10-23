@@ -31,15 +31,7 @@ module.exports = defineConfig({
       bundler: 'vite',
     },
     setupNodeEvents(on, config) {
-      const options = webpackPreprocessor.defaultOptions;
       codeCoverageTask(on, config);
-      options.webpackOptions.module.rules.push({
-        test: /\.m?js$/,
-        resolve: {
-          fullySpecified: false,
-        },
-      });
-      on('file:preprocessor', webpackPreprocessor(options));
 
       return config;
     },

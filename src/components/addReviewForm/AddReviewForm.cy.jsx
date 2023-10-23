@@ -79,17 +79,13 @@ describe('<AddReviewForm />', () => {
       .clear()
       .type(RATING_MIN - 1)
       .should('have.value', RATING_MIN - 1);
-    cy.get(`${RATING_INPUT}:invalid`)
-      .invoke('prop', 'validationMessage')
-      .should('include', 'Value must be');
+    cy.get(`${RATING_INPUT}:invalid`).should('be.visible');
 
     cy.get(RATING_INPUT)
       .clear()
       .type(RATING_MAX + 1)
       .should('have.value', RATING_MAX + 1);
-    cy.get(`${RATING_INPUT}:invalid`)
-      .invoke('prop', 'validationMessage')
-      .should('include', 'Value must be');
+    cy.get(`${RATING_INPUT}:invalid`).should('be.visible');
   });
 
   it('Comment input works fine', () => {

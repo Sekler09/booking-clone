@@ -23,6 +23,11 @@ const CheckboxInput = styled.input`
   }
 `;
 
+const CheckboxLabelsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const CheckboxLabel = styled.label`
   display: flex;
   align-items: center;
@@ -51,4 +56,5 @@ export {
   CheckboxLabelCount,
   CheckboxField,
   TickIcon,
+  CheckboxLabelsContainer,
 };

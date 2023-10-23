@@ -1,5 +1,5 @@
 import React from 'react';
-import { number, string, shape, arrayOf } from 'prop-types';
+import { string, shape } from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 
@@ -33,16 +33,16 @@ export default function HotelGallery({ hotel }) {
       >
         <>
           <SwiperSlide>
-            <FirstImageWrapper>
+            <FirstImageWrapper data-cy="gallery-image">
               <GalleryImage src={imgUrl} alt="" />
             </FirstImageWrapper>
           </SwiperSlide>
           {arr.map(el => (
             <SwiperSlide key={el}>
-              <ImageWrapper>
+              <ImageWrapper data-cy="gallery-image">
                 <GalleryImage src={imgUrl} alt="" />
               </ImageWrapper>
-              <ImageWrapper>
+              <ImageWrapper data-cy="gallery-image">
                 <GalleryImage src={imgUrl} alt="" />
               </ImageWrapper>
             </SwiperSlide>
@@ -63,21 +63,6 @@ export default function HotelGallery({ hotel }) {
 
 HotelGallery.propTypes = {
   hotel: shape({
-    id: number.isRequired,
-    name: string.isRequired,
-    city: string.isRequired,
-    address: string.isRequired,
-    distanceFromCenter: number.isRequired,
     image: string.isRequired,
-    rooms: arrayOf(
-      shape({
-        pricePerNight: number.isRequired,
-        reviews: arrayOf(
-          shape({
-            rating: number.isRequired,
-          }),
-        ),
-      }),
-    ),
   }).isRequired,
 };

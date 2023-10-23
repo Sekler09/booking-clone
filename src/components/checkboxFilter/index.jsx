@@ -7,6 +7,7 @@ import {
   CheckboxLabel,
   CheckboxLabelCount,
   CheckboxLabelText,
+  CheckboxLabelsContainer,
   FilterContainer,
   TickIcon,
 } from './styled';
@@ -16,21 +17,27 @@ function CheckboxFilter({ title, checkboxes, onChange }) {
     cb => cb.checked || cb.count !== 0,
   );
   return (
-    <FilterContainer data-cy="checkbox-filter">
-      <h3>{title}</h3>
-      {filteredCheckboxes.map(cb => (
-        <CheckboxLabel key={cb.label} data-cy={cb.label}>
-          <CheckboxInput
-            type="checkbox"
-            onChange={e => onChange(e, cb.value)}
-            checked={cb.checked}
-            data-cy="checkbox-filter-input"
-          />
-          <CheckboxField>{cb.checked && <TickIcon />}</CheckboxField>
-          <CheckboxLabelText>{cb.label}</CheckboxLabelText>
-          <CheckboxLabelCount>{cb.count}</CheckboxLabelCount>
-        </CheckboxLabel>
-      ))}
+    <FilterContainer>
+      <h3 data-cy="checkbox-filter-title">{title}</h3>
+      <CheckboxLabelsContainer data-cy="checkbox-filter-items">
+        {filteredCheckboxes.map(cb => (
+          <CheckboxLabel key={cb.label} data-cy={cb.label}>
+            <CheckboxInput
+              type="checkbox"
+              onChange={e => onChange(e.target.checked, cb.value)}
+              checked={cb.checked}
+              data-cy="checkbox-filter-input"
+            />
+            <CheckboxField>{cb.checked && <TickIcon />}</CheckboxField>
+            <CheckboxLabelText data-cy="checkbox-label">
+              {cb.label}
+            </CheckboxLabelText>
+            <CheckboxLabelCount data-cy="checkbox-count">
+              {cb.count}
+            </CheckboxLabelCount>
+          </CheckboxLabel>
+        ))}
+      </CheckboxLabelsContainer>
     </FilterContainer>
   );
 }

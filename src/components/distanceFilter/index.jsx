@@ -16,8 +16,8 @@ export default function DistanceFilter({ hotels, onChange }) {
     };
   }
 
-  function onCheckboxChange(e, value) {
-    if (e.target.checked) {
+  function onCheckboxChange(checked, value) {
+    if (checked) {
       setCheckedDistance(prev => {
         const newChecked = [...prev, value];
         onChange(getFilterByDistance(newChecked));

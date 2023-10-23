@@ -55,7 +55,7 @@ function HotelCard({ hotel }) {
             <HotelLocation>
               {hotel.city}, {hotel.address}
             </HotelLocation>
-            <Price>
+            <Price data-cy="hotel-card-price">
               {t('priceFrom')} ${startPrice} {t('perNight')}{' '}
             </Price>
             <Distance>
@@ -65,12 +65,16 @@ function HotelCard({ hotel }) {
           {!!reviews.length && (
             <ReviewsInfo>
               <ReviewTitle>
-                <ReviewRatingText>{ratingText}</ReviewRatingText>
-                <TotalReviews>
+                <ReviewRatingText data-cy="hotel-card-rating-label">
+                  {ratingText}
+                </ReviewRatingText>
+                <TotalReviews data-cy="hotel-card-reviews">
                   {t('reviews')}: {reviews.length}
                 </TotalReviews>
               </ReviewTitle>
-              <Rating>{averageRating.toFixed(1)}</Rating>
+              <Rating data-cy="hotel-card-rating">
+                {averageRating.toFixed(1)}
+              </Rating>
             </ReviewsInfo>
           )}
         </HotelInfoWrapper>

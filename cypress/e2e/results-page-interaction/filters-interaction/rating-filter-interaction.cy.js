@@ -1,6 +1,5 @@
 const DEFAULT_ROUTE = '/searchresults?city=Paris';
 const HOTEL_CARD = '[data-cy=hotel-card]';
-const CHECKBOX_FILTER = '[data-cy=checkbox-filter]';
 const CHECKBOX = '[data-cy=checkbox-filter-input]';
 
 const LABELS = ['Superb: 4.5+', 'Very good: 4+', 'Good: 3.5+', 'Pleasant: 3+'];
@@ -14,7 +13,6 @@ describe('Rating filter must show correct information', () => {
     cy.intercept('GET', '/hotels*', { fixture: 'db.json' }.hotels);
 
     cy.visit(DEFAULT_ROUTE);
-    cy.get(CHECKBOX_FILTER).eq(0).as('rating-filter');
   });
 
   it('Rating filter must have options 4+, 3.5+, 3+ for Paris hotels', () => {

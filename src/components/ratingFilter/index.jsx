@@ -23,8 +23,8 @@ export default function RatingFilter({ hotels, onChange }) {
     };
   }
 
-  function onCheckboxChange(e, value) {
-    if (e.target.checked) {
+  function onCheckboxChange(checked, value) {
+    if (checked) {
       setCheckedRatings(prev => {
         const newChecked = [...prev, value];
         onChange(getFilterByRating(newChecked));

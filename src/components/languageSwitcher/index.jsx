@@ -7,11 +7,9 @@ export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
   const isRu = i18n.language === 'ru';
+  console.log(isRu);
   return (
-    <IconContainer
-      $isRu={isRu}
-      onClick={() => i18n.changeLanguage(isRu ? 'en' : 'ru')}
-    >
+    <IconContainer onClick={() => i18n.changeLanguage(isRu ? 'en' : 'ru')}>
       <Rus $isRu={isRu} />
       <Usa $isRu={isRu} />
     </IconContainer>

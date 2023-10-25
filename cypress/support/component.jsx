@@ -14,6 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import failOnConsoleError from 'cypress-fail-on-console-error';
+import 'cypress-real-events';
 import './commands';
 import '@cypress/code-coverage/support';
 
@@ -28,6 +30,8 @@ import { lightTheme } from 'styles/theme';
 import GlobalStyle from 'styles/globalStyle';
 import 'i18n/i18n';
 import { node } from 'prop-types';
+
+failOnConsoleError();
 
 function Container({ children }) {
   return (

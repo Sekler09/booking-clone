@@ -120,7 +120,7 @@ export default function CalendarInput() {
       needArrow
       inputValue={text}
       isReadOnly
-      Icon={CalendarLogo}
+      Icon={<CalendarLogo />}
     >
       <DayPickerWrapper data-cy="dates-wrapper">
         <DateRangePicker

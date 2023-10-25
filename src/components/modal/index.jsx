@@ -13,10 +13,10 @@ function Modal({ onClose, children }) {
   }
 
   return (
-    <ModalOverlay onClick={e => onOverlayClick(e)}>
-      <ModalContainer ref={modalRef}>
+    <ModalOverlay onClick={e => onOverlayClick(e)} data-cy="modal-overlay">
+      <ModalContainer ref={modalRef} data-cy="modal-container">
         {children}
-        <CloseButton type="button" onClick={onClose} />
+        <CloseButton type="button" onClick={onClose} data-cy="modal-cross" />
       </ModalContainer>
     </ModalOverlay>
   );

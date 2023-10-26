@@ -24,13 +24,13 @@ function HotelRoom({ room, onBook }) {
         <RoomImage src={Image} />
       </ImageContainer>
       <InfoContainer>
-        <RoomName>{room.roomType}</RoomName>
-        <RoomCapacity>
+        <RoomName data-cy="hotel-room-type">{room.roomType}</RoomName>
+        <RoomCapacity data-cy="hotel-room-capacity">
           {room.capacity} {t(`person${room.capacity > 1 ? 's' : ''}`)}
         </RoomCapacity>
-        <RoomPrice>${room.pricePerNight}</RoomPrice>
+        <RoomPrice data-cy="hotel-room-price">${room.pricePerNight}</RoomPrice>
       </InfoContainer>
-      <BookButton onClick={() => onBook(room.roomId)}>
+      <BookButton onClick={() => onBook(room.roomId)} data-cy="hotel-room-book">
         {t('bookNow')}
       </BookButton>
     </RoomContainer>

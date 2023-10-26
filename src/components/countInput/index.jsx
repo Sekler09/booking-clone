@@ -112,7 +112,7 @@ export default function CountInput() {
       needArrow
       inputValue={inputValue}
       isReadOnly
-      Icon={ManIcon}
+      Icon={<ManIcon />}
     >
       <CountersWrapper data-cy="counters-wrapper">
         <Counter

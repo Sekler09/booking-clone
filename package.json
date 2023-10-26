@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "cypress": "cypress open",
-    "cy:run-e2e": "cypress run --e2e --browser chrome && nyc report --reporter=text-summary"
+    "cy:run-e2e": "cypress run --e2e --browser chrome && nyc report --reporter=text-summary",
+    "cy:run-component": "cypress run --component --browser chrome && nyc report --reporter=text-summary"
   },
   "dependencies": {
     "@cypress/webpack-preprocessor": "^6.0.0",

@@ -1,8 +1,16 @@
-import { format, addMonths, startOfToday } from 'date-fns';
+import {
+  format,
+  addMonths,
+  startOfToday,
+  getDate,
+  getDaysInMonth,
+} from 'date-fns';
 import { DATE_FORMAT_PATTERN_EN } from '../../../src/constants/date';
 
 const today = startOfToday();
 const nextMonth = addMonths(today, 1);
+
+const DAY_BTN = '.rdp-day';
 const MAIN_INPUT = '[data-cy=main-input]';
 const DATES_WRAPPER = '[data-cy=dates-wrapper]';
 const DATE_INIT_NO_VALUE = 'Check-in date -- Check-out date';
@@ -34,17 +42,12 @@ describe('Dates input interaction', () => {
     cy.get('@date-input').click();
     cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@dates-wrapper')
-      .contains(format(today, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(today.getDate())
+    cy.get(DAY_BTN)
+      .eq(getDate(today) - 1)
       .click();
-    cy.get('@dates-wrapper')
-      .contains(format(nextMonth, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(nextMonth.getDate())
+
+    cy.get(DAY_BTN)
+      .eq(getDaysInMonth(today) + getDate(nextMonth) - 1)
       .click();
 
     cy.get('@date-input').should(
@@ -69,17 +72,12 @@ describe('Dates input interaction', () => {
     cy.get('@date-input').click();
     cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@dates-wrapper')
-      .contains(format(today, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(today.getDate())
+    cy.get(DAY_BTN)
+      .eq(getDate(today) - 1)
       .click();
-    cy.get('@dates-wrapper')
-      .contains(format(nextMonth, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(nextMonth.getDate())
+
+    cy.get(DAY_BTN)
+      .eq(getDaysInMonth(today) + getDate(nextMonth) - 1)
       .click();
 
     cy.get('@date-input').should(
@@ -110,17 +108,12 @@ describe('Dates input interaction', () => {
     cy.get('@date-input').click();
     cy.get(DATES_WRAPPER).as('dates-wrapper');
 
-    cy.get('@dates-wrapper')
-      .contains(format(today, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(today.getDate())
+    cy.get(DAY_BTN)
+      .eq(getDate(today) - 1)
       .click();
-    cy.get('@dates-wrapper')
-      .contains(format(nextMonth, 'MMMM'))
-      .parent()
-      .parent()
-      .contains(nextMonth.getDate())
+
+    cy.get(DAY_BTN)
+      .eq(getDaysInMonth(today) + getDate(nextMonth) - 1)
       .click();
 
     cy.get('@date-input').should(

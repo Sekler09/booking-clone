@@ -34,7 +34,7 @@ export default function CityInput() {
 
   return (
     <MainFiltersInput
-      Icon={HotelIcon}
+      Icon={<HotelIcon />}
       inputValue={place}
       onValueChange={e => onPlaceChange(e)}
       placeholder={t('cityInputPlaceholder')}

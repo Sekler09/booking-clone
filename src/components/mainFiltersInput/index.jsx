@@ -34,7 +34,7 @@ export default function MainFiltersInput({
 
   return (
     <MainInputWrapper onClick={onOpen}>
-      <Icon />
+      {Icon}
       <MainInput
         value={inputValue}
         readOnly={isReadOnly}
@@ -42,15 +42,19 @@ export default function MainFiltersInput({
         placeholder={placeholder}
         data-cy="main-input"
       />
-      {needArrow && <Arrow />}
-      {isOpen && <div ref={popoverRef}>{children}</div>}
+      {needArrow && <Arrow data-cy="main-input-arrow" />}
+      {isOpen && children && (
+        <div ref={popoverRef} data-cy="main-input-modal">
+          {children}
+        </div>
+      )}
     </MainInputWrapper>
   );
 }
 
 MainFiltersInput.propTypes = {
   needArrow: bool,
-  Icon: func.isRequired,
+  Icon: node,
   children: node,
   inputValue: string.isRequired,
   isReadOnly: bool,
@@ -63,6 +67,7 @@ MainFiltersInput.propTypes = {
 
 MainFiltersInput.defaultProps = {
   children: null,
+  Icon: null,
   isOpen: false,
   onOpen: () => {},
   onClose: () => {},

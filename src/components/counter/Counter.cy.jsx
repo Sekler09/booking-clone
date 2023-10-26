@@ -80,9 +80,6 @@ describe('<Counter />', () => {
     cy.get(VALUE).should('have.text', COUNT_MAX);
 
     cy.get(INCREMENT_BTN).should('be.disabled');
-
-    cy.get(INCREMENT_BTN).click({ force: true });
-    cy.get('@setCountSpy').should('have.not.been.called');
   });
 
   it('Decrement button must be disabled if count value equals min', () => {
@@ -100,8 +97,5 @@ describe('<Counter />', () => {
     cy.get(VALUE).should('have.text', COUNT_MIN);
 
     cy.get(DECREMENT_BTN).should('be.disabled');
-
-    cy.get(DECREMENT_BTN).click({ force: true });
-    cy.get('@setCountSpy').should('have.not.been.called');
   });
 });

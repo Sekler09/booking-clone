@@ -102,6 +102,110 @@ const HOTEL3 = {
   ],
 };
 
+const HOTEL4 = {
+  id: 1,
+  name: 'Hotel A',
+  city: 'paris',
+  address: '123 Main Street',
+  distanceFromCenter: 3.5,
+  image:
+    'https://cf.bstatic.com/xdata/images/hotel/square200/466014443.webp?k=5d05c2f38b420240d795fe164a35801e9f7b696615728d9786a7809ad7087e9d&o=',
+  rooms: [
+    {
+      roomId: 101,
+      roomType: 'Single',
+      capacity: 1,
+      pricePerNight: 300,
+      bookedDates: ['2023-10-1', '2023-10-5'],
+      reviews: [
+        {
+          username: 'JohnDoe',
+          rating: 1,
+          comment: 'Great room!',
+        },
+      ],
+    },
+  ],
+};
+
+const HOTEL5 = {
+  id: 1,
+  name: 'Hotel A',
+  city: 'paris',
+  address: '123 Main Street',
+  distanceFromCenter: 3.5,
+  image:
+    'https://cf.bstatic.com/xdata/images/hotel/square200/466014443.webp?k=5d05c2f38b420240d795fe164a35801e9f7b696615728d9786a7809ad7087e9d&o=',
+  rooms: [
+    {
+      roomId: 101,
+      roomType: 'Single',
+      capacity: 1,
+      pricePerNight: 300,
+      bookedDates: ['2023-10-1', '2023-10-5'],
+      reviews: [
+        {
+          username: 'JohnDoe',
+          rating: 3.6,
+          comment: 'Great room!',
+        },
+      ],
+    },
+  ],
+};
+
+const HOTEL6 = {
+  id: 1,
+  name: 'Hotel A',
+  city: 'paris',
+  address: '123 Main Street',
+  distanceFromCenter: 3.5,
+  image:
+    'https://cf.bstatic.com/xdata/images/hotel/square200/466014443.webp?k=5d05c2f38b420240d795fe164a35801e9f7b696615728d9786a7809ad7087e9d&o=',
+  rooms: [
+    {
+      roomId: 101,
+      roomType: 'Single',
+      capacity: 1,
+      pricePerNight: 300,
+      bookedDates: ['2023-10-1', '2023-10-5'],
+      reviews: [
+        {
+          username: 'JohnDoe',
+          rating: 4.1,
+          comment: 'Great room!',
+        },
+      ],
+    },
+  ],
+};
+
+const HOTEL7 = {
+  id: 1,
+  name: 'Hotel A',
+  city: 'paris',
+  address: '123 Main Street',
+  distanceFromCenter: 3.5,
+  image:
+    'https://cf.bstatic.com/xdata/images/hotel/square200/466014443.webp?k=5d05c2f38b420240d795fe164a35801e9f7b696615728d9786a7809ad7087e9d&o=',
+  rooms: [
+    {
+      roomId: 101,
+      roomType: 'Single',
+      capacity: 1,
+      pricePerNight: 300,
+      bookedDates: ['2023-10-1', '2023-10-5'],
+      reviews: [
+        {
+          username: 'JohnDoe',
+          rating: 4.6,
+          comment: 'Great room!',
+        },
+      ],
+    },
+  ],
+};
+
 describe('<HotelCard />', () => {
   it('Hotel card show correct info', () => {
     cy.mount(<HotelCard hotel={HOTEL1} />);
@@ -128,5 +232,41 @@ describe('<HotelCard />', () => {
     cy.get(RATING_LABEL).should('not.exist');
     cy.get(RATING).should('not.exist');
     cy.get(REVIEWS_COUNT).should('not.exist');
+  });
+
+  it('Hotel card show correct info', () => {
+    cy.mount(<HotelCard hotel={HOTEL4} />);
+
+    cy.get(PRICE).should('include.text', 300);
+    cy.get(RATING_LABEL).should('have.text', 'Review score');
+    cy.get(RATING).should('have.text', '1.0');
+    cy.get(REVIEWS_COUNT).should('include.text', 1);
+  });
+
+  it('Hotel card show correct info', () => {
+    cy.mount(<HotelCard hotel={HOTEL5} />);
+
+    cy.get(PRICE).should('include.text', 300);
+    cy.get(RATING_LABEL).should('have.text', 'Good');
+    cy.get(RATING).should('have.text', '3.6');
+    cy.get(REVIEWS_COUNT).should('include.text', 1);
+  });
+
+  it('Hotel card show correct info', () => {
+    cy.mount(<HotelCard hotel={HOTEL6} />);
+
+    cy.get(PRICE).should('include.text', 300);
+    cy.get(RATING_LABEL).should('have.text', 'Very good');
+    cy.get(RATING).should('have.text', '4.1');
+    cy.get(REVIEWS_COUNT).should('include.text', 1);
+  });
+
+  it('Hotel card show correct info', () => {
+    cy.mount(<HotelCard hotel={HOTEL7} />);
+
+    cy.get(PRICE).should('include.text', 300);
+    cy.get(RATING_LABEL).should('have.text', 'Superb');
+    cy.get(RATING).should('have.text', '4.6');
+    cy.get(REVIEWS_COUNT).should('include.text', 1);
   });
 });

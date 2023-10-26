@@ -1,5 +1,5 @@
 import React from 'react';
-import HotelGallery from './index';
+import HotelGallery from '../../src/components/hotelGallery/index';
 
 const GALLERY_IMG = '[data-cy=gallery-image]';
 const GALLERY_CONTAINER = '.swiper-wrapper';

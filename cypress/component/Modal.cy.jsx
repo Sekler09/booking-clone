@@ -1,4 +1,4 @@
-import Modal from '.';
+import Modal from '../../src/components/modal';
 
 const OVERLAY = '[data-cy="modal-overlay"]';
 const CONTAINER = '[data-cy="modal-container"]';

@@ -1,4 +1,4 @@
-import HotelCard from './index';
+import HotelCard from '../../src/components/hotelCard/index';
 
 const PRICE = '[data-cy=hotel-card-price]';
 const RATING_LABEL = '[data-cy=hotel-card-rating-label]';

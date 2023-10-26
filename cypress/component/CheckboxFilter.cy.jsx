@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckboxFilter from './index';
+import CheckboxFilter from '../../src/components/checkboxFilter/index';
 
 const FILTER_TITLE = '[data-cy=checkbox-filter-title]';
 const CHECKBOX_INPUT = '[data-cy=checkbox-filter-input]';

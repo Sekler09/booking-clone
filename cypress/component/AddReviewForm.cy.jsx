@@ -1,5 +1,5 @@
 import React from 'react';
-import AddReviewForm from './index';
+import AddReviewForm from '../../src/components/addReviewForm/index';
 
 const USERNAME_INPUT = '[data-cy=review-username-input]';
 const ROOM_SELECT = '[data-cy=review-room-select]';

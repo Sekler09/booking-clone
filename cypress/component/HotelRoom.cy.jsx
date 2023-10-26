@@ -1,5 +1,5 @@
 import React from 'react';
-import HotelRoom from './index';
+import HotelRoom from '../../src/components/hotelRoom/index';
 
 const ROOM_TYPE = '[data-cy=hotel-room-type]';
 const ROOM_CAPACITY = '[data-cy=hotel-room-capacity]';

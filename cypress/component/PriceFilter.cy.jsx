@@ -1,4 +1,4 @@
-import PriceFilter from '.';
+import PriceFilter from '../../src/components/priceFilter';
 
 const MIN = 0;
 const STEP = 10;

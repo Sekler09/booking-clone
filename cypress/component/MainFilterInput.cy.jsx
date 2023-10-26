@@ -1,5 +1,5 @@
 import { ReactComponent as Icon } from 'assets/man.svg';
-import MainFiltersInput from './index';
+import MainFiltersInput from '../../src/components/mainFiltersInput/index';
 
 const INPUT = '[data-cy=main-input]';
 const MODAL = '[data-cy=main-input-modal]';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Counter from './index';
+import Counter from '../../src/components/counter/index';
 
 const DECREMENT_BTN = '[data-cy=count-decrement]';
 const INCREMENT_BTN = '[data-cy=count-increment]';

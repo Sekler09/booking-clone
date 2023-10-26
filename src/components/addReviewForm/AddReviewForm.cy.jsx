@@ -45,8 +45,6 @@ describe('<AddReviewForm />', () => {
     );
   });
 
-  it('renders', () => {});
-
   it('Username input works fine', () => {
     cy.get(USERNAME_INPUT).should('have.value', '');
 

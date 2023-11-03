@@ -5,6 +5,7 @@ import Hotel from 'pages/hotelPage';
 import Main from 'pages/mainPage';
 import NotFoundPage from 'pages/notFoundPage';
 import SearchResultsPage from 'pages/searchResultsPage';
+import LogIn from 'pages/loginPage';
 import getHotelById from 'api/getHotelById';
 
 export default createBrowserRouter([
@@ -30,6 +31,10 @@ export default createBrowserRouter([
       {
         path: 'searchresults',
         element: <SearchResultsPage />,
+      },
+      {
+        path: 'login',
+        element: <LogIn />,
       },
     ],
   },

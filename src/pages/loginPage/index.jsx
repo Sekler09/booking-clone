@@ -9,7 +9,7 @@ function LogIn() {
     console.log('data', formData);
     await fetch('http://localhost:3000/auth/signup', {
       method: 'POST',
-      // credentials: 'include',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

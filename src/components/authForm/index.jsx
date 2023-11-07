@@ -19,8 +19,8 @@ const EMAIL_REG_EX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 function AuthForm({ onSubmit }) {
   const location = useLocation();
 
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('1234567');
+  const [email, setEmail] = useState('test@gmail.com');
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
@@ -52,7 +52,7 @@ function AuthForm({ onSubmit }) {
       isError = true;
     }
 
-    if (!isError) onSubmit({ email, password });
+    if (!isError) onSubmit({ email, password }, setEmailError);
   }
 
   const isLogin = location.pathname.match('signin');

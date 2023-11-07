@@ -7,8 +7,9 @@ const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  width: 400px;
   margin: 0 auto;
+  width: 400px;
+  color: ${({ theme }) => theme.mode.textColor};
 `;
 
 const Title = styled.h1`
@@ -31,10 +32,10 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100%;
-  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  padding: 10px;
+  width: 100%;
 `;
 
 const SubmitButton = styled.button`

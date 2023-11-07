@@ -1,26 +1,35 @@
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
+
 import AuthForm from 'components/authForm';
-import { useEffect, useState } from 'react';
+import authApi from 'api/auth';
+import { setTokenTime } from 'store/slices/userSlice';
 
 function SignIn() {
-  const [token, setToken] = useState('');
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(state => !!state.user.user);
+  const dispatch = useDispatch();
 
-  const onSubmit = async formData => {
-    await fetch('http://localhost:3000/auth/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(r => r.json())
-      .then(data => setToken(data.access_token));
+  const onSubmit = async (formData, onError) => {
+    await authApi
+      .signIn(formData)
+      .then(async r => {
+        if (!r.ok) {
+          onError(await r.json().then(data => data.message));
+          throw new Error('bad request');
+        }
+        return r.json();
+      })
+      .then(data => {
+        const { exp } = jwtDecode(data.access_token);
+        const { iat } = jwtDecode(data.access_token);
+        dispatch(setTokenTime({ exp, iat }));
+      })
+      .then(() => navigate(0));
   };
 
-  useEffect(() => {
-    localStorage.setItem('accessToken', token);
-  }, [token]);
-
-  return <AuthForm onSubmit={onSubmit} />;
+  return isLoggedIn ? <Navigate to="/" /> : <AuthForm onSubmit={onSubmit} />;
 }
 
 export default SignIn;

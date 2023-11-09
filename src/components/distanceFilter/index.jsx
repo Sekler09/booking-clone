@@ -60,12 +60,14 @@ export default function DistanceFilter({ hotels, onChange }) {
     },
   ];
 
-  return (
+  return (checkedDistance.length ? true : !!hotels.length) ? (
     <CheckboxFilter
       title={t('distanceFilterTitle')}
       checkboxes={checkboxes}
       onChange={(e, v) => onCheckboxChange(e, v)}
     />
+  ) : (
+    <span />
   );
 }
 

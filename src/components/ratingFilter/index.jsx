@@ -73,12 +73,14 @@ export default function RatingFilter({ hotels, onChange }) {
     },
   ];
 
-  return (
+  return (checkedRatings.length ? true : !!hotels.length) ? (
     <CheckboxFilter
       title={t('reviewFilterTitle')}
       checkboxes={checkboxes}
       onChange={(e, v) => onCheckboxChange(e, v)}
     />
+  ) : (
+    <span />
   );
 }
 

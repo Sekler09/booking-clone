@@ -131,25 +131,29 @@ export default function SearchResultsPage() {
             <Filters hotels={hotels} onFilter={setFilteredHotels} />
             <ResultsContainer>
               <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
-              <SortOptions onChangeSort={setSorting} />
-              <div>
-                {filteredHotels.sort(sortingFunction).map(hotel => (
-                  <HotelCard hotel={hotel} key={hotel.id} />
-                ))}
-              </div>
+              {!!filteredHotels.length && (
+                <>
+                  <SortOptions onChangeSort={setSorting} />
+                  <div>
+                    {filteredHotels.sort(sortingFunction).map(hotel => (
+                      <HotelCard hotel={hotel} key={hotel.id} />
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {!filteredHotels.length && (
+                <EmptyResult data-cy="no-hotels-found">
+                  <SearchIcon />
+                  <p>
+                    {t('emptyResultTitle')}{' '}
+                    <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
+                  </p>
+                  <p>{t('emptyResultText')}</p>
+                </EmptyResult>
+              )}
             </ResultsContainer>
           </>
-        )}
-
-        {!loading && !error && filteredHotels.length === 0 && (
-          <EmptyResult data-cy="no-hotels-found">
-            <SearchIcon />
-            <p>
-              {t('emptyResultTitle')}{' '}
-              <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
-            </p>
-            <p>{t('emptyResultText')}</p>
-          </EmptyResult>
         )}
 
         {error && (

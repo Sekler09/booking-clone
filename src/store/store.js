@@ -12,6 +12,7 @@ import {
 
 import inputsReducer from './slices/inputsSlice';
 import themeReducer from './slices/themeSlice';
+import userReducer from './slices/userSlice';
 
 const persistConfig = {
   key: 'root',
@@ -21,6 +22,7 @@ const persistConfig = {
 const reducers = combineReducers({
   inputs: inputsReducer,
   theme: themeReducer,
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -154,11 +154,9 @@ export default function Hotel() {
       <HotelReviewsContainer>
         <ReviewsTitle>{t('reviewsTitle')}</ReviewsTitle>
         <ReviewsContainer>
-          {hotel.rooms.map(room =>
-            room.reviews.map(review => (
-              <Review review={review} key={room.id + review.username} />
-            )),
-          )}
+          {hotel.reviews.map(review => (
+            <Review review={review} key={review.id} />
+          ))}
         </ReviewsContainer>
         <ChangeDateButton onClick={onReviewOpen}>
           {t('leaveReview')}

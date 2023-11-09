@@ -52,37 +52,6 @@ export default function SearchResultsPage() {
   const [error, setError] = useState(null);
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
 
-  function checkRoomsAvailability(rooms, from, to, capacity, count) {
-    if (rooms.length < count) {
-      return false;
-    }
-
-    const availableRooms = rooms.filter(
-      room =>
-        !room.bookedDates.find(
-          date =>
-            new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
-        ),
-    );
-
-    if (availableRooms.length < count) {
-      return false;
-    }
-
-    return (
-      availableRooms
-        .sort((a, b) => b.capacity - a.capacity)
-        .slice(0, count)
-        .reduce((sum, room) => sum + room.capacity, 0) >= capacity
-    );
-  }
-
-  function filterHotelsByDateAndCounts(data, from, to, capacity, count) {
-    return data.filter(hotel =>
-      checkRoomsAvailability(hotel.rooms, from, to, capacity, count),
-    );
-  }
-
   useEffect(() => {
     const city = searchParams.has('city')
       ? searchParams.get('city')
@@ -123,16 +92,9 @@ export default function SearchResultsPage() {
       children,
     });
 
-    getHotelsByCity(city.toLowerCase())
+    getHotelsByCity({ city, from, to, children, adults, rooms })
       .then(r => r.json())
-      .then(data => {
-        const initHotels = filterHotelsByDateAndCounts(
-          data,
-          from,
-          to,
-          adults + children,
-          rooms,
-        );
+      .then(initHotels => {
         setHotels(initHotels);
         setFilteredHotels(initHotels);
         setLoading(false);

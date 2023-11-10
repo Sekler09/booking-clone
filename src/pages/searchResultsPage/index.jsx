@@ -141,21 +141,28 @@ export default function SearchResultsPage() {
                   </div>
                 </>
               )}
-
               {!filteredHotels.length && (
                 <EmptyResult data-cy="no-hotels-found">
-                  <SearchIcon />
                   <p>
                     {t('emptyResultTitle')}{' '}
                     <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
                   </p>
-                  <p>{t('emptyResultText')}</p>
                 </EmptyResult>
               )}
             </ResultsContainer>
           </>
         )}
 
+        {!loading && !error && !hotels.length && (
+          <EmptyResult data-cy="no-hotels-found">
+            <SearchIcon />
+            <p>
+              {t('emptyResultTitle')}{' '}
+              <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
+            </p>
+            <p>{t('emptyResultText')}</p>
+          </EmptyResult>
+        )}
         {error && (
           <ErrorWrapper>
             <ErrorIcon />

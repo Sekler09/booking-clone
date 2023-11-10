@@ -93,7 +93,12 @@ export default function SearchResultsPage() {
     });
 
     getHotelsByCity({ city, from, to, children, adults, rooms })
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) {
+          throw new Error('bad request');
+        }
+        return r.json();
+      })
       .then(initHotels => {
         setHotels(initHotels);
         setFilteredHotels(initHotels);

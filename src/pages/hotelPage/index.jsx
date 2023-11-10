@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { enUS, ru } from 'date-fns/locale';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,10 +11,12 @@ import Review from 'components/review';
 import Modal from 'components/modal';
 import DateRangePicker from 'components/dateRangePicker';
 import AddReviewForm from 'components/addReviewForm';
+import FancyLoader from 'components/loader';
 import { useModal } from 'hooks/useModal';
 import { setDate } from 'store/slices/inputsSlice';
 import { getArrayOfDatesBetween } from 'utils/dateHelpers';
 import updateHotel from 'api/updateHotel';
+import getHotelById from 'api/getHotelById';
 
 import {
   AvailableRoomsTitle,
@@ -41,25 +43,49 @@ import {
 const DATE_FORMAT_PATTERN = 'd MMM y, iii';
 
 export default function Hotel() {
-  const hotel = useLoaderData();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { from, to } = useSelector(state => state.inputs.dates);
+  const dispatch = useDispatch();
+  const { hotelId } = useParams();
+  const {
+    dates: { from, to },
+    counts: { adults, children, rooms },
+  } = useSelector(state => state.inputs);
   const { t, i18n } = useTranslation();
+
+  const [hotel, setHotel] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [dates, setDates] = useState({
+    from,
+    to,
+  });
   const [isDateOpen, onDateOpen, onDateClose] = useModal();
   const [isBookOpen, onBookOpen] = useModal();
   const [isReviewOpen, onReviewOpen, onReviewClose] = useModal();
 
+  useEffect(() => {
+    getHotelById(hotelId, { from, to, children, adults, rooms })
+      .then(r => {
+        if (!r.ok) {
+          navigate('/');
+        }
+        return r.json();
+      })
+      .then(data => {
+        setHotel(data);
+        setLoading(false);
+      });
+  }, [from, to]);
+
   function onNewRange(newRange) {
     if (!newRange) {
-      dispatch(setDate({ from: null, to: null }));
+      setDates({ from: null, to: null });
       return;
     }
     const newDate = {
       from: newRange.from ? format(newRange.from, 'y-M-d') : null,
       to: newRange.to ? format(newRange.to, 'y-M-d') : null,
     };
-    dispatch(setDate(newDate));
+    setDates(newDate);
   }
 
   async function onBook(roomId) {
@@ -82,89 +108,97 @@ export default function Hotel() {
     }
   }
 
-  const startPrice = Math.min(...hotel.rooms.map(room => room.pricePerNight));
+  function onDateModalClose() {
+    dispatch(setDate(dates));
+    onDateClose();
+  }
+
+  const startPrice =
+    hotel && Math.min(...hotel.rooms.map(room => room.pricePerNight));
   const checkinTime = `${t('checkinFrom')} 14:00 ${t('checkinTo')} 00:00`;
   const checkoutTime = `${t('checkoutBefore')} 12:00`;
 
   const selectedDays = {
-    from: from ? new Date(from) : from,
-    to: to ? new Date(to) : to,
+    from: dates.from ? new Date(dates.from) : dates.from,
+    to: dates.to ? new Date(dates.to) : dates.to,
   };
-
-  const availableRooms = hotel.rooms.filter(
-    room =>
-      !room.bookedDates.find(
-        date =>
-          new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
-      ),
-  );
 
   const locale = i18n.language === 'en' ? enUS : ru;
   return (
     <>
-      <HotelHeaderContainer>
-        <HotelTitleWrapper>
-          <HotelName>{hotel.name}</HotelName>
-          <HotelAddress>
-            {hotel.city}, {hotel.address}
-          </HotelAddress>
-          <HotelDistanceFromTheCenter>
-            {hotel.distanceFromCenter} {t('km')} {t('fromCenter')}
-          </HotelDistanceFromTheCenter>
-        </HotelTitleWrapper>
-        <PriceStart>
-          {t('priceFrom')} ${startPrice}
-        </PriceStart>
-      </HotelHeaderContainer>
-      <HotelGallery hotel={hotel} />
-      <DatesOfStayContainer>
-        <DateOfStay>
-          <DateTitle>{t('checkin')}</DateTitle>
-          <DateAndTimeContainer>
-            <DateValue onClick={onDateOpen}>
-              {format(new Date(from), DATE_FORMAT_PATTERN, { locale })}
-            </DateValue>
-            <TimeValue>{checkinTime}</TimeValue>
-          </DateAndTimeContainer>
-        </DateOfStay>
-        <DateOfStay>
-          <DateTitle>{t('checkout')}</DateTitle>
-          <DateAndTimeContainer>
-            <DateValue onClick={onDateOpen}>
-              {format(new Date(to), DATE_FORMAT_PATTERN, { locale })}
-            </DateValue>
-            <TimeValue>{checkoutTime}</TimeValue>
-          </DateAndTimeContainer>
-        </DateOfStay>
-        <ChangeDateButton onClick={onDateOpen}>
-          {t('dateChange')}
-        </ChangeDateButton>
-      </DatesOfStayContainer>
-      <RoomsContainer>
-        <AvailableRoomsTitle>{t('availableRoomsTitle')}</AvailableRoomsTitle>
-        {availableRooms.map(room => (
-          <HotelRoom
-            key={room.roomId}
-            room={room}
-            hotelId={hotel.id}
-            onBook={id => onBook(id)}
-          />
-        ))}
-      </RoomsContainer>
-      <HotelReviewsContainer>
-        <ReviewsTitle>{t('reviewsTitle')}</ReviewsTitle>
-        <ReviewsContainer>
-          {hotel.reviews.map(review => (
-            <Review review={review} key={review.id} />
-          ))}
-        </ReviewsContainer>
-        <ChangeDateButton onClick={onReviewOpen}>
-          {t('leaveReview')}
-        </ChangeDateButton>
-      </HotelReviewsContainer>
+      {loading && <FancyLoader />}
+      {!loading && hotel && (
+        <>
+          <HotelHeaderContainer>
+            <HotelTitleWrapper>
+              <HotelName>{hotel.name}</HotelName>
+              <HotelAddress>
+                {hotel.city}, {hotel.address}
+              </HotelAddress>
+              <HotelDistanceFromTheCenter>
+                {hotel.distanceFromCenter} {t('km')} {t('fromCenter')}
+              </HotelDistanceFromTheCenter>
+            </HotelTitleWrapper>
+            {!!hotel.rooms.length && (
+              <PriceStart>
+                {t('priceFrom')} ${startPrice}
+              </PriceStart>
+            )}
+          </HotelHeaderContainer>
+          <HotelGallery hotel={hotel} />
+          <DatesOfStayContainer>
+            <DateOfStay>
+              <DateTitle>{t('checkin')}</DateTitle>
+              <DateAndTimeContainer>
+                <DateValue onClick={onDateOpen}>
+                  {format(new Date(from), DATE_FORMAT_PATTERN, { locale })}
+                </DateValue>
+                <TimeValue>{checkinTime}</TimeValue>
+              </DateAndTimeContainer>
+            </DateOfStay>
+            <DateOfStay>
+              <DateTitle>{t('checkout')}</DateTitle>
+              <DateAndTimeContainer>
+                <DateValue onClick={onDateOpen}>
+                  {format(new Date(to), DATE_FORMAT_PATTERN, { locale })}
+                </DateValue>
+                <TimeValue>{checkoutTime}</TimeValue>
+              </DateAndTimeContainer>
+            </DateOfStay>
+            <ChangeDateButton onClick={onDateOpen}>
+              {t('dateChange')}
+            </ChangeDateButton>
+          </DatesOfStayContainer>
+          <RoomsContainer>
+            <AvailableRoomsTitle>
+              {t('availableRoomsTitle')}
+            </AvailableRoomsTitle>
+            {hotel.rooms.map(room => (
+              <HotelRoom
+                key={room.id}
+                room={room}
+                hotelId={hotel.id}
+                onBook={id => onBook(id)}
+              />
+            ))}
+            {!hotel.rooms.length && <p>No rooms are available in this dates</p>}
+          </RoomsContainer>
+          <HotelReviewsContainer>
+            <ReviewsTitle>{t('reviewsTitle')}</ReviewsTitle>
+            <ReviewsContainer>
+              {hotel.reviews.map(review => (
+                <Review review={review} key={review.id} />
+              ))}
+            </ReviewsContainer>
+            <ChangeDateButton onClick={onReviewOpen}>
+              {t('leaveReview')}
+            </ChangeDateButton>
+          </HotelReviewsContainer>
+        </>
+      )}
 
       {isDateOpen && (
-        <Modal onClose={onDateClose}>
+        <Modal onClose={() => onDateModalClose()}>
           <DateRangePicker
             selectedDays={selectedDays}
             onNewRange={newRange => onNewRange(newRange)}

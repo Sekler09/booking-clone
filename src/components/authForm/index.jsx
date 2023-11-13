@@ -1,6 +1,7 @@
 import { func } from 'prop-types';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import {
   FormContainer,
@@ -18,6 +19,7 @@ const EMAIL_REG_EX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 function AuthForm({ onSubmit }) {
   const location = useLocation();
+  const { t } = useTranslation();
 
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -59,45 +61,45 @@ function AuthForm({ onSubmit }) {
 
   return (
     <FormContainer>
-      <Title>Sign in or create an account</Title>
+      <Title>{t('authTitle')}</Title>
       <Form onSubmit={e => onFormSubmit(e)}>
         <InputContainer>
-          <Label>Email</Label>
+          <Label>{t('emailLabel')}</Label>
           <Input
             type="text"
             onChange={e => onEmailChange(e)}
             value={email}
-            placeholder="Enter your email"
+            placeholder={t('emailPlaceholder')}
           />
           {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
         </InputContainer>
         <InputContainer>
-          <Label>Password</Label>
+          <Label>{t('passwordLabel')}</Label>
           <Input
             type="password"
             onChange={e => onPasswordChange(e)}
             value={password}
-            placeholder="Enter your password"
+            placeholder={t('passwordPlaceholder')}
           />
           {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
         </InputContainer>
 
         <SubmitButton type="submit">
-          {isLogin ? 'Sign In' : 'Sign Up'}
+          {isLogin ? t('signin') : t('signup')}
         </SubmitButton>
       </Form>
       {isLogin ? (
         <p>
-          Do not have an account?{' '}
+          {t('notHaveAnAccount')}{' '}
           <StyledLink to="/signup" state={{ prev: location.state?.prev }}>
-            Sign Up
+            {t('signup')}
           </StyledLink>
         </p>
       ) : (
         <p>
-          Have an account?{' '}
+          {t('haveAnAccount')}{' '}
           <StyledLink to="/signin" state={{ prev: location.state?.prev }}>
-            Sign in
+            {t('signin')}
           </StyledLink>
         </p>
       )}

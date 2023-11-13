@@ -201,7 +201,7 @@ export default function Hotel() {
               ))}
             </ReviewsContainer>
             <ChangeDateButton onClick={() => onReviewModalOpen()}>
-              {isLoggedIn ? t('leaveReview') : 'Sign in to leave a review'}
+              {isLoggedIn ? t('leaveReview') : t('signInToReview')}
             </ChangeDateButton>
           </HotelReviewsContainer>
         </>

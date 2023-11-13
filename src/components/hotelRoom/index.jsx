@@ -33,7 +33,7 @@ function HotelRoom({ room, onBook }) {
         <RoomPrice data-cy="hotel-room-price">${room.pricePerNight}</RoomPrice>
       </InfoContainer>
       <BookButton onClick={() => onBook(room.id)} data-cy="hotel-room-book">
-        {isLoggedIn ? t('bookNow') : 'Sign in to book'}
+        {isLoggedIn ? t('bookNow') : t('signInToBook')}
       </BookButton>
     </RoomContainer>
   );

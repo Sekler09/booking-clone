@@ -91,11 +91,11 @@ HotelCard.propTypes = {
     rooms: arrayOf(
       shape({
         pricePerNight: number.isRequired,
-        reviews: arrayOf(
-          shape({
-            rating: number.isRequired,
-          }),
-        ),
+      }),
+    ),
+    reviews: arrayOf(
+      shape({
+        rating: number.isRequired,
       }),
     ),
   }).isRequired,

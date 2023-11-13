@@ -7,6 +7,17 @@ const ReviewForm = styled.form`
   width: 400px;
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const ErrorMessage = styled.div`
+  color: ${({ theme }) => theme.colors.red};
+  font-size: 14px;
+`;
+
 const Input = styled.input`
   padding: 8px 10px;
   border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
@@ -50,4 +61,13 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
-export { ReviewForm, Input, Label, RatingInput, Select, SubmitButton };
+export {
+  ReviewForm,
+  Input,
+  Label,
+  RatingInput,
+  Select,
+  SubmitButton,
+  InputContainer,
+  ErrorMessage,
+};

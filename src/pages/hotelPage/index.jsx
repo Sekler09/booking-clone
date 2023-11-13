@@ -16,6 +16,7 @@ import { useModal } from 'hooks/useModal';
 import { setDate } from 'store/slices/inputsSlice';
 import getHotelById from 'api/getHotelById';
 import bookHotelRoom from 'api/bookHotelRoom';
+import postReview from 'api/postReview';
 
 import {
   AvailableRoomsTitle,
@@ -50,6 +51,7 @@ export default function Hotel() {
     dates: { from, to },
     counts: { adults, children, rooms },
   } = useSelector(state => state.inputs);
+  const isLoggedIn = useSelector(state => !!state.user.user);
   const { t, i18n } = useTranslation();
 
   const [hotel, setHotel] = useState(null);
@@ -89,31 +91,36 @@ export default function Hotel() {
   }
 
   async function onBook(roomId) {
+    if (!isLoggedIn) {
+      navigate('/signin', {
+        state: { prev: location.pathname + location.search },
+      });
+    }
     await bookHotelRoom(hotel.id, roomId, { from, to })
-      .then(r => {
-        if (!r.ok) {
-          if (r.status === 401) {
-            navigate('/signin', {
-              state: { prev: location.pathname + location.search },
-            });
-          }
-        }
-      })
+      .then(r => r.json())
       .then(() => onBookOpen());
   }
 
   async function onReviewAdd(roomId, review) {
-    const roomToUpdate = hotel.rooms.find(room => room.roomId === roomId);
-    if (roomToUpdate) {
-      roomToUpdate.reviews.push(review);
-      // await updateHotel(hotel);
-      onReviewClose();
-    }
+    await postReview({ roomId, hotelId: hotel.id, ...review }).then(r => {
+      if (r.ok) {
+        onReviewClose();
+      }
+    });
   }
 
   function onDateModalClose() {
     dispatch(setDate(dates));
     onDateClose();
+  }
+
+  function onReviewModalOpen() {
+    if (!isLoggedIn) {
+      navigate('/signin', {
+        state: { prev: location.pathname + location.search },
+      });
+    }
+    onReviewOpen();
   }
 
   const startPrice =
@@ -193,8 +200,8 @@ export default function Hotel() {
                 <Review review={review} key={review.id} />
               ))}
             </ReviewsContainer>
-            <ChangeDateButton onClick={onReviewOpen}>
-              {t('leaveReview')}
+            <ChangeDateButton onClick={() => onReviewModalOpen()}>
+              {isLoggedIn ? t('leaveReview') : 'Sign in to leave a review'}
             </ChangeDateButton>
           </HotelReviewsContainer>
         </>
@@ -212,7 +219,7 @@ export default function Hotel() {
       {isBookOpen && (
         <Modal
           onClose={() => {
-            navigate('/');
+            navigate(0);
           }}
         >
           <SuccessTitle>{t('successBookText')}</SuccessTitle>

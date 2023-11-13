@@ -56,7 +56,14 @@ export default function Header({ isBigHeader }) {
                 Log out
               </NavLink>
             ) : (
-              !isAuthPage && <NavLink to="/signin">Sign In</NavLink>
+              !isAuthPage && (
+                <NavLink
+                  to="/signin"
+                  state={{ prev: location.pathname + location.search }}
+                >
+                  Sign In
+                </NavLink>
+              )
             )}
           </div>
         </HeaderInnerContainer>

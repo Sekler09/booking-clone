@@ -41,18 +41,11 @@ function HotelRoom({ room, onBook }) {
 
 HotelRoom.propTypes = {
   room: shape({
-    roomId: number,
+    id: number,
     roomType: string,
     capacity: number,
     pricePerNight: number,
     bookedDates: arrayOf(string),
-    reviews: arrayOf(
-      shape({
-        username: string,
-        rating: number,
-        comment: string,
-      }),
-    ),
   }).isRequired,
   onBook: func.isRequired,
 };

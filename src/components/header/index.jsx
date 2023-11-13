@@ -28,7 +28,9 @@ export default function Header({ isBigHeader }) {
   const location = useLocation();
 
   function onLogout() {
-    authApi.logout().then(() => navigate(0));
+    authApi.logout().then(() => {
+      navigate(0);
+    });
   }
 
   const isAuthPage =

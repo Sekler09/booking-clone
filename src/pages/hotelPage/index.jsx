@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { enUS, ru } from 'date-fns/locale';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,9 +14,8 @@ import AddReviewForm from 'components/addReviewForm';
 import FancyLoader from 'components/loader';
 import { useModal } from 'hooks/useModal';
 import { setDate } from 'store/slices/inputsSlice';
-import { getArrayOfDatesBetween } from 'utils/dateHelpers';
-import updateHotel from 'api/updateHotel';
 import getHotelById from 'api/getHotelById';
+import bookHotelRoom from 'api/bookHotelRoom';
 
 import {
   AvailableRoomsTitle,
@@ -44,6 +43,7 @@ const DATE_FORMAT_PATTERN = 'd MMM y, iii';
 
 export default function Hotel() {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { hotelId } = useParams();
   const {
@@ -89,21 +89,24 @@ export default function Hotel() {
   }
 
   async function onBook(roomId) {
-    const roomToUpdate = hotel.rooms.find(room => room.roomId === roomId);
-    if (roomToUpdate) {
-      roomToUpdate.bookedDates.push(
-        ...getArrayOfDatesBetween(new Date(from), new Date(to)),
-      );
-      await updateHotel(hotel);
-      onBookOpen();
-    }
+    await bookHotelRoom(hotel.id, roomId, { from, to })
+      .then(r => {
+        if (!r.ok) {
+          if (r.status === 401) {
+            navigate('/signin', {
+              state: { prev: location.pathname + location.search },
+            });
+          }
+        }
+      })
+      .then(() => onBookOpen());
   }
 
   async function onReviewAdd(roomId, review) {
     const roomToUpdate = hotel.rooms.find(room => room.roomId === roomId);
     if (roomToUpdate) {
       roomToUpdate.reviews.push(review);
-      await updateHotel(hotel);
+      // await updateHotel(hotel);
       onReviewClose();
     }
   }

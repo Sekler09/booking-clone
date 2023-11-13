@@ -1,6 +1,7 @@
 import React from 'react';
 import { number, func, string, shape, arrayOf } from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import {
   BookButton,
@@ -17,6 +18,7 @@ const Image = 'https://placehold.co/600x400';
 
 function HotelRoom({ room, onBook }) {
   const { t } = useTranslation();
+  const isLoggedIn = useSelector(state => !!state.user.user);
 
   return (
     <RoomContainer>
@@ -30,8 +32,8 @@ function HotelRoom({ room, onBook }) {
         </RoomCapacity>
         <RoomPrice data-cy="hotel-room-price">${room.pricePerNight}</RoomPrice>
       </InfoContainer>
-      <BookButton onClick={() => onBook(room.roomId)} data-cy="hotel-room-book">
-        {t('bookNow')}
+      <BookButton onClick={() => onBook(room.id)} data-cy="hotel-room-book">
+        {isLoggedIn ? t('bookNow') : 'Sign in to book'}
       </BookButton>
     </RoomContainer>
   );

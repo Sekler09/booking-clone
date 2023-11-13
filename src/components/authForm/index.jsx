@@ -88,11 +88,17 @@ function AuthForm({ onSubmit }) {
       </Form>
       {isLogin ? (
         <p>
-          Do not have an account? <StyledLink to="/signup">Sign Up</StyledLink>
+          Do not have an account?{' '}
+          <StyledLink to="/signup" state={{ prev: location.state?.prev }}>
+            Sign Up
+          </StyledLink>
         </p>
       ) : (
         <p>
-          Have an account? <StyledLink to="/signin">Sign in</StyledLink>
+          Have an account?{' '}
+          <StyledLink to="/signin" state={{ prev: location.state?.prev }}>
+            Sign in
+          </StyledLink>
         </p>
       )}
     </FormContainer>

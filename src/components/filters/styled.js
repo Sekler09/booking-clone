@@ -23,10 +23,6 @@ const FiltersTitle = styled.p`
 const FilterItem = styled.div`
   padding: 10px;
   border-top: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
-
-  &:has(> span) {
-    display: none;
-  }
 `;
 
 export { FiltersWrapper, FilterItem, FiltersTitle };

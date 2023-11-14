@@ -96,15 +96,17 @@ export default function Hotel() {
         state: { prev: location.pathname + location.search },
       });
     }
-    await bookHotelRoom(hotel.id, roomId, { from, to })
-      .then(r => r.json())
-      .then(() => onBookOpen());
+    await bookHotelRoom(hotel.id, roomId, { from, to }).then(r => {
+      if (r.ok) {
+        onBookOpen();
+      }
+    });
   }
 
   async function onReviewAdd(roomId, review) {
-    await postReview({ roomId, hotelId: hotel.id, ...review }).then(r => {
+    await postReview(hotel.id, roomId, review).then(r => {
       if (r.ok) {
-        onReviewClose();
+        navigate(0);
       }
     });
   }

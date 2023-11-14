@@ -74,11 +74,13 @@ export default function RatingFilter({ hotels, onChange }) {
   ];
 
   return (
-    <CheckboxFilter
-      title={t('reviewFilterTitle')}
-      checkboxes={checkboxes}
-      onChange={(e, v) => onCheckboxChange(e, v)}
-    />
+    (checkedRatings.length ? true : !!hotels.length) && (
+      <CheckboxFilter
+        title={t('reviewFilterTitle')}
+        checkboxes={checkboxes}
+        onChange={(e, v) => onCheckboxChange(e, v)}
+      />
+    )
   );
 }
 
@@ -94,11 +96,11 @@ RatingFilter.propTypes = {
       rooms: arrayOf(
         shape({
           pricePerNight: number.isRequired,
-          reviews: arrayOf(
-            shape({
-              rating: number.isRequired,
-            }),
-          ),
+        }),
+      ),
+      reviews: arrayOf(
+        shape({
+          rating: number.isRequired,
         }),
       ),
     }),

@@ -1,5 +1,7 @@
+const URL = import.meta.env.VITE_FETCH_URL;
+
 async function signUp(formData) {
-  const response = await fetch('http://localhost:3000/auth/signup', {
+  const response = await fetch(`${URL}/auth/signup`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -11,7 +13,7 @@ async function signUp(formData) {
 }
 
 async function signIn(formData) {
-  const response = await fetch('http://localhost:3000/auth/signin', {
+  const response = await fetch(`${URL}/auth/signin`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -23,7 +25,7 @@ async function signIn(formData) {
 }
 
 async function logout() {
-  const response = await fetch('http://localhost:3000/auth/logout', {
+  const response = await fetch(`${URL}/auth/logout`, {
     credentials: 'include',
     method: 'POST',
   });
@@ -31,7 +33,7 @@ async function logout() {
 }
 
 async function refresh() {
-  const response = await fetch('http://localhost:3000/auth/refresh', {
+  const response = await fetch(`${URL}/auth/refresh`, {
     credentials: 'include',
     method: 'POST',
   });
@@ -39,7 +41,7 @@ async function refresh() {
 }
 
 async function getProfile() {
-  const response = await fetch('http://localhost:3000/auth/profile', {
+  const response = await fetch(`${URL}/auth/profile`, {
     credentials: 'include',
     method: 'GET',
   });

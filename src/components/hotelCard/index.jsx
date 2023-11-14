@@ -24,10 +24,7 @@ function HotelCard({ hotel }) {
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
 
-  const reviews = hotel.rooms.reduce(
-    (allReviews, room) => allReviews.concat(room.reviews),
-    [],
-  );
+  const { reviews } = hotel;
   const totalRatings = reviews.reduce((sum, review) => sum + review.rating, 0);
   const averageRating = totalRatings / reviews.length;
 
@@ -94,11 +91,11 @@ HotelCard.propTypes = {
     rooms: arrayOf(
       shape({
         pricePerNight: number.isRequired,
-        reviews: arrayOf(
-          shape({
-            rating: number.isRequired,
-          }),
-        ),
+      }),
+    ),
+    reviews: arrayOf(
+      shape({
+        rating: number.isRequired,
       }),
     ),
   }).isRequired,

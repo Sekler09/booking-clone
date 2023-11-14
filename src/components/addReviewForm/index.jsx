@@ -3,7 +3,9 @@ import { arrayOf, func, number, shape, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import {
+  ErrorMessage,
   Input,
+  InputContainer,
   Label,
   RatingInput,
   ReviewForm,
@@ -16,11 +18,31 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
   const [username, setUsername] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const [roomId, setRoomId] = useState(rooms[0].roomId);
+  const [roomId, setRoomId] = useState(rooms[0].id);
+  const [usernameError, setUsernameError] = useState(null);
+  const [commentError, setCommentError] = useState(null);
 
   async function onSubmit(e) {
     e.preventDefault();
-    if (username.trim() && comment.trim()) {
+    let isError = false;
+    if (comment.trim().length) {
+      setCommentError(null);
+    } else {
+      setCommentError('Comment is required');
+      isError = true;
+    }
+
+    if (username.trim().length > 2) {
+      setUsernameError(null);
+    } else if (!username.trim()) {
+      setUsernameError('Username is required');
+      isError = true;
+    } else {
+      setUsernameError('Username is too short');
+      isError = true;
+    }
+
+    if (!isError) {
       await onReviewAdd(+roomId, {
         username: username.trim(),
         rating,
@@ -32,13 +54,16 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
 
   return (
     <ReviewForm onSubmit={e => onSubmit(e)} data-cy="review-form">
-      <Input
-        type="text"
-        value={username}
-        placeholder={t('usernameInputPlaceholder')}
-        onChange={e => setUsername(e.target.value)}
-        data-cy="review-username-input"
-      />
+      <InputContainer>
+        <Input
+          type="text"
+          value={username}
+          placeholder={t('usernameInputPlaceholder')}
+          onChange={e => setUsername(e.target.value)}
+          data-cy="review-username-input"
+        />
+        {usernameError && <ErrorMessage>{usernameError}</ErrorMessage>}
+      </InputContainer>
       <Label>
         {t('pickRoom')}:
         <Select
@@ -47,7 +72,7 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
           data-cy="review-room-select"
         >
           {rooms.map(room => (
-            <option value={room.roomId} key={room.roomId}>
+            <option value={room.id} key={room.id}>
               {room.roomType}
             </option>
           ))}
@@ -65,13 +90,16 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
           data-cy="review-rating-input"
         />
       </Label>
-      <Input
-        type="text"
-        value={comment}
-        placeholder={t('commentInputPlaceholder')}
-        onChange={e => setComment(e.target.value)}
-        data-cy="review-comment-input"
-      />
+      <InputContainer>
+        <Input
+          type="text"
+          value={comment}
+          placeholder={t('commentInputPlaceholder')}
+          onChange={e => setComment(e.target.value)}
+          data-cy="review-comment-input"
+        />
+        {commentError && <ErrorMessage>{commentError}</ErrorMessage>}
+      </InputContainer>
       <SubmitButton type="submit" data-cy="review-submit-btn">
         {t('reviewFormSubmit')}
       </SubmitButton>
@@ -83,7 +111,7 @@ AddReviewForm.propTypes = {
   onReviewAdd: func.isRequired,
   rooms: arrayOf(
     shape({
-      roomId: number.isRequired,
+      id: number.isRequired,
       roomType: string.isRequired,
     }),
   ).isRequired,

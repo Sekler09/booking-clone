@@ -52,5 +52,17 @@
   "reviewFormSubmit" : "Отправить",
   "successBookText" : "Вы успешно забронировали отель!",
   "cityInputPlaceholder" : "Куда вы хотите поехать?",
-  "reviews" : "отзывов"
+  "reviews" : "отзывов",
+  "signin": "Войти",
+  "signup": "Создать аккаунт",
+  "logout": "Выйти",
+  "authTitle": "Войдите или создайте аккаунт",
+  "emailLabel": "Почта",
+  "emailPlaceholder": "Введите вашу почту",
+  "passwordLabel": "Пароль",
+  "passwordPlaceholder": "Введите ваш пароль",
+  "haveAnAccount" : "Уже есть аккаунт?",
+  "notHaveAnAccount" : "Еще нет аккаунта?",
+  "signInToBook": "Войти чтобы забронировать",
+  "signInToReview": "Войти чтобы оставить отзыв"
 }

@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { bool } from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { MainWrapper } from 'styles/globalStyle';
 
@@ -26,9 +27,12 @@ export default function Header({ isBigHeader }) {
   const navigate = useNavigate();
   const user = useSelector(state => state.user.user);
   const location = useLocation();
+  const { t } = useTranslation();
 
   function onLogout() {
-    authApi.logout().then(() => navigate(0));
+    authApi.logout().then(() => {
+      navigate(0);
+    });
   }
 
   const isAuthPage =
@@ -51,10 +55,17 @@ export default function Header({ isBigHeader }) {
             </SiteOptionsContainer>
             {user ? (
               <NavLink type="button" onClick={() => onLogout()}>
-                Log out
+                {t('logout')}
               </NavLink>
             ) : (
-              !isAuthPage && <NavLink to="/signin">Sign In</NavLink>
+              !isAuthPage && (
+                <NavLink
+                  to="/signin"
+                  state={{ prev: location.pathname + location.search }}
+                >
+                  {t('signin')}
+                </NavLink>
+              )
             )}
           </div>
         </HeaderInnerContainer>

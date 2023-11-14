@@ -61,11 +61,13 @@ export default function DistanceFilter({ hotels, onChange }) {
   ];
 
   return (
-    <CheckboxFilter
-      title={t('distanceFilterTitle')}
-      checkboxes={checkboxes}
-      onChange={(e, v) => onCheckboxChange(e, v)}
-    />
+    (checkedDistance.length ? true : !!hotels.length) && (
+      <CheckboxFilter
+        title={t('distanceFilterTitle')}
+        checkboxes={checkboxes}
+        onChange={(e, v) => onCheckboxChange(e, v)}
+      />
+    )
   );
 }
 
@@ -81,11 +83,11 @@ DistanceFilter.propTypes = {
       rooms: arrayOf(
         shape({
           pricePerNight: number.isRequired,
-          reviews: arrayOf(
-            shape({
-              rating: number.isRequired,
-            }),
-          ),
+        }),
+      ),
+      reviews: arrayOf(
+        shape({
+          rating: number.isRequired,
         }),
       ),
     }),

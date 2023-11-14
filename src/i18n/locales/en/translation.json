@@ -52,5 +52,17 @@
   "reviewFormSubmit" : "Send",
   "successBookText" : "You have successfully booked a hotel!",
   "cityInputPlaceholder" : "Where are you going?",
-  "reviews" : "reviews"
+  "reviews" : "reviews",
+  "signin": "Sign In",
+  "signup": "Sign Up",
+  "logout": "Log Out",
+  "authTitle": "Sign in or create an account",
+  "emailLabel": "Email",
+  "emailPlaceholder": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordPlaceholder": "Enter your password",
+  "haveAnAccount" : "Have an account?",
+  "notHaveAnAccount" : "Do not have an account?",
+  "signInToBook": "Sign in to book",
+  "signInToReview": "Sign in to leave a review"
 }

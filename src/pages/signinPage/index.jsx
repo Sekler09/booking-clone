@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import AuthForm from 'components/authForm';
@@ -6,6 +6,7 @@ import authApi from 'api/auth';
 
 function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
   const isLoggedIn = useSelector(state => !!state.user.user);
 
   const onSubmit = async (formData, onError) => {
@@ -18,10 +19,14 @@ function SignIn() {
         }
         return r.json();
       })
-      .then(() => navigate(0));
+      .then(() => navigate(0, { state: { prev: location.state?.prev } }));
   };
 
-  return isLoggedIn ? <Navigate to="/" /> : <AuthForm onSubmit={onSubmit} />;
+  return isLoggedIn ? (
+    <Navigate to={location.state.prev ?? '/'} />
+  ) : (
+    <AuthForm onSubmit={onSubmit} />
+  );
 }
 
 export default SignIn;

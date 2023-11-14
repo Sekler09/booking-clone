@@ -52,37 +52,6 @@ export default function SearchResultsPage() {
   const [error, setError] = useState(null);
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
 
-  function checkRoomsAvailability(rooms, from, to, capacity, count) {
-    if (rooms.length < count) {
-      return false;
-    }
-
-    const availableRooms = rooms.filter(
-      room =>
-        !room.bookedDates.find(
-          date =>
-            new Date(date) >= new Date(from) && new Date(date) <= new Date(to),
-        ),
-    );
-
-    if (availableRooms.length < count) {
-      return false;
-    }
-
-    return (
-      availableRooms
-        .sort((a, b) => b.capacity - a.capacity)
-        .slice(0, count)
-        .reduce((sum, room) => sum + room.capacity, 0) >= capacity
-    );
-  }
-
-  function filterHotelsByDateAndCounts(data, from, to, capacity, count) {
-    return data.filter(hotel =>
-      checkRoomsAvailability(hotel.rooms, from, to, capacity, count),
-    );
-  }
-
   useEffect(() => {
     const city = searchParams.has('city')
       ? searchParams.get('city')
@@ -123,16 +92,14 @@ export default function SearchResultsPage() {
       children,
     });
 
-    getHotelsByCity(city.toLowerCase())
-      .then(r => r.json())
-      .then(data => {
-        const initHotels = filterHotelsByDateAndCounts(
-          data,
-          from,
-          to,
-          adults + children,
-          rooms,
-        );
+    getHotelsByCity({ city, from, to, children, adults, rooms })
+      .then(r => {
+        if (!r.ok) {
+          throw new Error('bad request');
+        }
+        return r.json();
+      })
+      .then(initHotels => {
         setHotels(initHotels);
         setFilteredHotels(initHotels);
         setLoading(false);
@@ -169,17 +136,29 @@ export default function SearchResultsPage() {
             <Filters hotels={hotels} onFilter={setFilteredHotels} />
             <ResultsContainer>
               <ResultsCountInfo>{resultInfo}</ResultsCountInfo>
-              <SortOptions onChangeSort={setSorting} />
-              <div>
-                {filteredHotels.sort(sortingFunction).map(hotel => (
-                  <HotelCard hotel={hotel} key={hotel.id} />
-                ))}
-              </div>
+              {!!filteredHotels.length && (
+                <>
+                  <SortOptions onChangeSort={setSorting} />
+                  <div>
+                    {filteredHotels.sort(sortingFunction).map(hotel => (
+                      <HotelCard hotel={hotel} key={hotel.id} />
+                    ))}
+                  </div>
+                </>
+              )}
+              {!filteredHotels.length && (
+                <EmptyResult data-cy="no-hotels-found">
+                  <p>
+                    {t('emptyResultTitle')}{' '}
+                    <SearchCity>{searchFilters.city.toLowerCase()}</SearchCity>
+                  </p>
+                </EmptyResult>
+              )}
             </ResultsContainer>
           </>
         )}
 
-        {!loading && !error && filteredHotels.length === 0 && (
+        {!loading && !error && !hotels.length && (
           <EmptyResult data-cy="no-hotels-found">
             <SearchIcon />
             <p>
@@ -189,7 +168,6 @@ export default function SearchResultsPage() {
             <p>{t('emptyResultText')}</p>
           </EmptyResult>
         )}
-
         {error && (
           <ErrorWrapper>
             <ErrorIcon />

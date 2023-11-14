@@ -7,7 +7,6 @@ import NotFoundPage from 'pages/notFoundPage';
 import SearchResultsPage from 'pages/searchResultsPage';
 import SignIn from 'pages/signinPage';
 import SignUp from 'pages/signupPage';
-import getHotelById from 'api/getHotelById';
 
 export default createBrowserRouter([
   {
@@ -19,10 +18,7 @@ export default createBrowserRouter([
         element: <Main />,
       },
       {
-        path: 'hotels/:id',
-        loader: async ({ params }) => {
-          return getHotelById(params.id);
-        },
+        path: 'hotels/:hotelId',
         element: <Hotel />,
       },
       {

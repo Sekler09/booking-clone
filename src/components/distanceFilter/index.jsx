@@ -12,7 +12,7 @@ export default function DistanceFilter({ hotels, onChange }) {
   function getFilterByDistance(dist) {
     return hotel => {
       const max = dist.length > 0 ? Math.max(...dist) : Infinity;
-      return hotel.distanceFromCenter <= max;
+      return hotel.distance <= max;
     };
   }
 
@@ -43,19 +43,19 @@ export default function DistanceFilter({ hotels, onChange }) {
     {
       value: 5,
       label: `${t('lessThan')} 5 ${t('km')}`,
-      count: hotels.filter(hotel => hotel.distanceFromCenter <= 5).length,
+      count: hotels.filter(hotel => hotel.distance <= 5).length,
       checked: checkedDistance.includes(5),
     },
     {
       value: 3,
       label: `${t('lessThan')} 3 ${t('km')}`,
-      count: hotels.filter(hotel => hotel.distanceFromCenter <= 3).length,
+      count: hotels.filter(hotel => hotel.distance <= 3).length,
       checked: checkedDistance.includes(3),
     },
     {
       value: 1,
       label: `${t('lessThan')} 1 ${t('km')}`,
-      count: hotels.filter(hotel => hotel.distanceFromCenter <= 1).length,
+      count: hotels.filter(hotel => hotel.distance <= 1).length,
       checked: checkedDistance.includes(1),
     },
   ];
@@ -79,10 +79,10 @@ DistanceFilter.propTypes = {
       city: string.isRequired,
       address: string.isRequired,
       image: string.isRequired,
-      distanceFromCenter: number.isRequired,
+      distance: number.isRequired,
       rooms: arrayOf(
         shape({
-          pricePerNight: number.isRequired,
+          price: number.isRequired,
         }),
       ),
       reviews: arrayOf(

@@ -91,11 +91,11 @@ RatingFilter.propTypes = {
       name: string.isRequired,
       city: string.isRequired,
       address: string.isRequired,
-      distanceFromCenter: number.isRequired,
+      distance: number.isRequired,
       image: string.isRequired,
       rooms: arrayOf(
         shape({
-          pricePerNight: number.isRequired,
+          price: number.isRequired,
         }),
       ),
       reviews: arrayOf(

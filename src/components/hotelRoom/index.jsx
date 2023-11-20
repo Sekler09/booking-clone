@@ -26,11 +26,11 @@ function HotelRoom({ room, onBook }) {
         <RoomImage src={Image} />
       </ImageContainer>
       <InfoContainer>
-        <RoomName data-cy="hotel-room-type">{room.roomType}</RoomName>
+        <RoomName data-cy="hotel-room-type">{room.type}</RoomName>
         <RoomCapacity data-cy="hotel-room-capacity">
           {room.capacity} {t(`person${room.capacity > 1 ? 's' : ''}`)}
         </RoomCapacity>
-        <RoomPrice data-cy="hotel-room-price">${room.pricePerNight}</RoomPrice>
+        <RoomPrice data-cy="hotel-room-price">${room.price}</RoomPrice>
       </InfoContainer>
       <BookButton onClick={() => onBook(room.id)} data-cy="hotel-room-book">
         {isLoggedIn ? t('bookNow') : t('signInToBook')}
@@ -42,9 +42,9 @@ function HotelRoom({ room, onBook }) {
 HotelRoom.propTypes = {
   room: shape({
     id: number,
-    roomType: string,
+    type: string,
     capacity: number,
-    pricePerNight: number,
+    price: number,
     bookedDates: arrayOf(string),
   }).isRequired,
   onBook: func.isRequired,

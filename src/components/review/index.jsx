@@ -10,6 +10,8 @@ import {
   UserContainer,
 } from './styled';
 
+const EMAIL_POSTFIX_REGEX = /@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 function Review({ review }) {
   const { user, comment, rating } = review;
 
@@ -18,7 +20,7 @@ function Review({ review }) {
       <UserContainer>
         <Profile />
         <ReviewerName>
-          {user.email.replace(/@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, '')}
+          {user.email.replace(EMAIL_POSTFIX_REGEX, '')}
         </ReviewerName>
         <Rating>{rating}</Rating>
       </UserContainer>

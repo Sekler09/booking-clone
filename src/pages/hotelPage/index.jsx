@@ -125,8 +125,7 @@ export default function Hotel() {
     onReviewOpen();
   }
 
-  const startPrice =
-    hotel && Math.min(...hotel.rooms.map(room => room.pricePerNight));
+  const startPrice = hotel && Math.min(...hotel.rooms.map(room => room.price));
   const checkinTime = `${t('checkinFrom')} 14:00 ${t('checkinTo')} 00:00`;
   const checkoutTime = `${t('checkoutBefore')} 12:00`;
 
@@ -148,7 +147,7 @@ export default function Hotel() {
                 {hotel.city}, {hotel.address}
               </HotelAddress>
               <HotelDistanceFromTheCenter>
-                {hotel.distanceFromCenter} {t('km')} {t('fromCenter')}
+                {hotel.distance} {t('km')} {t('fromCenter')}
               </HotelDistanceFromTheCenter>
             </HotelTitleWrapper>
             {!!hotel.rooms.length && (

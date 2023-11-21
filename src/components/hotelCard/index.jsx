@@ -38,7 +38,7 @@ function HotelCard({ hotel }) {
   }
 
   const ratingText = getRatingText(averageRating);
-  const startPrice = Math.min(...hotel.rooms.map(room => room.pricePerNight));
+  const startPrice = Math.min(...hotel.rooms.map(room => room.price));
 
   const toUrl = `/hotels/${hotel.id}?${searchParams.toString()}`;
 
@@ -56,7 +56,7 @@ function HotelCard({ hotel }) {
               {t('priceFrom')} ${startPrice} {t('perNight')}{' '}
             </Price>
             <Distance>
-              {t('distanceFilterTitle')}: {hotel.distanceFromCenter} {t('km')}
+              {t('distanceFilterTitle')}: {hotel.distance} {t('km')}
             </Distance>
           </HotelMainInfoWrapper>
           {!!reviews.length && (
@@ -86,11 +86,11 @@ HotelCard.propTypes = {
     name: string.isRequired,
     city: string.isRequired,
     address: string.isRequired,
-    distanceFromCenter: number.isRequired,
+    distance: number.isRequired,
     image: string.isRequired,
     rooms: arrayOf(
       shape({
-        pricePerNight: number.isRequired,
+        price: number.isRequired,
       }),
     ),
     reviews: arrayOf(

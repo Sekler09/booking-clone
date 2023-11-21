@@ -64,21 +64,21 @@ export default function SearchResultsPage() {
       : initInputs.dates.to;
     const adults = getInitCounterStateFormParamsAndRedux(
       'adults',
-      initInputs.adults,
+      initInputs.counts.adults,
       1,
       30,
       searchParams,
     );
     const rooms = getInitCounterStateFormParamsAndRedux(
       'rooms',
-      initInputs.rooms,
+      initInputs.counts.rooms,
       1,
       30,
       searchParams,
     );
     const children = getInitCounterStateFormParamsAndRedux(
       'children',
-      initInputs.children,
+      initInputs.counts.children,
       0,
       10,
       searchParams,

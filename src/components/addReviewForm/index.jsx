@@ -15,11 +15,9 @@ import {
 
 function AddReviewForm({ onReviewAdd, rooms, onClose }) {
   const { t } = useTranslation();
-  const [username, setUsername] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [roomId, setRoomId] = useState(rooms[0].id);
-  const [usernameError, setUsernameError] = useState(null);
   const [commentError, setCommentError] = useState(null);
 
   async function onSubmit(e) {
@@ -32,19 +30,8 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
       isError = true;
     }
 
-    if (username.trim().length > 2) {
-      setUsernameError(null);
-    } else if (!username.trim()) {
-      setUsernameError('Username is required');
-      isError = true;
-    } else {
-      setUsernameError('Username is too short');
-      isError = true;
-    }
-
     if (!isError) {
       await onReviewAdd(+roomId, {
-        username: username.trim(),
         rating,
         comment: comment.trim(),
       });
@@ -54,16 +41,6 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
 
   return (
     <ReviewForm onSubmit={e => onSubmit(e)} data-cy="review-form">
-      <InputContainer>
-        <Input
-          type="text"
-          value={username}
-          placeholder={t('usernameInputPlaceholder')}
-          onChange={e => setUsername(e.target.value)}
-          data-cy="review-username-input"
-        />
-        {usernameError && <ErrorMessage>{usernameError}</ErrorMessage>}
-      </InputContainer>
       <Label>
         {t('pickRoom')}:
         <Select
@@ -73,7 +50,7 @@ function AddReviewForm({ onReviewAdd, rooms, onClose }) {
         >
           {rooms.map(room => (
             <option value={room.id} key={room.id}>
-              {room.roomType}
+              {room.type}
             </option>
           ))}
         </Select>
@@ -112,7 +89,7 @@ AddReviewForm.propTypes = {
   rooms: arrayOf(
     shape({
       id: number.isRequired,
-      roomType: string.isRequired,
+      type: string.isRequired,
     }),
   ).isRequired,
   onClose: func.isRequired,

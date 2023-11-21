@@ -2,14 +2,14 @@ import getAverageRating from 'utils/getAverageHotelRating';
 
 function sortByPriceLow(a, b) {
   return (
-    Math.min(...a.rooms.map(room => room.pricePerNight)) -
-    Math.min(...b.rooms.map(room => room.pricePerNight))
+    Math.min(...a.rooms.map(room => room.price)) -
+    Math.min(...b.rooms.map(room => room.price))
   );
 }
 function sortByPriceHigh(a, b) {
   return (
-    Math.max(...b.rooms.map(room => room.pricePerNight)) -
-    Math.max(...a.rooms.map(room => room.pricePerNight))
+    Math.max(...b.rooms.map(room => room.price)) -
+    Math.max(...a.rooms.map(room => room.price))
   );
 }
 

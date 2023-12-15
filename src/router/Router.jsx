@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import Layout from 'components/layout';
 import Hotel from 'pages/hotelPage';
@@ -7,6 +7,7 @@ import NotFoundPage from 'pages/notFoundPage';
 import SearchResultsPage from 'pages/searchResultsPage';
 import SignIn from 'pages/signinPage';
 import SignUp from 'pages/signupPage';
+import AdminHotelsPage from 'pages/adminHotelsPage';
 
 export default createBrowserRouter([
   {
@@ -36,6 +37,21 @@ export default createBrowserRouter([
       {
         path: 'signup',
         element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: (
+      <div>
+        <h1>Fuck you!</h1>
+        <Outlet />
+      </div>
+    ),
+    children: [
+      {
+        path: '/admin/hotels',
+        element: <AdminHotelsPage />,
       },
     ],
   },

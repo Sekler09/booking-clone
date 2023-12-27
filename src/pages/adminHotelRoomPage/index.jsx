@@ -1,0 +1,110 @@
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
+import AdminPanel from 'components/adminPanel';
+import Modal from 'components/modal';
+import ManageRoomForm from 'components/manageRoomForm';
+import Loader from 'components/loader';
+import updateRoom from 'api/updateRoom';
+import deleteRoomOfHotel from 'api/deleteRoom';
+import createRoom from 'api/createRoom';
+import getHotelRooms from 'api/getHotelRooms';
+import { useModal } from 'hooks/useModal';
+
+export default function AdminHotelRoomsPage() {
+  const { hotelId } = useParams();
+  const [rooms, setRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [editId, setEditId] = useState(null);
+
+  const [isEditRoomFormOpen, onEditRoomFormOpen, onEditRoomFormClose] =
+    useModal();
+
+  useEffect(() => {
+    getHotelRooms(hotelId)
+      .then(r => {
+        if (!r.ok) {
+          throw new Error('bad request');
+        }
+        return r.json();
+      })
+      .then(data => {
+        setRooms(data);
+        setIsLoading(false);
+        setError(null);
+      })
+      .catch(e => {
+        console.log(e);
+        setIsLoading(false);
+        setError(e);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
+  async function onRoomDelete(id) {
+    await deleteRoomOfHotel(hotelId, id).then(() => window.location.reload());
+  }
+
+  async function onRoomEdit(id, data) {
+    await updateRoom(hotelId, id, data).then(() => window.location.reload());
+  }
+
+  function onEditModalOpen(id) {
+    setEditId(id);
+    onEditRoomFormOpen();
+  }
+
+  function onEditModalClose() {
+    setEditId(null);
+    onEditRoomFormClose();
+  }
+
+  const roomToEdit = rooms.find(room => room.id === editId);
+
+  const roomsData = rooms.map(room => ({
+    ...room,
+    reviews: (
+      <button type="button">
+        <Link to={`/admin/hotels/${hotelId}/rooms/${room.id}/reviews`}>
+          see reviews
+        </Link>
+      </button>
+    ),
+    edit: (
+      <button type="button" onClick={() => onEditModalOpen(room.id)}>
+        edit
+      </button>
+    ),
+    delete: (
+      <button type="button" onClick={() => onRoomDelete(room.id)}>
+        delete
+      </button>
+    ),
+  }));
+
+  const AddRoomForm = (
+    <ManageRoomForm onSubmit={data => createRoom(hotelId, data)} />
+  );
+
+  return (
+    <>
+      {isEditRoomFormOpen && (
+        <Modal onClose={() => onEditModalClose()}>
+          <ManageRoomForm
+            initialValues={roomToEdit}
+            onSubmit={values => onRoomEdit(editId, values)}
+          />
+        </Modal>
+      )}
+      <AdminPanel data={roomsData} addEntity={AddRoomForm} />
+    </>
+  );
+}

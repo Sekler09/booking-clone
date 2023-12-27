@@ -8,6 +8,7 @@ import SearchResultsPage from 'pages/searchResultsPage';
 import SignIn from 'pages/signinPage';
 import SignUp from 'pages/signupPage';
 import AdminHotelsPage from 'pages/adminHotelsPage';
+import AdminHotelRoomsPage from 'pages/adminHotelRoomPage';
 
 export default createBrowserRouter([
   {
@@ -44,7 +45,6 @@ export default createBrowserRouter([
     path: '/admin',
     element: (
       <div>
-        <h1>Fuck you!</h1>
         <Outlet />
       </div>
     ),
@@ -52,6 +52,10 @@ export default createBrowserRouter([
       {
         path: '/admin/hotels',
         element: <AdminHotelsPage />,
+      },
+      {
+        path: '/admin/hotels/:hotelId/rooms',
+        element: <AdminHotelRoomsPage />,
       },
     ],
   },

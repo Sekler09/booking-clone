@@ -13,6 +13,7 @@ import {
 
 export default function AdminPanel({ data, addEntity }) {
   const [isAddFormOpen, onAddFormOpen, onAddFormClose] = useModal();
+
   return (
     <>
       {addEntity && isAddFormOpen && (
@@ -25,22 +26,27 @@ export default function AdminPanel({ data, addEntity }) {
       )}
 
       <PanelContainer>
-        <PanelHead>
-          {Object.keys(data[0]).map(key => (
-            <PanelColumnHead key={key}>{key}</PanelColumnHead>
-          ))}
-        </PanelHead>
-        {data.map(item => (
-          <PanelRow key={item.id}>
-            {Object.entries(item).map(([key, value]) => {
-              return (
-                <PanelCell key={key}>
-                  <p>{value}</p>
-                </PanelCell>
-              );
-            })}
-          </PanelRow>
-        ))}
+        {(!data || !data.length) && 'No entities exist'}
+        {data && !!data.length && (
+          <>
+            <PanelHead>
+              {Object.keys(data[0]).map(key => (
+                <PanelColumnHead key={key}>{key}</PanelColumnHead>
+              ))}
+            </PanelHead>
+            {data.map(item => (
+              <PanelRow key={item.id}>
+                {Object.entries(item).map(([key, value]) => {
+                  return (
+                    <PanelCell key={key}>
+                      <p>{value}</p>
+                    </PanelCell>
+                  );
+                })}
+              </PanelRow>
+            ))}
+          </>
+        )}
       </PanelContainer>
     </>
   );

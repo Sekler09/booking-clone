@@ -58,5 +58,9 @@ AdminPanel.propTypes = {
       id: number.isRequired,
     }),
   ).isRequired,
-  addEntity: node.isRequired,
+  addEntity: node,
+};
+
+AdminPanel.defaultProps = {
+  addEntity: null,
 };

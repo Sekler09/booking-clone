@@ -9,6 +9,7 @@ import SignIn from 'pages/signinPage';
 import SignUp from 'pages/signupPage';
 import AdminHotelsPage from 'pages/adminHotelsPage';
 import AdminHotelRoomsPage from 'pages/adminHotelRoomPage';
+import AdminRoomReviewsPage from 'pages/adminRoomReviewsPage';
 
 export default createBrowserRouter([
   {
@@ -39,23 +40,28 @@ export default createBrowserRouter([
         path: 'signup',
         element: <SignUp />,
       },
-    ],
-  },
-  {
-    path: '/admin',
-    element: (
-      <div>
-        <Outlet />
-      </div>
-    ),
-    children: [
       {
-        path: '/admin/hotels',
-        element: <AdminHotelsPage />,
-      },
-      {
-        path: '/admin/hotels/:hotelId/rooms',
-        element: <AdminHotelRoomsPage />,
+        path: '/admin',
+        element: (
+          <div>
+            <h1>Admin panel</h1>
+            <Outlet />
+          </div>
+        ),
+        children: [
+          {
+            path: '/admin/hotels',
+            element: <AdminHotelsPage />,
+          },
+          {
+            path: '/admin/hotels/:hotelId/rooms',
+            element: <AdminHotelRoomsPage />,
+          },
+          {
+            path: '/admin/hotels/:hotelId/rooms/:roomId/reviews',
+            element: <AdminRoomReviewsPage />,
+          },
+        ],
       },
     ],
   },

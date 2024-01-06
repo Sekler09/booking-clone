@@ -35,7 +35,6 @@ export default function AdminHotelRoomsPage() {
         setError(null);
       })
       .catch(e => {
-        console.log(e);
         setIsLoading(false);
         setError(e);
       });
@@ -55,6 +54,10 @@ export default function AdminHotelRoomsPage() {
 
   async function onRoomEdit(id, data) {
     await updateRoom(hotelId, id, data).then(() => window.location.reload());
+  }
+
+  async function onRoomCreate(data) {
+    await createRoom(hotelId, data).then(() => window.location.reload());
   }
 
   function onEditModalOpen(id) {
@@ -90,9 +93,7 @@ export default function AdminHotelRoomsPage() {
     ),
   }));
 
-  const AddRoomForm = (
-    <ManageRoomForm onSubmit={data => createRoom(hotelId, data)} />
-  );
+  const AddRoomForm = <ManageRoomForm onSubmit={data => onRoomCreate(data)} />;
 
   return (
     <>

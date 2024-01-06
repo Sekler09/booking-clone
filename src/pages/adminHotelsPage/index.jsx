@@ -55,6 +55,10 @@ export default function AdminHotelsPage() {
     await updateHotel(id, data).then(() => window.location.reload());
   }
 
+  async function onHotelCreate(data) {
+    await createHotel(data).then(() => window.location.reload());
+  }
+
   function onEditModalOpen(id) {
     setEditId(id);
     onEditHotelFormOpen();
@@ -91,7 +95,9 @@ export default function AdminHotelsPage() {
     ),
   }));
 
-  const AddHotelForm = <ManageHotelForm onSubmit={createHotel} />;
+  const AddHotelForm = (
+    <ManageHotelForm onSubmit={data => onHotelCreate(data)} />
+  );
 
   return (
     <>

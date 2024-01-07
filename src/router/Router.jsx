@@ -10,6 +10,7 @@ import SignUp from 'pages/signupPage';
 import AdminHotelsPage from 'pages/adminHotelsPage';
 import AdminHotelRoomsPage from 'pages/adminHotelRoomPage';
 import AdminRoomReviewsPage from 'pages/adminRoomReviewsPage';
+import WithAdmin from 'components/withAdmin';
 
 export default createBrowserRouter([
   {
@@ -43,10 +44,10 @@ export default createBrowserRouter([
       {
         path: '/admin',
         element: (
-          <div>
+          <WithAdmin>
             <h1>Admin panel</h1>
             <Outlet />
-          </div>
+          </WithAdmin>
         ),
         children: [
           {

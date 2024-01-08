@@ -45,7 +45,6 @@ export default createBrowserRouter([
         path: '/admin',
         element: (
           <WithAdmin>
-            <h1>Admin panel</h1>
             <Outlet />
           </WithAdmin>
         ),

@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
+import { ReactComponent as EditIcon } from 'assets/edit.svg';
+import { ReactComponent as ShowIcon } from 'assets/eye.svg';
+
 import AdminPanel from 'components/adminPanel';
 import Modal from 'components/modal';
 import ManageRoomForm from 'components/manageRoomForm';
@@ -75,21 +79,23 @@ export default function AdminHotelRoomsPage() {
   const roomsData = rooms.map(room => ({
     ...room,
     reviews: (
-      <button type="button">
-        <Link to={`/admin/hotels/${hotelId}/rooms/${room.id}/reviews`}>
-          see reviews
-        </Link>
-      </button>
+      <Link to={`/admin/hotels/${hotelId}/rooms/${room.id}/reviews`}>
+        <ShowIcon height="25px" />
+      </Link>
     ),
     edit: (
-      <button type="button" onClick={() => onEditModalOpen(room.id)}>
-        edit
-      </button>
+      <EditIcon
+        onClick={() => onEditModalOpen(room.id)}
+        height="25px"
+        style={{ cursor: 'pointer' }}
+      />
     ),
     delete: (
-      <button type="button" onClick={() => onRoomDelete(room.id)}>
-        delete
-      </button>
+      <DeleteIcon
+        onClick={() => onRoomDelete(room.id)}
+        height="30px"
+        style={{ cursor: 'pointer' }}
+      />
     ),
   }));
 

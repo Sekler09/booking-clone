@@ -4,6 +4,7 @@ import Modal from 'components/modal';
 import { useModal } from 'hooks/useModal';
 
 import {
+  AddEntityButton,
   PanelCell,
   PanelColumnHead,
   PanelContainer,
@@ -20,9 +21,7 @@ export default function AdminPanel({ data, addEntity }) {
         <Modal onClose={onAddFormClose}>{addEntity}</Modal>
       )}
       {addEntity && (
-        <button type="button" onClick={onAddFormOpen}>
-          Add Entity
-        </button>
+        <AddEntityButton onClick={onAddFormOpen}>Add Entity</AddEntityButton>
       )}
 
       <PanelContainer>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
+
 import AdminPanel from 'components/adminPanel';
 import Loader from 'components/loader';
 import deleteReview from 'api/deleteReview';
@@ -45,15 +47,17 @@ export default function AdminRoomReviewsPage() {
     );
   }
 
-  const roomsData = reviews.map(review => ({
+  const reviewsData = reviews.map(review => ({
     ...review,
     user: review.user.email,
     delete: (
-      <button type="button" onClick={() => onReviewDelete(review.id)}>
-        delete
-      </button>
+      <DeleteIcon
+        onClick={() => onReviewDelete(review.id)}
+        height="30px"
+        style={{ cursor: 'pointer' }}
+      />
     ),
   }));
 
-  return <AdminPanel data={roomsData} />;
+  return <AdminPanel data={reviewsData} />;
 }

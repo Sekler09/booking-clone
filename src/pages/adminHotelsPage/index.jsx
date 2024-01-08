@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
+import { ReactComponent as EditIcon } from 'assets/edit.svg';
+import { ReactComponent as LinkIcon } from 'assets/url.svg';
+import { ReactComponent as ShowIcon } from 'assets/eye.svg';
+
 import AdminPanel from 'components/adminPanel';
 import Modal from 'components/modal';
 import ManageHotelForm from 'components/manageHotelForm';
@@ -75,23 +80,27 @@ export default function AdminHotelsPage() {
     ...hotel,
     image: (
       <a href={hotel.image} target="_blank" rel="noreferrer">
-        view image
+        <LinkIcon height="25px" />
       </a>
     ),
     rooms: (
-      <button type="button">
-        <Link to={`/admin/hotels/${hotel.id}/rooms`}>see rooms</Link>
-      </button>
+      <Link to={`/admin/hotels/${hotel.id}/rooms`}>
+        <ShowIcon height="30px" />
+      </Link>
     ),
     edit: (
-      <button type="button" onClick={() => onEditModalOpen(hotel.id)}>
-        edit
-      </button>
+      <EditIcon
+        onClick={() => onEditModalOpen(hotel.id)}
+        height="25px"
+        style={{ cursor: 'pointer' }}
+      />
     ),
     delete: (
-      <button type="button" onClick={() => onHotelDelete(hotel.id)}>
-        delete
-      </button>
+      <DeleteIcon
+        onClick={() => onHotelDelete(hotel.id)}
+        height="30px"
+        style={{ cursor: 'pointer' }}
+      />
     ),
   }));
 

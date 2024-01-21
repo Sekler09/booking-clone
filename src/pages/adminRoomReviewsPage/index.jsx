@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
-
 import AdminPanel from 'components/adminPanel';
 import Loader from 'components/loader';
 import deleteReview from 'api/deleteReview';
 import getRoomReviews from 'api/getRoomReviews';
+
+import { DeleteIcon, PanelCell, PanelRow } from 'components/adminPanel/styled';
+
+const LABELS = ['id', 'rating', 'comment', 'reviewer', 'delete'];
 
 export default function AdminRoomReviewsPage() {
   const { hotelId, roomId } = useParams();
@@ -47,17 +49,19 @@ export default function AdminRoomReviewsPage() {
     );
   }
 
-  const reviewsData = reviews.map(review => ({
-    ...review,
-    user: review.user.email,
-    delete: (
-      <DeleteIcon
-        onClick={() => onReviewDelete(review.id)}
-        height="30px"
-        style={{ cursor: 'pointer' }}
-      />
-    ),
-  }));
-
-  return <AdminPanel data={reviewsData} />;
+  return (
+    <AdminPanel labels={LABELS}>
+      {reviews.map(review => (
+        <PanelRow key={review.id}>
+          <PanelCell>{review.id}</PanelCell>
+          <PanelCell>{review.rating}</PanelCell>
+          <PanelCell>{review.comment}</PanelCell>
+          <PanelCell>{review.user.email}</PanelCell>
+          <PanelCell>
+            <DeleteIcon onClick={() => onReviewDelete(review.id)} />
+          </PanelCell>
+        </PanelRow>
+      ))}
+    </AdminPanel>
+  );
 }

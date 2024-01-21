@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
-import { ReactComponent as EditIcon } from 'assets/edit.svg';
-import { ReactComponent as LinkIcon } from 'assets/url.svg';
-import { ReactComponent as ShowIcon } from 'assets/eye.svg';
-
 import AdminPanel from 'components/adminPanel';
 import Modal from 'components/modal';
 import ManageHotelForm from 'components/manageHotelForm';
@@ -15,6 +10,27 @@ import updateHotel from 'api/updateHotel';
 import deleteHotelById from 'api/deleteHotel';
 import createHotel from 'api/createHotel';
 import { useModal } from 'hooks/useModal';
+
+import {
+  DeleteIcon,
+  EditIcon,
+  LinkIcon,
+  PanelCell,
+  PanelRow,
+  ShowIcon,
+} from 'components/adminPanel/styled';
+
+const LABELS = [
+  'id',
+  'name',
+  'city',
+  'address',
+  'distance',
+  'image',
+  'rooms',
+  'edit',
+  'delete',
+];
 
 export default function AdminHotelsPage() {
   const [hotels, setHotels] = useState([]);
@@ -76,34 +92,6 @@ export default function AdminHotelsPage() {
 
   const hotelToEdit = hotels.find(hotel => hotel.id === editId);
 
-  const hotelsData = hotels.map(hotel => ({
-    ...hotel,
-    image: (
-      <a href={hotel.image} target="_blank" rel="noreferrer">
-        <LinkIcon height="25px" />
-      </a>
-    ),
-    rooms: (
-      <Link to={`/admin/hotels/${hotel.id}/rooms`}>
-        <ShowIcon height="30px" />
-      </Link>
-    ),
-    edit: (
-      <EditIcon
-        onClick={() => onEditModalOpen(hotel.id)}
-        height="25px"
-        style={{ cursor: 'pointer' }}
-      />
-    ),
-    delete: (
-      <DeleteIcon
-        onClick={() => onHotelDelete(hotel.id)}
-        height="30px"
-        style={{ cursor: 'pointer' }}
-      />
-    ),
-  }));
-
   const AddHotelForm = (
     <ManageHotelForm onSubmit={data => onHotelCreate(data)} />
   );
@@ -118,7 +106,33 @@ export default function AdminHotelsPage() {
           />
         </Modal>
       )}
-      <AdminPanel data={hotelsData} addEntity={AddHotelForm} />
+      <AdminPanel addEntity={AddHotelForm} labels={LABELS}>
+        {hotels.map(hotel => (
+          <PanelRow key={hotel.id}>
+            <PanelCell>{hotel.id}</PanelCell>
+            <PanelCell>{hotel.name}</PanelCell>
+            <PanelCell>{hotel.city}</PanelCell>
+            <PanelCell>{hotel.address}</PanelCell>
+            <PanelCell>{hotel.distance}</PanelCell>
+            <PanelCell>
+              <a href={hotel.image} target="_blank" rel="noreferrer">
+                <LinkIcon />
+              </a>
+            </PanelCell>
+            <PanelCell>
+              <Link to={`/admin/hotels/${hotel.id}/rooms`}>
+                <ShowIcon />
+              </Link>
+            </PanelCell>
+            <PanelCell>
+              <EditIcon onClick={() => onEditModalOpen(hotel.id)} />
+            </PanelCell>
+            <PanelCell>
+              <DeleteIcon onClick={() => onHotelDelete(hotel.id)} />
+            </PanelCell>
+          </PanelRow>
+        ))}
+      </AdminPanel>
     </>
   );
 }

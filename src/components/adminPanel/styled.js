@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+import { ReactComponent as Delete } from 'assets/delete.svg';
+import { ReactComponent as Edit } from 'assets/edit.svg';
+import { ReactComponent as Show } from 'assets/eye.svg';
+import { ReactComponent as Url } from 'assets/url.svg';
+
 const PanelContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,6 +13,10 @@ const PanelContainer = styled.div`
 
   & > :nth-child(odd) {
     background-color: lightblue;
+  }
+
+  & > :first-child {
+    background-color: ${({ theme }) => theme.colors.trueBlue};
   }
 `;
 
@@ -27,7 +36,6 @@ const PanelCell = styled.div`
 `;
 
 const PanelHead = styled(PanelRow)`
-  background-color: ${({ theme }) => theme.colors.trueBlue} !important;
   font-weight: 700;
 `;
 
@@ -45,6 +53,26 @@ const AddEntityButton = styled.button`
   cursor: pointer;
 `;
 
+const DeleteIcon = styled(Delete)`
+  height: 30px;
+  cursor: pointer;
+`;
+
+const EditIcon = styled(Edit)`
+  height: 25px;
+  cursor: pointer;
+`;
+
+const ShowIcon = styled(Show)`
+  height: 30px;
+  cursor: pointer;
+`;
+
+const LinkIcon = styled(Url)`
+  height: 25px;
+  cursor: pointer;
+`;
+
 export {
   PanelColumnHead,
   PanelContainer,
@@ -52,4 +80,8 @@ export {
   PanelCell,
   PanelRow,
   AddEntityButton,
+  DeleteIcon,
+  EditIcon,
+  ShowIcon,
+  LinkIcon,
 };

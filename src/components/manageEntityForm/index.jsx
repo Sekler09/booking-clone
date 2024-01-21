@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
-import { any, arrayOf, func, shape, string } from 'prop-types';
+import { arrayOf, func, number, oneOfType, shape, string } from 'prop-types';
+
 import {
   ErrorMessage,
   Input,
@@ -70,8 +71,7 @@ ManageEntityForm.propTypes = {
     shape({
       name: string,
       label: string,
-      // eslint-disable-next-line react/forbid-prop-types
-      initialValue: any,
+      initialValue: oneOfType([number, string]),
       inputType: string,
     }),
   ).isRequired,

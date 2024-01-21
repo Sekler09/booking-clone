@@ -13,13 +13,13 @@ import 'i18n/i18n';
 const persistor = persistStore(store);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <Suspense fallback={<FancyLoader />}>
-        <App />
-      </Suspense>
-    </PersistGate>
-  </Provider>,
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Suspense fallback={<FancyLoader />}>
+          <App />
+        </Suspense>
+      </PersistGate>
+    </Provider>
+  </React.StrictMode>,
 );

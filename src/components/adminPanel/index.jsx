@@ -1,18 +1,16 @@
-import { arrayOf, node, number, shape } from 'prop-types';
+import { arrayOf, node, string } from 'prop-types';
 
 import Modal from 'components/modal';
 import { useModal } from 'hooks/useModal';
 
 import {
   AddEntityButton,
-  PanelCell,
   PanelColumnHead,
   PanelContainer,
   PanelHead,
-  PanelRow,
 } from './styled';
 
-export default function AdminPanel({ data, addEntity }) {
+export default function AdminPanel({ children, addEntity, labels }) {
   const [isAddFormOpen, onAddFormOpen, onAddFormClose] = useModal();
 
   return (
@@ -25,41 +23,24 @@ export default function AdminPanel({ data, addEntity }) {
       )}
 
       <PanelContainer>
-        {(!data || !data.length) && 'No entities exist'}
-        {data && !!data.length && (
-          <>
-            <PanelHead>
-              {Object.keys(data[0]).map(key => (
-                <PanelColumnHead key={key}>{key}</PanelColumnHead>
-              ))}
-            </PanelHead>
-            {data.map(item => (
-              <PanelRow key={item.id}>
-                {Object.entries(item).map(([key, value]) => {
-                  return (
-                    <PanelCell key={key}>
-                      <p>{value}</p>
-                    </PanelCell>
-                  );
-                })}
-              </PanelRow>
-            ))}
-          </>
-        )}
+        <PanelHead>
+          {labels.map(key => (
+            <PanelColumnHead key={key}>{key}</PanelColumnHead>
+          ))}
+        </PanelHead>
+        {children}
       </PanelContainer>
     </>
   );
 }
 
 AdminPanel.propTypes = {
-  data: arrayOf(
-    shape({
-      id: number.isRequired,
-    }),
-  ).isRequired,
   addEntity: node,
+  labels: arrayOf(string).isRequired,
+  children: node,
 };
 
 AdminPanel.defaultProps = {
   addEntity: null,
+  children: null,
 };

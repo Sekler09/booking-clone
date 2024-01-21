@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
-import { ReactComponent as EditIcon } from 'assets/edit.svg';
-import { ReactComponent as ShowIcon } from 'assets/eye.svg';
-
 import AdminPanel from 'components/adminPanel';
 import Modal from 'components/modal';
 import ManageRoomForm from 'components/manageRoomForm';
@@ -14,6 +10,16 @@ import deleteRoomOfHotel from 'api/deleteRoom';
 import createRoom from 'api/createRoom';
 import getHotelRooms from 'api/getHotelRooms';
 import { useModal } from 'hooks/useModal';
+
+import {
+  DeleteIcon,
+  EditIcon,
+  PanelCell,
+  PanelRow,
+  ShowIcon,
+} from 'components/adminPanel/styled';
+
+const LABELS = ['id', 'type', 'capacity', 'price', 'reviews', 'edit', 'delete'];
 
 export default function AdminHotelRoomsPage() {
   const { hotelId } = useParams();
@@ -76,29 +82,6 @@ export default function AdminHotelRoomsPage() {
 
   const roomToEdit = rooms.find(room => room.id === editId);
 
-  const roomsData = rooms.map(room => ({
-    ...room,
-    reviews: (
-      <Link to={`/admin/hotels/${hotelId}/rooms/${room.id}/reviews`}>
-        <ShowIcon height="25px" />
-      </Link>
-    ),
-    edit: (
-      <EditIcon
-        onClick={() => onEditModalOpen(room.id)}
-        height="25px"
-        style={{ cursor: 'pointer' }}
-      />
-    ),
-    delete: (
-      <DeleteIcon
-        onClick={() => onRoomDelete(room.id)}
-        height="30px"
-        style={{ cursor: 'pointer' }}
-      />
-    ),
-  }));
-
   const AddRoomForm = <ManageRoomForm onSubmit={data => onRoomCreate(data)} />;
 
   return (
@@ -111,7 +94,27 @@ export default function AdminHotelRoomsPage() {
           />
         </Modal>
       )}
-      <AdminPanel data={roomsData} addEntity={AddRoomForm} />
+      <AdminPanel labels={LABELS} addEntity={AddRoomForm}>
+        {rooms.map(room => (
+          <PanelRow key={room.id}>
+            <PanelCell>{room.id}</PanelCell>
+            <PanelCell>{room.type}</PanelCell>
+            <PanelCell>{room.capacity}</PanelCell>
+            <PanelCell>{room.price}</PanelCell>
+            <PanelCell>
+              <Link to={`/admin/hotels/${hotelId}/rooms/${room.id}/reviews`}>
+                <ShowIcon />
+              </Link>
+            </PanelCell>
+            <PanelCell>
+              <EditIcon onClick={() => onEditModalOpen(room.id)} />
+            </PanelCell>
+            <PanelCell>
+              <DeleteIcon onClick={() => onRoomDelete(room.id)} />
+            </PanelCell>
+          </PanelRow>
+        ))}
+      </AdminPanel>
     </>
   );
 }

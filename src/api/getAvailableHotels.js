@@ -1,6 +1,6 @@
 const URL = import.meta.env.VITE_FETCH_URL;
 
-export default async function getHotelsByCity({
+export default async function getAvailableHotels({
   city,
   from,
   to,

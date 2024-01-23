@@ -15,7 +15,7 @@ import Filters from 'components/filters';
 import getInitCounterStateFormParamsAndRedux from 'utils/getInitCounterStateFormParamsAndRedux';
 import { getSorting } from 'utils/sortingHelpers';
 import { InputsWrapper } from 'pages/mainPage/styled';
-import getHotelsByCity from 'api/getHotelsByCity';
+import getAvailableHotels from 'api/getAvailableHotels';
 
 import {
   EmptyResult,
@@ -92,7 +92,7 @@ export default function SearchResultsPage() {
       children,
     });
 
-    getHotelsByCity({ city, from, to, children, adults, rooms })
+    getAvailableHotels({ city, from, to, children, adults, rooms })
       .then(r => {
         if (!r.ok) {
           throw new Error('bad request');

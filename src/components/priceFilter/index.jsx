@@ -66,7 +66,7 @@ function PriceFilter({ min, max, onChange }) {
             type="range"
             min={min}
             max={max}
-            step={10}
+            step={1}
             value={minVal}
             ref={minValRef}
             onChange={event => {
@@ -77,7 +77,7 @@ function PriceFilter({ min, max, onChange }) {
           />
           <Thumb
             type="range"
-            step={10}
+            step={1}
             min={min}
             max={max}
             value={maxVal}

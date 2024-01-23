@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import Layout from 'components/layout';
 import Hotel from 'pages/hotelPage';
@@ -7,6 +7,10 @@ import NotFoundPage from 'pages/notFoundPage';
 import SearchResultsPage from 'pages/searchResultsPage';
 import SignIn from 'pages/signinPage';
 import SignUp from 'pages/signupPage';
+import AdminHotelsPage from 'pages/adminHotelsPage';
+import AdminHotelRoomsPage from 'pages/adminHotelRoomPage';
+import AdminRoomReviewsPage from 'pages/adminRoomReviewsPage';
+import WithAdmin from 'components/withAdmin';
 
 export default createBrowserRouter([
   {
@@ -36,6 +40,28 @@ export default createBrowserRouter([
       {
         path: 'signup',
         element: <SignUp />,
+      },
+      {
+        path: '/admin',
+        element: (
+          <WithAdmin>
+            <Outlet />
+          </WithAdmin>
+        ),
+        children: [
+          {
+            path: '/admin/hotels',
+            element: <AdminHotelsPage />,
+          },
+          {
+            path: '/admin/hotels/:hotelId/rooms',
+            element: <AdminHotelRoomsPage />,
+          },
+          {
+            path: '/admin/hotels/:hotelId/rooms/:roomId/reviews',
+            element: <AdminRoomReviewsPage />,
+          },
+        ],
       },
     ],
   },

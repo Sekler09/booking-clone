@@ -135,6 +135,7 @@ export default function Hotel() {
   };
 
   const locale = i18n.language === 'en' ? enUS : ru;
+
   return (
     <>
       {loading && <FancyLoader />}
@@ -143,7 +144,15 @@ export default function Hotel() {
           <HotelHeaderContainer>
             <HotelTitleWrapper>
               <HotelName>{hotel.name}</HotelName>
-              <HotelAddress>
+              <HotelAddress
+                to={`https://www.google.com/maps/search/${[
+                  hotel.city,
+                  hotel.address,
+                ]
+                  .join(' ')
+                  .replaceAll(' ', '+')}`}
+                target="_blank"
+              >
                 {hotel.city}, {hotel.address}
               </HotelAddress>
               <HotelDistanceFromTheCenter>
@@ -152,7 +161,7 @@ export default function Hotel() {
             </HotelTitleWrapper>
             {!!hotel.rooms.length && (
               <PriceStart>
-                {t('priceFrom')} ${startPrice}
+                {t('priceFrom')} {t('money', { val: startPrice })}
               </PriceStart>
             )}
           </HotelHeaderContainer>

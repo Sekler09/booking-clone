@@ -58,7 +58,7 @@ function PriceFilter({ min, max, onChange }) {
     <>
       <h3>{t('budgetFilterTitle')}</h3>
       <div>
-        ${minVal} - ${maxVal}
+        {t('money', { val: minVal })} - {t('money', { val: maxVal })}
       </div>
       <SliderWrapper>
         <Slider>

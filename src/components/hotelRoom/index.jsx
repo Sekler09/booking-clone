@@ -30,7 +30,9 @@ function HotelRoom({ room, onBook }) {
         <RoomCapacity data-cy="hotel-room-capacity">
           {room.capacity} {t(`person${room.capacity > 1 ? 's' : ''}`)}
         </RoomCapacity>
-        <RoomPrice data-cy="hotel-room-price">${room.price}</RoomPrice>
+        <RoomPrice data-cy="hotel-room-price">
+          {t('money', { val: room.price })}
+        </RoomPrice>
       </InfoContainer>
       <BookButton onClick={() => onBook(room.id)} data-cy="hotel-room-book">
         {isLoggedIn ? t('bookNow') : t('signInToBook')}

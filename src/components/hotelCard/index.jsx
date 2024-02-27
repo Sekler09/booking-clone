@@ -53,7 +53,7 @@ function HotelCard({ hotel }) {
               {hotel.city}, {hotel.address}
             </HotelLocation>
             <Price data-cy="hotel-card-price">
-              {t('priceFrom')} ${startPrice} {t('perNight')}{' '}
+              {t('priceFrom')} {t('money', { val: startPrice })} {t('perNight')}{' '}
             </Price>
             <Distance>
               {t('distanceFilterTitle')}: {hotel.distance} {t('km')}

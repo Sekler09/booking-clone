@@ -10,6 +10,7 @@ import SignUp from 'pages/signupPage';
 import AdminHotelsPage from 'pages/adminHotelsPage';
 import AdminHotelRoomsPage from 'pages/adminHotelRoomPage';
 import AdminRoomReviewsPage from 'pages/adminRoomReviewsPage';
+import Profile from 'pages/profilePage';
 import WithAdmin from 'components/withAdmin';
 
 export default createBrowserRouter([
@@ -20,6 +21,10 @@ export default createBrowserRouter([
       {
         index: 1,
         element: <Main />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
       },
       {
         path: 'hotels/:hotelId',

@@ -27,12 +27,13 @@ export default function AdminHotelRoomsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState('');
 
   const [isEditRoomFormOpen, onEditRoomFormOpen, onEditRoomFormClose] =
     useModal();
 
   useEffect(() => {
-    getHotelRooms(hotelId)
+    getHotelRooms(hotelId, search)
       .then(r => {
         if (!r.ok) {
           throw new Error('bad request');
@@ -48,7 +49,7 @@ export default function AdminHotelRoomsPage() {
         setIsLoading(false);
         setError(e);
       });
-  }, []);
+  }, [search]);
 
   if (isLoading) {
     return <Loader />;
@@ -94,7 +95,7 @@ export default function AdminHotelRoomsPage() {
           />
         </Modal>
       )}
-      <AdminPanel labels={LABELS} addEntity={AddRoomForm}>
+      <AdminPanel labels={LABELS} addEntity={AddRoomForm} onSearch={setSearch}>
         {rooms.map(room => (
           <PanelRow key={room.id}>
             <PanelCell>{room.id}</PanelCell>

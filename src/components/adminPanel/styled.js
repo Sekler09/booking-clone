@@ -46,7 +46,6 @@ const PanelColumnHead = styled(PanelCell)`
 const AddEntityButton = styled.button`
   padding: 8px;
   border-radius: 4px;
-  margin-bottom: 10px;
   background-color: ${({ theme }) => theme.colors.trueBlue};
   font-size: medium;
   color: ${({ theme }) => theme.colors.white};
@@ -73,6 +72,20 @@ const LinkIcon = styled(Url)`
   cursor: pointer;
 `;
 
+const ManagementContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const SearchInput = styled.input`
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 12px;
+  width: 105px;
+`;
+
 export {
   PanelColumnHead,
   PanelContainer,
@@ -84,4 +97,6 @@ export {
   EditIcon,
   ShowIcon,
   LinkIcon,
+  ManagementContainer,
+  SearchInput,
 };

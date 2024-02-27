@@ -15,9 +15,10 @@ export default function AdminRoomReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    getRoomReviews(hotelId, roomId)
+    getRoomReviews(hotelId, roomId, search)
       .then(r => {
         if (!r.ok) {
           throw new Error('bad request');
@@ -33,7 +34,7 @@ export default function AdminRoomReviewsPage() {
         setIsLoading(false);
         setError(e);
       });
-  }, []);
+  }, [search]);
 
   if (isLoading) {
     return <Loader />;
@@ -50,7 +51,7 @@ export default function AdminRoomReviewsPage() {
   }
 
   return (
-    <AdminPanel labels={LABELS}>
+    <AdminPanel labels={LABELS} onSearch={setSearch}>
       {reviews.map(review => (
         <PanelRow key={review.id}>
           <PanelCell>{review.id}</PanelCell>

@@ -37,12 +37,13 @@ export default function AdminHotelsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState('');
 
   const [isEditHotelFormOpen, onEditHotelFormOpen, onEditHotelFormClose] =
     useModal();
 
   useEffect(() => {
-    getHotels()
+    getHotels(search)
       .then(r => {
         if (!r.ok) {
           throw new Error('bad request');
@@ -58,7 +59,7 @@ export default function AdminHotelsPage() {
         setIsLoading(false);
         setError(e);
       });
-  }, []);
+  }, [search]);
 
   if (isLoading) {
     return <Loader />;
@@ -106,7 +107,7 @@ export default function AdminHotelsPage() {
           />
         </Modal>
       )}
-      <AdminPanel addEntity={AddHotelForm} labels={LABELS}>
+      <AdminPanel addEntity={AddHotelForm} labels={LABELS} onSearch={setSearch}>
         {hotels.map(hotel => (
           <PanelRow key={hotel.id}>
             <PanelCell>{hotel.id}</PanelCell>

@@ -1,10 +1,13 @@
-import { arrayOf, func, node, string } from 'prop-types';
+import { arrayOf, bool, func, node, shape, string } from 'prop-types';
 
 import Modal from 'components/modal';
 import { useModal } from 'hooks/useModal';
 
+import { useEffect, useState } from 'react';
 import {
+  ActiveColumnHead,
   AddEntityButton,
+  Arrow,
   ManagementContainer,
   PanelColumnHead,
   PanelContainer,
@@ -12,8 +15,31 @@ import {
   SearchInput,
 } from './styled';
 
-export default function AdminPanel({ children, addEntity, labels, onSearch }) {
+export default function AdminPanel({
+  children,
+  addEntity,
+  labels,
+  onSearch,
+  onSort,
+}) {
   const [isAddFormOpen, onAddFormOpen, onAddFormClose] = useModal();
+  const [sorting, setSorting] = useState({ field: 'id', order: 'asc' });
+
+  const onSortingChange = field => {
+    if (sorting.field === field) {
+      if (sorting.order === 'asc') {
+        setSorting({ field: 'id', order: 'asc' });
+      } else {
+        setSorting(prev => ({ ...prev, order: 'asc' }));
+      }
+    } else {
+      setSorting({ field, order: 'desc' });
+    }
+  };
+
+  useEffect(() => {
+    onSort(`${sorting.field}.${sorting.order}`);
+  }, [sorting]);
 
   return (
     <>
@@ -32,9 +58,21 @@ export default function AdminPanel({ children, addEntity, labels, onSearch }) {
 
       <PanelContainer>
         <PanelHead>
-          {labels.map(key => (
-            <PanelColumnHead key={key}>{key}</PanelColumnHead>
-          ))}
+          {labels.map(({ label, sort }) =>
+            !sort ? (
+              <PanelColumnHead key={label}>{label}</PanelColumnHead>
+            ) : (
+              <ActiveColumnHead
+                key={label}
+                onClick={() => onSortingChange(label)}
+              >
+                {label}
+                {sorting.field === label && (
+                  <Arrow $isAsc={sorting.order === 'asc'} />
+                )}
+              </ActiveColumnHead>
+            ),
+          )}
         </PanelHead>
         {children}
       </PanelContainer>
@@ -44,9 +82,15 @@ export default function AdminPanel({ children, addEntity, labels, onSearch }) {
 
 AdminPanel.propTypes = {
   addEntity: node,
-  labels: arrayOf(string).isRequired,
+  labels: arrayOf(
+    shape({
+      label: string,
+      sort: bool,
+    }),
+  ).isRequired,
   onSearch: func,
   children: node,
+  onSort: func.isRequired,
 };
 
 AdminPanel.defaultProps = {

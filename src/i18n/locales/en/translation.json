@@ -73,5 +73,6 @@
   "Cancel": "Cancel",
   "SureToCancel": "Are you sure you want to cancel the booking?",
   "Yes": "Yes",
-  "No": "No"
+  "No": "No",
+  "alreadyBooked": "Already Booked"
 }

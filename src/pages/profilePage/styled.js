@@ -7,14 +7,23 @@ const PageTitle = styled.h1`
 `;
 
 const BookingsList = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
   margin-top: 30px;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const BookingCard = styled.div`
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: space-between;
+  gap: 0;
   padding: 20px;
   border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
   border-radius: 12px;

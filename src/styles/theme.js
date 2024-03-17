@@ -22,7 +22,7 @@ export const theme = {
     raisinBlack: '#242424',
     outerSpace: '#474747',
   },
-  sizes: ['1080px', '1440px', '1920px', '2560px'],
+  sizes: ['425px', '768px', '1080px', '1440px', '1920px', '2560px'],
 };
 
 export const lightTheme = {

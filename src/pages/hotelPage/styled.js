@@ -49,6 +49,7 @@ const PriceStart = styled.div`
 
 const DatesOfStayContainer = styled(ContentContainer)`
   display: flex;
+  flex-wrap: wrap;
   gap: 35px;
 `;
 

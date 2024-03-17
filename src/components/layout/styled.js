@@ -4,7 +4,7 @@ const bigHeader = css`
   margin-top: 0;
   transform: translateY(-35px);
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     transform: translateY(-80px);
   }
 `;
@@ -14,7 +14,7 @@ const Main = styled.main`
   margin-top: 40px;
   padding: 0 10px;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     transform: translateY(0);
   }
 

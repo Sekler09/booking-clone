@@ -54,6 +54,12 @@ export default createGlobalStyle`
     outline: none;
   }
 
+  @media (hover: none) {
+  * {
+    cursor: none !important;
+  }
+}
+
   .preload-transitions {
   -webkit-transition: none !important;
   -moz-transition: none !important;
@@ -68,7 +74,7 @@ export const MainWrapper = styled.div`
   margin: 0 auto;
   width: calc(100% - 10px);
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     max-width: 720px;
   }
 `;

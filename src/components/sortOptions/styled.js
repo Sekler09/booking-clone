@@ -6,7 +6,7 @@ const SortOptionsWrapper = styled.div`
   width: fit-content;
   margin: 10px 0;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     width: fit-content;
   }
 `;
@@ -19,7 +19,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     width: fit-content;
     font-size: 14px;
   }

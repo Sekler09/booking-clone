@@ -47,7 +47,7 @@ export default function Header({ isBigHeader }) {
           <Nav>
             <LogoLink to={toUrl}>RoomBook</LogoLink>
           </Nav>
-          <NavLink to="/profile">{user?.email}</NavLink>
+          {user && <NavLink to="/profile">{user.email}</NavLink>}
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <SiteOptionsContainer>
               <LanguageSwitcher />

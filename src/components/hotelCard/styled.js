@@ -10,6 +10,10 @@ const Card = styled(Link)`
   color: ${({ theme }) => theme.mode.textColor};
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   cursor: pointer;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    flex-direction: column;
+  }
 `;
 
 const HotelImage = styled.img`
@@ -18,9 +22,14 @@ const HotelImage = styled.img`
   height: 200px;
   object-fit: cover;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     width: 180px;
     height: 180px;
+  }
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    border-radius: 8px 8px 0 0;
+    width: 100%;
   }
 `;
 
@@ -31,7 +40,7 @@ const ContentWrapper = styled.div`
   padding: 16px;
   width: 100%;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     padding: 10px;
   }
 `;
@@ -52,7 +61,7 @@ const HotelName = styled.h3`
   font-size: 24px;
   color: ${({ theme }) => theme.colors.trueBlue};
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     font-size: 20px;
   }
 `;
@@ -67,7 +76,7 @@ const Price = styled.p`
   font-size: 18px;
   font-weight: bold;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     font-size: 16px;
   }
 `;
@@ -81,7 +90,7 @@ const ReviewsInfo = styled.div`
   font-size: 14px;
   text-align: right;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     font-size: 12px;
   }
 `;
@@ -97,7 +106,7 @@ const ReviewRatingText = styled.div`
   font-weight: bold;
   color: ${({ theme }) => theme.mode.textColor};
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     font-size: 16px;
   }
 `;

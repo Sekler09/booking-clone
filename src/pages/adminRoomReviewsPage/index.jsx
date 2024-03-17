@@ -8,16 +8,24 @@ import getRoomReviews from 'api/getRoomReviews';
 
 import { DeleteIcon, PanelCell, PanelRow } from 'components/adminPanel/styled';
 
-const LABELS = ['id', 'rating', 'comment', 'reviewer', 'delete'];
+const LABELS = [
+  { label: 'id', sort: false },
+  { label: 'rating', sort: true },
+  { label: 'comment', sort: true },
+  { label: 'reviewer', sort: false },
+  { label: 'delete', sort: false },
+];
 
 export default function AdminRoomReviewsPage() {
   const { hotelId, roomId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
+  const [sorting, setSorting] = useState('');
 
   useEffect(() => {
-    getRoomReviews(hotelId, roomId)
+    getRoomReviews(hotelId, roomId, search, sorting)
       .then(r => {
         if (!r.ok) {
           throw new Error('bad request');
@@ -33,7 +41,7 @@ export default function AdminRoomReviewsPage() {
         setIsLoading(false);
         setError(e);
       });
-  }, []);
+  }, [search, sorting]);
 
   if (isLoading) {
     return <Loader />;
@@ -50,7 +58,7 @@ export default function AdminRoomReviewsPage() {
   }
 
   return (
-    <AdminPanel labels={LABELS}>
+    <AdminPanel labels={LABELS} onSearch={setSearch} onSort={setSorting}>
       {reviews.map(review => (
         <PanelRow key={review.id}>
           <PanelCell>{review.id}</PanelCell>

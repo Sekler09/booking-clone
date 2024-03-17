@@ -64,5 +64,15 @@
   "haveAnAccount" : "Have an account?",
   "notHaveAnAccount" : "Do not have an account?",
   "signInToBook": "Sign in to book",
-  "signInToReview": "Sign in to leave a review"
+  "signInToReview": "Sign in to leave a review",
+  "money": "{{val, currency(USD)}}",
+  "activeBookings": "Active Bookings",
+  "Hotel": "Hotel",
+  "Dates": "Dates",
+  "Price": "Price",
+  "Cancel": "Cancel",
+  "SureToCancel": "Are you sure you want to cancel the booking?",
+  "Yes": "Yes",
+  "No": "No",
+  "alreadyBooked": "Already Booked"
 }

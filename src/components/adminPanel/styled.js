@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as Delete } from 'assets/delete.svg';
 import { ReactComponent as Edit } from 'assets/edit.svg';
 import { ReactComponent as Show } from 'assets/eye.svg';
+import { ReactComponent as ArrowIcon } from 'assets/arrow.svg';
 import { ReactComponent as Url } from 'assets/url.svg';
 
 const PanelContainer = styled.div`
@@ -43,10 +44,23 @@ const PanelColumnHead = styled(PanelCell)`
   padding: 15px;
 `;
 
+const ActiveColumnHead = styled(PanelColumnHead)`
+  position: relative;
+  cursor: pointer;
+`;
+
+const Arrow = styled(ArrowIcon)`
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  width: 20px;
+  fill: ${({ theme }) => theme.mode.textColor};
+  transform: ${({ $isAsc }) => ($isAsc ? 'rotate(180deg)' : 'rotate(0)')};
+`;
+
 const AddEntityButton = styled.button`
   padding: 8px;
   border-radius: 4px;
-  margin-bottom: 10px;
   background-color: ${({ theme }) => theme.colors.trueBlue};
   font-size: medium;
   color: ${({ theme }) => theme.colors.white};
@@ -73,6 +87,20 @@ const LinkIcon = styled(Url)`
   cursor: pointer;
 `;
 
+const ManagementContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const SearchInput = styled.input`
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 12px;
+  width: 105px;
+`;
+
 export {
   PanelColumnHead,
   PanelContainer,
@@ -84,4 +112,8 @@ export {
   EditIcon,
   ShowIcon,
   LinkIcon,
+  ManagementContainer,
+  SearchInput,
+  ActiveColumnHead,
+  Arrow,
 };

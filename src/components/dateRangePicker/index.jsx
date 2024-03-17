@@ -28,7 +28,7 @@ function DateRangePicker({ selectedDays, onNewRange }) {
       fromMonth={today}
       toMonth={endOfYear(addYears(today, 1))}
       defaultMonth={today}
-      numberOfMonths={2}
+      numberOfMonths={window.innerWidth > 768 ? 2 : 1}
       disabled={disabledDays}
       weekStartsOn={1}
       selected={selectedDays}

@@ -9,7 +9,7 @@ const InputsWrapper = styled.div`
   padding: 4px;
   background-color: ${({ theme }) => theme.colors.alana};
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     flex-direction: column;
   }
 `;

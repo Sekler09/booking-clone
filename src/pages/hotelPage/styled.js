@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const ContentContainer = styled.div`
@@ -26,9 +27,15 @@ const HotelName = styled.h1`
   font-size: x-large;
 `;
 
-const HotelAddress = styled.div`
+const HotelAddress = styled(Link)`
   color: ${({ theme }) => theme.colors.graniteGray};
   text-transform: capitalize;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.trueBlue};
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 const HotelDistanceFromTheCenter = styled.div`
@@ -42,6 +49,7 @@ const PriceStart = styled.div`
 
 const DatesOfStayContainer = styled(ContentContainer)`
   display: flex;
+  flex-wrap: wrap;
   gap: 35px;
 `;
 

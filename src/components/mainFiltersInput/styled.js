@@ -19,7 +19,7 @@ const MainInputWrapper = styled.div`
     fill: ${({ theme }) => theme.mode.textColor};
   }
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     padding: 4px;
 
     svg {
@@ -37,7 +37,7 @@ const MainInput = styled.input`
   color: ${({ theme }) => theme.mode.textColor};
   cursor: pointer;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     padding: 4px 3px;
   }
 `;

@@ -7,12 +7,20 @@ const ResultsWrapper = styled.div`
   display: flex;
   gap: 30px;
   margin-top: 40px;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    flex-direction: column;
+  }
 `;
 
 const ResultsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 75%;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    width: auto;
+  }
 `;
 
 const ResultsCountInfo = styled.div`

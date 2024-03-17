@@ -4,11 +4,16 @@ import { ReactComponent as RusIcon } from 'assets/russia.svg';
 import { ReactComponent as UsaIcon } from 'assets/usa.svg';
 
 const IconContainer = styled.div`
+  display: flex;
   cursor: pointer;
 
   svg {
     width: 30px;
     transition: all 0.5s ease-in-out;
+
+    @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+      width: 20px;
+    }
   }
 `;
 

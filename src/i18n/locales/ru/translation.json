@@ -64,5 +64,15 @@
   "haveAnAccount" : "Уже есть аккаунт?",
   "notHaveAnAccount" : "Еще нет аккаунта?",
   "signInToBook": "Войти чтобы забронировать",
-  "signInToReview": "Войти чтобы оставить отзыв"
+  "signInToReview": "Войти чтобы оставить отзыв",
+  "money": "{{val, currency(BYN)}}",
+  "activeBookings": "Текущие брони",
+  "Hotel": "Отель",
+  "Dates": "Даты",
+  "Price": "Стоимость",
+  "Cancel": "Отменить",
+  "SureToCancel": "Вы уверены что хотите отменить бронь?",
+  "Yes": "Да",
+  "No": "Нет",
+  "alreadyBooked": "Уже Забронирован"
 }

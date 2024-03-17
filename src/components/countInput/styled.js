@@ -14,9 +14,13 @@ const CountersWrapper = styled.div`
   background-color: ${({ theme }) => theme.mode.appBg};
   color: ${({ theme }) => theme.mode.textColor};
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     padding: 20px;
     width: 40%;
+  }
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    width: 80%;
   }
 `;
 

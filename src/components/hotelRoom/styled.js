@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 const RoomContainer = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 0;
   border: 1px ${({ theme }) => theme.mode.elementsBorder} solid;
   border-radius: 8px;
@@ -11,6 +12,10 @@ const ImageContainer = styled.div`
   position: relative;
   height: 110px;
   width: 110px;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    width: 70px;
+  }
 `;
 
 const RoomImage = styled.img`
@@ -24,6 +29,10 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    padding: 8px;
+  }
 `;
 
 const RoomName = styled.p`
@@ -50,6 +59,11 @@ const BookButton = styled.button`
   font-size: medium;
   color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    padding: 8px;
+    margin-right: 10px;
+  }
 `;
 
 export {

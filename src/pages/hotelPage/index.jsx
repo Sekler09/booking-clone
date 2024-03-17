@@ -13,6 +13,7 @@ import DateRangePicker from 'components/dateRangePicker';
 import AddReviewForm from 'components/addReviewForm';
 import FancyLoader from 'components/loader';
 import { useModal } from 'hooks/useModal';
+import { useSocket } from 'hooks/useSocket';
 import { setDate } from 'store/slices/inputsSlice';
 import getHotelById from 'api/getHotelById';
 import bookHotelRoom from 'api/bookHotelRoom';
@@ -60,9 +61,28 @@ export default function Hotel() {
     from,
     to,
   });
+  const [bookedRooms, setBookedRoms] = useState([]);
+  const [bookPayload, setBookPayload] = useState(null);
+
   const [isDateOpen, onDateOpen, onDateClose] = useModal();
   const [isBookOpen, onBookOpen] = useModal();
   const [isReviewOpen, onReviewOpen, onReviewClose] = useModal();
+
+  const { emitBook } = useSocket(setBookPayload);
+
+  useEffect(() => {
+    if (!bookPayload) return;
+    if (hotel.rooms.find(room => room.id === bookPayload.roomId)) {
+      if (
+        (new Date(bookPayload.dates.from) <= new Date(dates.to) &&
+          new Date(bookPayload.dates.from) >= new Date(dates.from)) ||
+        (new Date(bookPayload.dates.to) <= new Date(dates.to) &&
+          new Date(bookPayload.dates.to) >= new Date(dates.from))
+      ) {
+        setBookedRoms(prev => [...prev, bookPayload.roomId]);
+      }
+    }
+  }, [bookPayload]);
 
   useEffect(() => {
     getHotelById(hotelId, { from, to, children, adults, rooms })
@@ -99,6 +119,10 @@ export default function Hotel() {
     await bookHotelRoom(hotel.id, roomId, { from, to }).then(r => {
       if (r.ok) {
         onBookOpen();
+        emitBook({
+          roomId,
+          dates: { from, to },
+        });
       }
     });
   }
@@ -135,6 +159,7 @@ export default function Hotel() {
   };
 
   const locale = i18n.language === 'en' ? enUS : ru;
+
   return (
     <>
       {loading && <FancyLoader />}
@@ -143,7 +168,15 @@ export default function Hotel() {
           <HotelHeaderContainer>
             <HotelTitleWrapper>
               <HotelName>{hotel.name}</HotelName>
-              <HotelAddress>
+              <HotelAddress
+                to={`https://www.google.com/maps/search/${[
+                  hotel.city,
+                  hotel.address,
+                ]
+                  .join(' ')
+                  .replaceAll(' ', '+')}`}
+                target="_blank"
+              >
                 {hotel.city}, {hotel.address}
               </HotelAddress>
               <HotelDistanceFromTheCenter>
@@ -152,7 +185,7 @@ export default function Hotel() {
             </HotelTitleWrapper>
             {!!hotel.rooms.length && (
               <PriceStart>
-                {t('priceFrom')} ${startPrice}
+                {t('priceFrom')} {t('money', { val: startPrice })}
               </PriceStart>
             )}
           </HotelHeaderContainer>
@@ -190,6 +223,7 @@ export default function Hotel() {
                 room={room}
                 hotelId={hotel.id}
                 onBook={id => onBook(id)}
+                isBooked={!!bookedRooms.find(id => id === room.id)}
               />
             ))}
             {!hotel.rooms.length && <p>No rooms are available in this dates</p>}

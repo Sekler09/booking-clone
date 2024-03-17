@@ -12,6 +12,10 @@ const FiltersWrapper = styled.div`
     font-weight: bold;
     margin-bottom: 10px;
   }
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    width: 100%;
+  }
 `;
 
 const FiltersTitle = styled.p`

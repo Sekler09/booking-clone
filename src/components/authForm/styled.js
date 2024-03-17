@@ -10,6 +10,10 @@ const FormContainer = styled.div`
   margin: 0 auto;
   width: 400px;
   color: ${({ theme }) => theme.mode.textColor};
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    width: auto;
+  }
 `;
 
 const Title = styled.h1`

@@ -9,7 +9,8 @@ export const theme = {
     black: '#000000',
     oldSilver: '#868686',
     trueBlue: '#006ce4',
-    lightBlueGray: 'rgb(0 108 228/ 6%)',
+    lightBlueGray: 'rgb(0 108 228/ 20%)',
+    lightRed: 'rgb(237 28 36/ 20%)',
     pantone: '#00249c',
     gainsboro: '#dddddd',
     graniteGray: '#666666',
@@ -21,7 +22,7 @@ export const theme = {
     raisinBlack: '#242424',
     outerSpace: '#474747',
   },
-  sizes: ['1080px', '1440px', '1920px', '2560px'],
+  sizes: ['425px', '768px', '1080px', '1440px', '1920px', '2560px'],
 };
 
 export const lightTheme = {

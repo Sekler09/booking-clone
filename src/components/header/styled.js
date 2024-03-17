@@ -4,7 +4,7 @@ import { css, styled } from 'styled-components';
 const bigHeader = css`
   padding-bottom: 62px;
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     padding-bottom: 92px;
   }
 `;
@@ -24,12 +24,25 @@ const Nav = styled.nav`
 const LogoLink = styled(Link)`
   font-family: Pangolin, serif;
   font-size: 36px;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    font-size: 24px;
+  }
 `;
 
 const HeaderInnerContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[1]})`} {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+    gap: 10px;
+  }
 `;
 
 const SiteOptionsContainer = styled.div`

@@ -17,7 +17,7 @@ const LinkButton = styled(Link)`
     background-color: ${({ theme }) => theme.colors.pantone};
   }
 
-  @media ${({ theme }) => `(max-width: ${theme.sizes[0]})`} {
+  @media ${({ theme }) => `(max-width: ${theme.sizes[2]})`} {
     padding: 8px;
     width: 100%;
     font-size: 18px;

@@ -19,7 +19,15 @@ import {
   ShowIcon,
 } from 'components/adminPanel/styled';
 
-const LABELS = ['id', 'type', 'capacity', 'price', 'reviews', 'edit', 'delete'];
+const LABELS = [
+  { label: 'id', sort: false },
+  { label: 'type', sort: true },
+  { label: 'capacity', sort: true },
+  { label: 'price', sort: true },
+  { label: 'reviews', sort: false },
+  { label: 'edit', sort: false },
+  { label: 'delete', sort: false },
+];
 
 export default function AdminHotelRoomsPage() {
   const { hotelId } = useParams();
@@ -27,12 +35,14 @@ export default function AdminHotelRoomsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState('');
+  const [sorting, setSorting] = useState('');
 
   const [isEditRoomFormOpen, onEditRoomFormOpen, onEditRoomFormClose] =
     useModal();
 
   useEffect(() => {
-    getHotelRooms(hotelId)
+    getHotelRooms(hotelId, search, sorting)
       .then(r => {
         if (!r.ok) {
           throw new Error('bad request');
@@ -48,7 +58,7 @@ export default function AdminHotelRoomsPage() {
         setIsLoading(false);
         setError(e);
       });
-  }, []);
+  }, [search, sorting]);
 
   if (isLoading) {
     return <Loader />;
@@ -94,7 +104,12 @@ export default function AdminHotelRoomsPage() {
           />
         </Modal>
       )}
-      <AdminPanel labels={LABELS} addEntity={AddRoomForm}>
+      <AdminPanel
+        labels={LABELS}
+        addEntity={AddRoomForm}
+        onSearch={setSearch}
+        onSort={setSorting}
+      >
         {rooms.map(room => (
           <PanelRow key={room.id}>
             <PanelCell>{room.id}</PanelCell>
